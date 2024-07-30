@@ -52,15 +52,15 @@ definePageMeta({ layout: 'blank' })
     height: 100vh; 
     overflow-x: hidden;
     background: #121212; 
-    &::after {
-        position: absolute; 
+}
+.login::after {
+    position: absolute; 
         content: '';
         background: linear-gradient(rgba(255, 255, 255, 0.1) 0%, rgb(0, 0, 0) 100%);
         top: 0;
         left: 0;
         width: 100%;
         height: 100vh; 
-    } 
 }
 .login-card {
     position: relative;
@@ -71,7 +71,7 @@ definePageMeta({ layout: 'blank' })
     display: flex;
     flex-direction: column;
     border-radius: 8px; 
-    max-width: 480px; 
+    max-width: 620px; 
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -89,7 +89,7 @@ definePageMeta({ layout: 'blank' })
     color: #fff;
     font-size: 30px;
     margin-top: 10px;
-    font-weight: 900;
+    font-weight: 700;
 }
 .login-btn-sns {  
     display: flex;
@@ -100,18 +100,24 @@ definePageMeta({ layout: 'blank' })
 } 
 .login-btn-sns > button {
     display: flex;
-    border: 1px solid #fff;
-    border-radius: 25px;
+    border: 1px solid #878787;
+    border-radius: 50px;
     padding: 10px 30px;
+    cursor: pointer;
+    transition: border 0.2s ease-in-out;
+
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    align-items: center;
 }
-.login-btn-sns > butto>span {
-    width: 1.5rem;
-    height: 1.5rem;
+.login-btn-sns > button:hover {
+    border: 1px solid #ffffff;
 }
 .login-btn-sns .login-logo {
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 1.5rem;
+    height: 1.5rem;
  }
  .login-btn-sns .login-logo.apple-logo { 
     background: url("https://accounts.scdn.co/sso/images/new-google-icon.72fd940a229bc94cf9484a3320b3dccb.svg") center center no-repeat;
@@ -171,13 +177,14 @@ definePageMeta({ layout: 'blank' })
     margin: 50px 20px; 
 }
 .login-btn {
-    background-color: rgb(153, 255, 0);
+    background-color: #1ed760;
     padding: 10px 0;
     border-radius: 25px;
     width: 280px;
     margin: 30px auto 0 auto;
     font-size: 14px;
     font-weight: 600;
+    transition: background-color 0.2s ease-in-out;
 }
 .login-btn:hover {
     background-color:rgb(140, 219, 22);
