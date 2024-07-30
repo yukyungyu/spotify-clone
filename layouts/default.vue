@@ -1,4 +1,4 @@
-<template> 
+<template>
   <Header />
   <SideNav /> 
   <div
@@ -16,7 +16,6 @@
      >
       <div class="mt-[70px]"></div> 
       <slot />
-      <div class="mb-100px]"></div>
-    </div>
+      <div class="mb-100px"></div>
+  </div> 
 </template>
-  
