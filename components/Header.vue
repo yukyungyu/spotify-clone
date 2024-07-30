@@ -42,7 +42,9 @@
       class="fixed w-[190px] bg-[#282828] shadow-2xl z-50 rounded-sm top-[52px] right-[35px] p-1 cursor-pointer">
       <ul class="text-gray-200 font-semibold text-[14px]">
         <li class="px-3 py-2.5 hover:bg-[#3E3D3D] border-b border-b-gray-600">Profile</li>
-        <li class="px-3 py-2.5 hover:bg-[#3E3D3D]">Log out</li>
+        <li class="px-3 py-2.5 hover:bg-[#3E3D3D]">
+          <button @click="onLogin">Login</button>
+        </li>
       </ul>
     </span>
   </header>   
@@ -55,5 +57,10 @@ import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 
 let openMenu = ref(false)
+const router = useRouter()
+
+const onLogin = () => {
+  router.push('/login')
+}
 
 </script> 
