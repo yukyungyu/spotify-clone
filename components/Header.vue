@@ -43,7 +43,7 @@
       <ul class="text-gray-200 font-semibold text-[14px]">
         <li class="px-3 py-2.5 hover:bg-[#3E3D3D] border-b border-b-gray-600">Profile</li>
         <li class="px-3 py-2.5 hover:bg-[#3E3D3D]">
-          <button @click="onLogin">Login</button>
+          <button @click="AUTH_URL">Login</button>
         </li>
       </ul>
     </span>
@@ -57,10 +57,13 @@ import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 
 let openMenu = ref(false)
+const config = useRuntimeConfig() 
 const router = useRouter()
 
-const onLogin = () => {
-  router.push('/login')
+const AUTH_URL = () => {
+  window.location.href =
+    `https://accounts.spotify.com/authorize?client_id='${config.public.spotifyClientID}'&response_type=code&redirect_uri='${config.public.spotifyURL}'&scope=user-read-private%20user-read-email%20ugc-image-upload%20playlist-read-private%20playlist-modify-private%20playlist-modify-public%20user-read-recently-played%20user-top-read%20user-library-modify%20user-library-read` 
 }
+
 
 </script> 

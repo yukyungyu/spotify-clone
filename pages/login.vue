@@ -9,10 +9,6 @@
                 <h1>Spotify에 로그인하기</h1>
             </div>
             <div class="login-btn-sns">
-                <button @click="loginWithApple">
-                    <span class="login-logo apple-logo"></span>
-                    <span class="login-text">Apple로 계속하기</span>
-                </button>
                 <button @click="loginWithGoogle">
                     <span class="login-logo google-logo"></span>
                     <span class="login-text">Google로 계속하기</span>
@@ -20,6 +16,10 @@
                 <button @click="loginWithFacebook">
                     <span class="login-logo facebook-logo"></span>
                     <span class="login-text">Facebook으로 계속하기</span>
+                </button>
+                <button @click="loginWithApple">
+                    <span class="login-logo apple-logo"></span>
+                    <span class="login-text">Apple로 계속하기</span>
                 </button>
              </div>
              <form class="login-form">
@@ -36,7 +36,8 @@
             <span class="divider"></span>
             <p class="login-find-link">
                 <span>계정이 없나요?</span>
-                <a href="https://www.spotify.com/kr-ko/signup?flow_id=43bb4eed-49dd-48ed-ad7f-afcc25e39f84%3A1722340880&forward_url=https%3A%2F%2Fwww.spotify.com%2Fkr-ko%2Fpremium%2F%3Futm_source%3Dkr_brand_none_text%26utm_medium%3Dpaidsearch%26utm_campaign%3Dalwayson_kr_kr_premiumbusiness_koreasearch%2Bdesktop%2Bcore_brand%2Btext%2Bexact%2Bkr%2Bgoogle%26gad_source%3D1%26gclid%3DCj0KCQjw-5y1BhC-ARIsAAM_oKnU49vtDmK7HbvdjdWpdtnM6TGhRUuVpHom8Jj5XUBTdls1hdn-NmMaAnN6EALw_wcB%26flow_ctx%3D43bb4eed-49dd-48ed-ad7f-afcc25e39f84%253A1722340880">
+                <!-- <a href="https://www.spotify.com/kr-ko/signup?flow_id=43bb4eed-49dd-48ed-ad7f-afcc25e39f84%3A1722340880&forward_url=https%3A%2F%2Fwww.spotify.com%2Fkr-ko%2Fpremium%2F%3Futm_source%3Dkr_brand_none_text%26utm_medium%3Dpaidsearch%26utm_campaign%3Dalwayson_kr_kr_premiumbusiness_koreasearch%2Bdesktop%2Bcore_brand%2Btext%2Bexact%2Bkr%2Bgoogle%26gad_source%3D1%26gclid%3DCj0KCQjw-5y1BhC-ARIsAAM_oKnU49vtDmK7HbvdjdWpdtnM6TGhRUuVpHom8Jj5XUBTdls1hdn-NmMaAnN6EALw_wcB%26flow_ctx%3D43bb4eed-49dd-48ed-ad7f-afcc25e39f84%253A1722340880"> -->
+                <a :href="AUTH_URL">
                     Spotify에 가입하기
                 </a>
             </p>
@@ -44,7 +45,14 @@
     </div>
 </template>
 <script setup>
-definePageMeta({ layout: 'blank' })
+definePageMeta({ layout: 'blank' }) 
+const config = useRuntimeConfig()
+console.log(config.public.spotifyClientID ,"id")
+console.log(config.public.spotifyURL ,"url")
+const loginWithApple = () => {}
+const loginWithGoogle = () => {}
+const loginWithFacebook = () => {}
+const loginWithSpotify = () => {}
 </script>
 <style> 
 .login { 
@@ -114,13 +122,13 @@ definePageMeta({ layout: 'blank' })
     height: 20px;
  }
  .login-btn-sns .login-logo.apple-logo { 
-    background: url("https://accounts.scdn.co/sso/images/new-google-icon.72fd940a229bc94cf9484a3320b3dccb.svg") center center no-repeat;
+    background: url("https://accounts.scdn.co/sso/images/new-apple-icon.e356139ea90852da2e60f1ff738f3cbb.svg") center center no-repeat;
 }
 .login-btn-sns .login-logo.google-logo {
-    background: url("https://accounts.scdn.co/sso/images/new-facebook-icon.eae8e1b6256f7ccf01cf81913254e70b.svg") center center no-repeat;
+    background: url("https://accounts.scdn.co/sso/images/new-google-icon.72fd940a229bc94cf9484a3320b3dccb.svg") center center no-repeat;
 }
 .login-btn-sns .login-logo.facebook-logo {
-    background: url("https://accounts.scdn.co/sso/images/new-apple-icon.e356139ea90852da2e60f1ff738f3cbb.svg") center center no-repeat;
+    background: url("https://accounts.scdn.co/sso/images/new-facebook-icon.eae8e1b6256f7ccf01cf81913254e70b.svg") center center no-repeat;
 }
 .login-btn-sns .login-text {
     font-size: 1rem;

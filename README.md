@@ -12,10 +12,10 @@
 ![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 
 ## 설치 가이드
-- node 버전 : 20.9.0
-- vue3 버전: 3.4.34
+node 버전 : 20.9.0
+vue3 버전: 3.4.34
 
-### 참고문서
+## 참고문서
 https://github.com/John-Weeks-Dev/spotify-clone
 
 </div>
