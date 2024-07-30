@@ -1,6 +1,6 @@
 <div align=center>
   
-![header](https://capsule-render.vercel.app/api?type=venom&color=1db954&height=260&section=header&text=Spotify%20Clone&fontSize=90&fontColor=fff)
+![header](https://capsule-render.vercel.app/api?type=venom&color=1db954&height=260&section=header&text=Spotify%20Clone&fontSize=90&fontColor=191919)
 
 ## 사용스택
 ![html](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
