@@ -131,7 +131,6 @@ definePageMeta({ layout: 'blank' })
     display: flex;
     flex-direction: row;
     column-gap: 10px;
-    -webkit-box-align: center;
     align-items: center;
 }
 .login-form {
