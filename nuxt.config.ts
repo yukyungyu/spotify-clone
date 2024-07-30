@@ -8,9 +8,10 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
   ],
   runtimeConfig: {
-    public: {
-
-    }
+    spotifyClientID : process.env.SPOTIFY_CLIENT_ID, 
+    spotifyClientSecret : process.env.SPOTIFY_CLIENT_SECRET, 
+    spotifyRefreshToken : process.env.SPOTIFY_RT,
+    public: {}
   },
   css: ['@/assets/css/main.css'],
   postcss: {
@@ -20,5 +21,6 @@ export default defineNuxtConfig({
         overrideBrowserslist: ['cover 99.5%', 'not IE < 9'],
       },
     },
-  },  
+  },
 })
+
