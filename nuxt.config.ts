@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     public: {
       spotifyClientID : process.env.SPOTIFY_CLIENT_ID, 
       spotifyClientSecret : process.env.SPOTIFY_CLIENT_SECRET, 
+      spotifyURL : process.env.SPOTIFY_URL,
       spotifyRefreshToken : process.env.SPOTIFY_RT,
     }
   },
