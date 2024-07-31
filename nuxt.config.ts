@@ -8,10 +8,11 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
   ],
   runtimeConfig: {
-    spotifyClientID : process.env.SPOTIFY_CLIENT_ID, 
-    spotifyClientSecret : process.env.SPOTIFY_CLIENT_SECRET, 
-    spotifyRefreshToken : process.env.SPOTIFY_RT,
-    public: {}
+    public: {
+      spotifyClientID : process.env.SPOTIFY_CLIENT_ID, 
+      spotifyClientSecret : process.env.SPOTIFY_CLIENT_SECRET, 
+      spotifyRefreshToken : process.env.SPOTIFY_RT,
+    }
   },
   css: ['@/assets/css/main.css'],
   postcss: {
@@ -39,6 +40,9 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', href: 'https://open.spotifycdn.com/cdn/images/favicon16.1c487bff.png' }
       ],
     }
-  }
+  },
+  serverMiddleware: [
+    { path: '/api', handler: '~/api/index.js' }
+  ],
 })
 

@@ -1,32 +1,59 @@
-const clientID = process.env.spotifyClientID
-const clientSecret = process.env.spotifyClientSecret
-const refreshToken = process.env.spotifyRefreshToken
-const basic = Buffer.from(`${clientID}:${clientSecret}`).toString('base64')
-const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'
+import axios from 'axios'
+const router = useRouter()
 
-// 이렇게 하면 제공된 새로 고침 토큰을 사용하여 Spotify에서 액세스 토큰을 가져와 API에 연결할 수 있음
 const getAccessToken = async () => {
-  const response = await fetch(TOKEN_ENDPOINT, {
-    method: 'POST',
-    headers: {
-      Authorization: `Basic ${basic}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: new URLSearchParams({
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken
-    }).toString()
-  })
-  return response.json()
-}
+  const config = useRuntimeConfig()
 
-// 주어진 사용자 액세스 토큰의 현재 재생 중인 트랙을 가져온다.
-const NOW_PLAYING_ENDPOINT = 'https://api.spotify.com/v1/me/player/currently-playing'
-export const getNowPlaying = async () => {
-  const { access_token: accessToken } = await getAccessToken()
-  return fetch(NOW_PLAYING_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
+  const clientID = config.public.spotifyClientID
+  const clientSecret = config.public.spotifyClientSecret
+
+  const accessToken = ref(null)
+  const refreshToken = ref(null)
+  const expiresIn = ref(null)
+
+  const basic = btoa(`${clientID}:${clientSecret}`);
+  console.log('basic: ', basic)
+  const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token'
+  const fetchAuth = async () => {
+    try {
+      const res = await axios.post('http://localhost:3000/login', { code,})
+      console.log(res)
+
+      accessToken.value = res.data.accessToken;
+      refreshToken.value = res.data.refreshToken;
+      expiresIn.value = res.data.expiresIn;
+      // window.history.pushState({}, null, '/');
+    } catch {
+      console.error('Error fetching access token:', error);
+      router.push('/login')
     }
-  })
+  }
+  
+  // 토큰 갱신 요청 및 상태 업데이트
+  const refreshAuth = async () => {
+    try {
+      const res = await axios.post('http://localhost:3000/refresh', {
+        refresh_token: refreshToken.value,
+      })
+
+      accessToken.value = res.data.accessToken;
+      expiresIn.value = res.data.expiresIn;
+    } catch (error) {
+      console.error('Error refreshing access token:', error);
+      router.push('/login')
+    }
+  }
+
+  // 로그인 요청
+  fetchAuth()
+
+  // 토큰 갱신 사이드 이펙트 설정
+  watch([refreshToken, expiresIn], () => {
+    if (!refreshToken.value || !expiresIn.value) return;
+    const interval = setInterval(() => {
+      refreshAuth();
+    }, (expiresIn.value - 60) * 1000);
+
+    onUnmounted(() => clearInterval(interval));
+  });
 }
