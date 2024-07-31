@@ -1,7 +1,7 @@
 import axios from 'axios'
 const router = useRouter()
 
-const getAccessToken = async () => {
+// const getAccessToken = async () => {
   const config = useRuntimeConfig()
 
   const clientID = config.public.spotifyClientID
@@ -56,4 +56,4 @@ const getAccessToken = async () => {
 
     onUnmounted(() => clearInterval(interval));
   });
-}
+// }
