@@ -9,6 +9,10 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/', function (req, res) {
+    req.send('Hello World!');
+});
+
 app.post('/login', function (req, res) {
     const code = req.body.code
     const spotifyApi = new SpotifyWebApi({
