@@ -57,14 +57,12 @@ import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 
 let openMenu = ref(false)
-const config = useRuntimeConfig() 
-const router = useRouter()
+const config = useRuntimeConfig()  
 
 const AUTH_URL = (e) => {
   e.preventDefault()
   window.location.href =
     `https://accounts.spotify.com/authorize?client_id=${config.public.spotifyClientID}&response_type=code&redirect_uri=${config.public.spotifyURL}`
-}
-
+} 
 
 </script> 
