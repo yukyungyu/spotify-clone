@@ -54,15 +54,59 @@
 import ChevronUp from 'vue-material-design-icons/ChevronUp.vue'
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue'
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue'
-import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue' 
 
 let openMenu = ref(false)
-const config = useRuntimeConfig()  
+import { useRouter } from 'vue-router';
 
-const AUTH_URL = (e) => {
-  e.preventDefault()
+const loading = ref(true);
+const error = ref(null);
+const router = useRouter();
+
+const config = useRuntimeConfig()  
+const AUTH_URL = () => {
   window.location.href =
-    `https://accounts.spotify.com/authorize?client_id=${config.public.spotifyClientID}&response_type=code&redirect_uri=${config.public.spotifyURL}`
+  `https://accounts.spotify.com/authorize?client_id=${config.public.spotifyClientID}&response_type=code&redirect_uri=${config.public.spotifyURL}`
 } 
+
+onMounted(() => {
+const params = new URLSearchParams(window.location.search);
+const code = params.get('code');
+
+if (code) {
+  fetchAccessToken(code);
+} else {
+  error.value = 'Authorization code not found';
+  loading.value = false;
+}
+});
+
+const fetchAccessToken = async (code) => {
+  try {
+    const response = await fetch('http://localhost:3001/api/login', { // Adjust URL to your server endpoint
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ code }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to exchange code for tokens');
+    }
+
+    const data = await response.json();
+    console.log('data:', data);
+    localStorage.setItem('accessToken', data.accessToken);
+    localStorage.setItem('refreshToken', data.refreshToken);
+
+    // Redirect to home or another page
+    router.push('/');
+  } catch (error) {
+    error.value = 'Authentication failed: ' + error.message;
+  } finally {
+    loading.value = false;
+  }
+};
 
 </script> 
