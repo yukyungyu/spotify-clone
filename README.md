@@ -18,4 +18,11 @@ vue3 버전: 3.4.34
 ## 참고문서
 https://github.com/John-Weeks-Dev/spotify-clone
 
+
+## 구글 oAuth 2.0 사용 문제
+https://velog.io/@jphong1005/UIKit-403-error-disalloweduseragent-%EA%B5%AC%EA%B8%80-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0
+
+2016년 8월, Google 측에서 '보안 강화를 목적으로 임베디드 브라우저 환경에서 구글에 대한 OAuth 요청을 허용하지 않을 것' 이라고 발표를 했다.
+
 </div>
+

@@ -1,21 +1,25 @@
-import { defineStore } from 'pinia';
-import { LocalStorage } from 'pinia-plugin-persistedstate';
-import { defineStore } from "pinia"
+import { defineStore } from 'pinia'; 
 
 export const CommonStore = defineStore('common',{ 
   state: () => ({
     accessToken: '',
     refreshToken: '',
+    isUser: false
     
   }), 
   actions: {
     login(token) {
+      this.isUser = token.isUser
       this.accessToken = token.accessToken;
       this.refreshToken = token.refreshToken;
+    },
+    logOut() {
+      this.isUser = false
+      this.accessToken = '';
+      this.refreshToken = '';
     }
   },
   persist: {
-    storage: LocalStorage,
-    paths: ['accessToken', 'refreshToken'], 
+    storage: persistedState.localStorage,
   },
 })

@@ -1,11 +1,17 @@
+import { fileURLToPath } from 'url';
+
 
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   pages: true,
+  devServer: {
+    port: 3001,
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
+    '@pinia-plugin-persistedstate/nuxt',
   ],
   runtimeConfig: {
     public: {
@@ -14,6 +20,10 @@ export default defineNuxtConfig({
       spotifyURL : process.env.SPOTIFY_URL,
       spotifyRefreshToken : process.env.SPOTIFY_RT,
     }
+  },
+  alias: {
+    '@': fileURLToPath(new URL('./', import.meta.url)),
+    '~': fileURLToPath(new URL('./', import.meta.url)),
   },
   css: ['@/assets/css/main.css'],
   postcss: {
