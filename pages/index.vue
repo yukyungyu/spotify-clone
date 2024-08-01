@@ -1,6 +1,7 @@
 <template>  
   <div> 
-    <Album />   
+    <Album />  
+    <Artist /> 
   </div>
 </template>
 

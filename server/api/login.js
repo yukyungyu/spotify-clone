@@ -3,6 +3,7 @@ import SpotifyWebApi from 'spotify-web-api-node';
 export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const code = body.code;
+    console.log(code,"code")
 
     const spotifyApi = new SpotifyWebApi({
         redirectUri: 'http://localhost:3001',
