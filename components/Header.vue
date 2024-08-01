@@ -65,6 +65,9 @@ const AUTH_URL = (e) => {
   window.location.href =
     `https://accounts.spotify.com/authorize?client_id=${config.public.spotifyClientID}&response_type=code&redirect_uri=${config.public.spotifyURL}`
 }
+// const onLogin = () => {
+//   router.push('/login')
+// }
 
 
 </script> 
