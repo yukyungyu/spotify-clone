@@ -41,9 +41,6 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', href: 'https://open.spotifycdn.com/cdn/images/favicon16.1c487bff.png' }
       ],
     }
-  },
-  serverMiddleware: [
-    { path: '/api', handler: '~/api/index.js' }
-  ],
+  }
 })
 
