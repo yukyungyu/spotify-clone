@@ -1,6 +1,6 @@
-<template>  
-  <div> 
-    <Album />   
+<template>
+  <div>
+
   </div>
 </template>
 

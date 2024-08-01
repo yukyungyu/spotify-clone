@@ -1,6 +1,6 @@
-<template>  
-  <div> 
-    <Album />   
+<template>
+  <div>
+    <STitle>인기앨범</STitle>
   </div>
 </template>
 

@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     const code = body.code;
 
     const spotifyApi = new SpotifyWebApi({
-        redirectUri: 'http://localhost:3001', // Update to your redirect URI
+        redirectUri: 'http://localhost:3001',
         clientId: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     });
