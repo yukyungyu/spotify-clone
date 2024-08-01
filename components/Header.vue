@@ -64,6 +64,7 @@ const loading = ref(true);
 const error = ref(null);
 const router = useRouter();
 const store = CommonStore(); 
+const { $axios } = useNuxtApp()
 
 
 const config = useRuntimeConfig()  
@@ -90,32 +91,21 @@ const LogOut = () => {
   store.logOut();
 }
 
-// 📌 인증 토큰 가져오기
+// 📌 인증 토큰 가져오기 
 const fetchAccessToken = async (code) => {
   try {
-    const response = await fetch('http://localhost:3001/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ code }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to exchange code for tokens');
-    }
-    // 📌 토큰 스토어 저장하기
-    const data = await response.json(); 
+    console.log($axios)
+    const result = await $axios.post('http://localhost:3001/api/login', {
+      code: code
+    })  
     store.login({
-      accessToken: data.accessToken,
-      refreshToken: data.refreshToken,
+      accessToken: result.data.accessToken,
+      refreshToken: result.data.refreshToken,
       isUser: true,
-    }) 
+    })  
     router.push('/');
   } catch (error) {
     error.value = 'Authentication failed: ' + error.message;
-  } finally {
-    loading.value = false;
   }
 };
 

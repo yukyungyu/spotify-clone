@@ -5,6 +5,9 @@
 </template>
 
 <script setup>
+const { $axios } = useNuxtApp()
+
+
 
 </script>
 

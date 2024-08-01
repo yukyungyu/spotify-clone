@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   devServer: {
     port: 3001,
   },
-  modules: [
+  modules: [ 
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
@@ -20,7 +20,7 @@ export default defineNuxtConfig({
       spotifyURL : process.env.SPOTIFY_URL,
       spotifyRefreshToken : process.env.SPOTIFY_RT,
     }
-  },
+  }, 
   alias: {
     '@': fileURLToPath(new URL('./', import.meta.url)),
     '~': fileURLToPath(new URL('./', import.meta.url)),
