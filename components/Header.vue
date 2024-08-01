@@ -58,15 +58,22 @@ import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'
 
 let openMenu = ref(false)
 import { useRouter } from 'vue-router';
+// import { CommonStore } from '@/stores/useCommonStore'
 
 const loading = ref(true);
 const error = ref(null);
 const router = useRouter();
+// const store = CommonStore();
+
 
 const config = useRuntimeConfig()  
-const AUTH_URL = () => {
-  window.location.href =
-  `https://accounts.spotify.com/authorize?client_id=${config.public.spotifyClientID}&response_type=code&redirect_uri=${config.public.spotifyURL}`
+const clientId = config.public.spotifyClientID
+const scope = 'email profile'
+
+const AUTH_URL = () => { 
+  const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=code&redirect_uri=${scope}`  
+  window.location.href = authUrl
+ 
 } 
 
 onMounted(() => {
@@ -95,12 +102,9 @@ const fetchAccessToken = async (code) => {
       throw new Error('Failed to exchange code for tokens');
     }
 
-    const data = await response.json();
-    console.log('data:', data);
-    localStorage.setItem('accessToken', data.accessToken);
-    localStorage.setItem('refreshToken', data.refreshToken);
-
-    // Redirect to home or another page
+    // const data = await response.json(); 
+    // localStorage.setItem('accessToken', data.accessToken);
+    // localStorage.setItem('refreshToken', data.refreshToken); 
     router.push('/');
   } catch (error) {
     error.value = 'Authentication failed: ' + error.message;
