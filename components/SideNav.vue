@@ -3,20 +3,23 @@
       id="SideNav"
       class="h-[100%] p-6 w-[240px] fixed z-50 bg-black"
     >
-      <RouterLink to="/">
+      <NuxtLink to="/">
         <img width="125" src="@/assets/images/icons/spotify-logo.png" />
-      </RouterLink>
+      </NuxtLink>
       <div class="my-8"></div>
       <ul>
-        <RouterLink to="/"> 
+        <NuxtLink to="/"> 
           <MenuItem class="ml-[1px]" :iconSize="23" name="Home" iconString="home" pageUrl="/" />
-        </RouterLink>
-        <RouterLink to="/search"> 
+        </NuxtLink>
+        <NuxtLink to="/search"> 
           <MenuItem class="ml-[1px]" :iconSize="23" name="Search" iconString="search" pageUrl="/search" />
-        </RouterLink>
-        <RouterLink to="/library"> 
+        </NuxtLink>
+        <NuxtLink to="/library"> 
           <MenuItem class="ml-[1px]" :iconSize="23" name="Library" iconString="library" pageUrl="/library" />
-        </RouterLink>
+        </NuxtLink>
+        <NuxtLink to="/playlist"> 
+          <MenuItem class="ml-[1px]" :iconSize="23" name="Playlist" iconString="playlist" pageUrl="/playlist" />
+        </NuxtLink>
         <div class="py-3.5"></div>
         <MenuItem :iconSize="24" name="Create Playlist" iconString="playlist" pageUrl="/playlist" />
         <MenuItem class="-ml-[1px]" :iconSize="27" name="Liked Songs" iconString="liked" pageUrl="/liked" />

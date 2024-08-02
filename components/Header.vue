@@ -2,7 +2,7 @@
   <header
     class="
     w-[calc(100%-240px)]
-    h-[60px]
+    h-[68px]
     fixed
     right-0
     z-20
@@ -13,6 +13,7 @@
     justify-between
     "  
   >
+  <div class="flex items-center">
     <div class="flex items-center ml-6">
       <button type="button" class="rounded-full bg-black p-[1px] cursor-pointer">
         <ChevronLeft fillColor="#FFFFFF" :size="30" />
@@ -21,7 +22,10 @@
         <ChevronRight fillColor="#FFFFFF" :size="30" />
       </button>
     </div>
-
+    <div v-if="route.path === '/search'">
+      <input type="text" placeholder="어떤 콘텐츠를 감상하고 싶으세요?" class="search-box p-3 ml-2 w-[320px] rounded-full bg-[#333333] flex items-center">
+    </div>
+  </div>
     <button 
     @click="openMenu = !openMenu" :class="openMenu ? 'bg-[#282828]' : 'bg-black'"
     class="bg-black hover:bg-[#282828] rounded-full p-0.5 mr-8 mt-0.5 cursor-pointer">
@@ -63,6 +67,7 @@ import { CommonStore } from '@/stores/pinia'
 const loading = ref(true);
 const error = ref(null);
 const router = useRouter();
+const route = useRoute();
 const store = CommonStore(); 
 const { $axios } = useNuxtApp()
 
@@ -121,4 +126,10 @@ if (code) {
   loading.value = false;
 }
 });
-</script> 
+</script>
+<style>
+input:focus {
+  outline: none !important;
+  border: 2px solid #fff;
+}
+</style>
