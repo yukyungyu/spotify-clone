@@ -1,0 +1,22 @@
+.list_wrap {
+  display: flex;
+  max-width: 100%;
+  min-width: 100%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+  -webkit-box-flex: 1;
+  contain-intrinsic-size: auto 260px;
+  container-type: inline-size;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  min-height: 260px;
+}
+.list_box {  
+  display: grid;
+  box-sizing: border-box;
+  grid-template-rows: repeat(1, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+} 

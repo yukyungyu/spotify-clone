@@ -22,68 +22,52 @@
 const props = defineProps({
   data: {
     type: Array,
-    required: true
+    default: () => []
   }
 })
 const items = computed(() => props.data)
 const list = ref('')
+  
+// 📌 데이터 내려받기
+watch(() => props.data, async () => {
+  await nextTick(); 
+  adjustItems();
+}, { immediate: true });
 
-// onMounted(() => {  
-//   adjustItems();
-//   window.addEventListener('resize', adjustItems);
-// });
+// 📌 resize, 마운트 설정
+onMounted(async () => {  
+  await nextTick();
+  adjustItems();
+  window.addEventListener('resize', adjustItems);
+});
 
-// onBeforeUnmount(() => {
-//   window.removeEventListener('resize', adjustItems);
-// });
+// 📌 마운트 종료
+onBeforeUnmount(() => { 
+  window.removeEventListener('resize', adjustItems);
+});
  
- 
-const adjustItems = () => { 
-  if (!list.value) return; 
- 
-  const containerWidth = list.value.offsetWidth
-  const albumList = list.value.children 
-  let totalWidth = 0;  
-  console.log(list,"dd")
-  console.log(albumList.length,"dd")
+// items 이 resize 됐을 때 줄어들게 설정
+const adjustItems = () => {
+  if (!list.value) return;
 
-  for (let i = 0; i < albumList.length; i++) { 
-    console.log('remove')
-      albumList[i].classList.remove('hidden');  
-  } 
-  for(let i = 0; i < albumList.length; i++){ 
-    totalWidth += albumList[i].offsetWidth
-    if(totalWidth > containerWidth) {
-      console.log('add')
-      albumList[i].classList.add('hidden')
+  let totalWidth = 0; 
+  const containerWidth = list.value.offsetWidth;
+  const data = Array.from(list.value.children);
+ 
+
+  data.forEach(item => {
+    item.classList.remove('hidden');
+  });
+
+  data.forEach(item => {
+    totalWidth += item.offsetWidth;
+    if (totalWidth > containerWidth) {
+      item.classList.add('hidden'); 
     }
-  } 
-}
-
+  });
+};
 </script>
 
 <style lang="css" scoped> 
-.list_wrap {
-  display: flex;
-  max-width: 100%;
-  min-width: 100%;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  position: relative;
-  -webkit-box-flex: 1;
-  contain-intrinsic-size: auto 260px;
-  container-type: inline-size;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  min-height: 260px;
-}
-.list_box {  
-  display: grid;
-  box-sizing: border-box;
-  grid-template-rows: repeat(1, minmax(0, 1fr));
-  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
-} 
-
+@import url('@/assets/css/components/list.css');
 </style>

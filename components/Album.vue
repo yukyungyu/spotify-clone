@@ -1,15 +1,6 @@
 <template>
   <div>
-    <STitle>인기앨범</STitle>
-    <!-- <ul>
-      <li v-for="(item,index) in album" :key="index">
-        <a :href="item.href">
-          <img :src="item.images[0].url" :alt="item.name" :width="item.images[0].width" :height="item.images[0].height" />
-          <h3>{{ item.name }}</h3>
-          <p>{{ item.release_date }}</p>
-        </a>
-      </li>
-    </ul> -->
+    <STitle>인기앨범</STitle> 
     <SList :data="album" />
   </div>
 </template>
@@ -24,13 +15,16 @@ const ids = ref(`5pSk3c3wVwnb2arb6ohCPU,15XcLhiVMlSOipUddTNDnr,700oyQvND1pNIADYq
 const local = ref('KR')
  
 const getAlbum = async () => {  
-  const {data} = await $axios.get(`https://api.spotify.com/v1/albums?ids=${ids.value}&offset=9&market=${local.value}`, {  
-    headers : { 
-    Authorization: `Bearer ${store.accessToken}`
+  try{
+    const {data} = await $axios.get(`https://api.spotify.com/v1/albums?ids=${ids.value}&offset=9&market=${local.value}`, {  
+      headers : { 
+        Authorization: `Bearer ${store.accessToken}`
+      }
+    })   
+    album.value = data.albums
+  }catch(e){
+    console.error(e)
   }
-  })  
-  console.log(data.albums)
-  album.value = data.albums
 }
 
 onMounted(() => {  
