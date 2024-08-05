@@ -21,7 +21,9 @@
     <!-- 텝 -->
     <div class="tab ml-4 pt-4">
       <ul class="flex gap-3">
-        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px] active">
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] text-[14px] active:text-[black] active"
+        >
           모두
         </li>
         <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px]">아티스트</li>
@@ -33,17 +35,12 @@
       </ul>
     </div>
     <!-- 상위 결과, 곡 -->
-    <div class="flex items-center">
+    <div class="flex items-center mb-6">
       <section class="search-result">
         <STitle>상위 결과</STitle>
-        <div
-          class="card mt-4 mx-4 rounded-sm bg-[#181818] p-4 rounded-md"
-          width="420"
-        >
+        <div class="card mt-4 mx-4 pt-2 bg-[#181818] rounded-md w-[420px]">
           <div
-            class="profile-img rounded-full overflow-hidden"
-            :width="92"
-            :height="92"
+            class="profile-img rounded-full overflow-hidden w-[92px] h-[92px]"
           >
             <img
               :src="searchList.artists[0].images[2].url"
@@ -160,6 +157,5 @@ onUnmounted(() => {});
 .tab > ul > li.active {
   background-color: #fff;
   color: #000;
-  color: #b3b3b3;
 }
 </style>

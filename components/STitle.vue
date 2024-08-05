@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="px-4 pt-10 flex items-end justify-between">
     <h2 class="text-2xl">
       <slot />

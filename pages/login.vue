@@ -2,9 +2,9 @@
   <div class="flex bg-black w-[100%] h-[100vh] items-center justify-center">
     <button
       @click.prevent="Login"
-      class="bg-white h-[40px] text-black rounded-full px-5 py-2.5 text-base hover:bg-[#1ed760]"
+      class="bg-[#1ed760] h-[48px] text-black rounded-full w-[300px] flex justify-center items-center text-lg font-bold"
     >
-      로그인 하기
+      Login With Spotify
     </button>
   </div>
 </template>

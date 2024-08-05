@@ -1,5 +1,6 @@
 <template>
-  <STitle>인기앨범</STitle>
+  <STitle v-if="route.path === '/'">인기앨범</STitle>
+  <STitle v-else>앨범</STitle>
   <SList :data="album" />
 </template>
 
