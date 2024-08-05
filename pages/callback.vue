@@ -4,11 +4,13 @@
 
 <script setup>
 import { CommonStore } from '@/stores/pinia';
+import { useRouter } from 'vue-router';
 
 const loading = ref(true);
 const error = ref(null);
 const store = CommonStore();
 const { $axios } = useNuxtApp();
+const router = useRouter();
 
 // 📌 spotify 인증 코드로 인증 토큰 발급하기
 onMounted(async () => {
@@ -25,6 +27,7 @@ onMounted(async () => {
         refreshToken: result.data.refreshToken,
         isUser: true,
       });
+      router.push('/');
     } catch (error) {
       error.value = 'Authentication failed: ' + error.message;
     }

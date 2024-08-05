@@ -4,13 +4,13 @@
   </div>
 </template>
 
-<script setup> 
-definePageMeta({ middleware: ['auth'] })
+<script setup>
+// definePageMeta({ middleware: ['auth'] });
 </script>
 
 <style lang="css" scoped>
-.l-container { 
+.l-container {
   min-height: 1024px;
-  padding-bottom: 0; 
+  padding-bottom: 0;
 }
 </style>
