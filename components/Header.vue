@@ -1,6 +1,6 @@
 <template>
   <header
-    class="w-[calc(100%-240px)] h-[68px] fixed right-0 z-20 bg-[#101010] bg-opacity-80 flex items-center justify-between"
+    class="w-[calc(100%-420px)] h-[68px] fixed right-0 z-20 bg-[#101010] bg-opacity-80 flex items-center justify-between"
   >
     <div class="flex items-center">
       <div class="flex items-center ml-6">
@@ -80,17 +80,17 @@
 import ChevronUp from 'vue-material-design-icons/ChevronUp.vue';
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
-import ChevronRight from 'vue-material-design-icons/ChevronRight.vue'; 
+import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
 import { CommonStore } from '@/stores/pinia';
-import { useRouter, useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router';
 
 let openMenu = ref(false);
 const searchKeyword = ref('');
 const store = CommonStore();
-const router = useRouter()
+const router = useRouter();
 const route = useRoute();
 
-// search 페이지에서 나가면 검색어 초기화 
+// search 페이지에서 나가면 검색어 초기화
 const handleSearch = () => {
   if (searchKeyword.value.trim()) {
     router.push({ path: '/search', query: { q: searchKeyword.value } });
@@ -105,7 +105,6 @@ const LogOut = () => {
   });
   router.push('/login');
 };
-
 </script>
 <style>
 input:focus {
