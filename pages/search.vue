@@ -1,28 +1,54 @@
 <template>
-  <STitle>모두 둘러보기</STitle>
+  <!-- 카테고리 -->
+  <div v-if="searchList.items.length === 0">
+    <STitle>모두 둘러보기</STitle>
 
-  <div
-    v-if="searchList.items.length === 0"
-    class="categories grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 ml-4 mt-4"
-  >
-    <div v-for="item in categories.items">
-      <CategorySelect
-        :category="item.name"
-        :image="item.icons[0].url"
-        :key="item.id"
-      />
+    <div
+      class="categories grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 ml-4 mt-4"
+    >
+      <div v-for="item in categories.items">
+        <CategorySelect
+          :category="item.name"
+          :image="item.icons[0].url"
+          :key="item.id"
+        />
+      </div>
     </div>
   </div>
+
+  <!-- 검색결과 -->
   <div v-else class="searchList">
-    <div class="flex items-center">
-      <!-- 상위 결과, 곡 -->
-      <div>
-        <div>상위 결과</div>
-      </div>
-      <!-- 아티스트 -->
-      <!-- 앨범 -->
-      <!-- 플레이리스트 -->
+    <!-- 텝 -->
+    <div class="tab ml-4 pt-4">
+      <ul class="flex gap-3">
+        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px] active">
+          모두
+        </li>
+        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px]">아티스트</li>
+        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px]">
+          플레이리스트
+        </li>
+        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px]">곡</li>
+        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px]">앨범</li>
+      </ul>
     </div>
+    <!-- 상위 결과, 곡 -->
+    <div class="flex items-center">
+      <section class="search-result">
+        <div>상위 결과</div>
+        <div class="card mt-2 rounded-sm"></div>
+      </section>
+      <section class="search-songs">
+        <div>곡</div>
+        <div class="song-list mt-2"></div>
+      </section>
+    </div>
+    <!-- 아티스트 -->
+    <Artist />
+    <!-- 앨범 -->
+    <Album />
+    <!-- 플레이리스트 -->
+    <Playlist />
   </div>
 </template>
 
@@ -97,3 +123,9 @@ watch(
   },
 );
 </script>
+<style>
+.tab > ul > li.active {
+  background-color: #fff;
+  color: #000;
+}
+</style>
