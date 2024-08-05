@@ -45,8 +45,11 @@ watch(
     album.value = newVal;
   },
 );
-
-getAlbum();
+onMounted(() =>{
+  if(store.isUser) {
+    getAlbum();
+  }
+})
 </script>
 
 <style lang="css" scoped></style>
