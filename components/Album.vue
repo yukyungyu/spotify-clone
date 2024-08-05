@@ -45,9 +45,7 @@ watch(
   },
 );
 
-onMounted(() => {
-  getAlbum();
-});
+getAlbum();
 </script>
 
 <style lang="css" scoped></style>
