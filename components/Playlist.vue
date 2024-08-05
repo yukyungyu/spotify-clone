@@ -1,5 +1,7 @@
 <template>
-  <section></section>
+  <section>
+    <STitle>플레이리스트</STitle>
+  </section>
 </template>
 
 <script setup></script>

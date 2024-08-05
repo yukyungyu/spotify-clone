@@ -3,15 +3,20 @@
     <h2 class="text-2xl">
       <slot />
     </h2>
-    <button class="text-sm text-gray-300" type="button" @click="this.$emit('click')">모두 표시</button>
+    <button
+      v-if="route.path === '/'"
+      class="text-sm text-gray-300"
+      type="button"
+      @click="this.$emit('click')"
+    >
+      모두 표시
+    </button>
   </div>
 </template>
 
-<script setup>   
-const emit = defineEmits(['click'])
-
+<script setup>
+const route = useRoute();
+const emit = defineEmits(['click']);
 </script>
 
-<style lang="css" scoped>
-
-</style>
+<style lang="css" scoped></style>
