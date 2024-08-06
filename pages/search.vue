@@ -69,7 +69,11 @@
               searchList.artists[0].name
             }}</strong>
             <p class="text-[16px] text-gray-300 mt-2">
-              {{ searchList.artists[0].type }}
+              {{
+                searchList.artists[0].type === 'artist'
+                  ? '아티스트'
+                  : searchList.artists[0].type
+              }}
             </p>
           </div>
         </div>
@@ -127,22 +131,15 @@
               </div>
             </div>
           </div>
-        </div> 
+        </div>
       </section>
     </div>
     <!-- 아티스트 -->
-    <Artist  
-      :data="searchList.artists" 
-    />
+    <Artist :data="searchList.artists" />
     <!-- 앨범 -->
-    <Album  
-      date
-      :data="searchList.albums" 
-    />
+    <Album date :data="searchList.albums" />
     <!-- 플레이리스트 -->
-    <Playlist  
-      :data="searchList.playlists" 
-    /> 
+    <Playlist :data="searchList.playlists" />
   </div>
 </template>
 
