@@ -1,17 +1,15 @@
 <template>
-  <STitle v-if="route.path === '/'">인기앨범</STitle>
-  <STitle v-else>앨범</STitle>
-  <SList 
-    type="album" 
-    :data="album"
-    :date="date"
-  />
+  <div>
+    <STitle v-if="route.path === '/'">인기앨범</STitle>
+    <STitle v-else>앨범</STitle>
+    <SList type="album" :data="album" :date="date" />
+  </div>
 </template>
 
 <script setup>
 const { $axios } = useNuxtApp();
 const route = useRoute();
-import { CommonStore } from '@/stores/pinia'; 
+import { CommonStore } from '@/stores/pinia';
 
 const store = CommonStore();
 const album = ref([]);
@@ -47,19 +45,18 @@ const props = defineProps({
     default: false,
   },
 });
- 
- 
+
 watch(
   () => props.data,
   (newVal) => {
     album.value = newVal;
   },
 );
-onMounted(() =>{
-  if(store.isUser) {
+onMounted(() => {
+  if (store.isUser) {
     getAlbum();
   }
-})
+});
 </script>
 
 <style lang="css" scoped></style>
