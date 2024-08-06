@@ -15,12 +15,13 @@
   min-height: 260px;
 }
 .list_box {  
-  display: grid;
-  box-sizing: border-box;
+  gap: 20px;
+  display: grid; 
   grid-template-rows: repeat(1, minmax(0, 1fr));
   grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
 }  
 .list_box.circle img {
   border-radius: 50%;
+  width: 100%; 
 }
  
