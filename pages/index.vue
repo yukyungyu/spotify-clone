@@ -1,7 +1,7 @@
 <template>
-  <Album :date="false" />
-  <Artist />
-  <Playlist />
+  <Album  icon/>
+  <Artist icon />
+  <Playlist icon/>
 </template>
 
 <script setup>

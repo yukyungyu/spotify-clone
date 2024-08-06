@@ -2,7 +2,12 @@
   <section>
     <STitle v-if="route.path === '/'">인기앨범</STitle>
     <STitle v-else>앨범</STitle>
-    <SList type="album" :data="album" :date="date" />
+    <SList 
+      type="album" 
+      :data="album" 
+      :icon="icon"
+      :date="date"  
+    />
   </section>
 </template>
 
@@ -44,6 +49,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  icon: {
+    type: Boolean,
+    default: false, 
+  }
 });
 
 watch(

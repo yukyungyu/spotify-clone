@@ -18,7 +18,7 @@
 
   <!-- 검색결과 -->
   <div v-else class="searchList">
-    <!-- 탭 -->
+    <!-- 텝 -->
     <div class="tab ml-4 pt-4">
       <ul class="flex gap-3">
         <li
@@ -109,15 +109,22 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> 
       </section>
     </div>
     <!-- 아티스트 -->
-    <Artist type="artist" :data="searchList.artists" />
+    <Artist  
+      :data="searchList.artists" 
+    />
     <!-- 앨범 -->
-    <Album type="album" :date="true" :data="searchList.albums" />
+    <Album  
+      date
+      :data="searchList.albums" 
+    />
     <!-- 플레이리스트 -->
-    <Playlist type="playlist" :date="true" :data="searchList.playlists" />
+    <Playlist  
+      :data="searchList.playlists" 
+    /> 
   </div>
 </template>
 
@@ -161,8 +168,7 @@ const getSearch = async (query) => {
     searchList.artists = response.data.artists.items;
     searchList.albums = response.data.albums.items;
     searchList.playlists = response.data.playlists.items;
-    searchList.tracks = response.data.tracks.items.slice(0, 4);
-    // console.log('searchList.playlists: ', searchList.playlists);
+    searchList.tracks = response.data.tracks.items.slice(0, 4); 
   } catch (error) {
     error.value = 'Failed to search category' + error.message;
   }
@@ -188,7 +194,6 @@ const getAllCategory = async () => {
     error.value = 'Failed to fetch category ' + error.message;
   }
 };
-
 const processTime = (ms) => {
   const totalSeconds = Math.floor(ms / 1000);
 
@@ -204,25 +209,12 @@ onMounted(() => {
 
 watch(
   () => route.query.q,
-  (newQuery) => {
-    // console.log('새로운 검색어: ', newQuery);
+  () => { 
     getSearch(route.query.q);
   },
 );
+ 
 </script>
-<style>
-.tab > ul > li.active {
-  background-color: #fff;
-  color: #000;
-}
-
-.song-item:hover .album-image {
-  opacity: 0.65;
-}
-.song-item:hover .play-btn {
-  opacity: 1;
-}
-.song-item:hover .play-btn .svg {
-  fill: currentcolor;
-}
+<style lang="css" scoped>  
+@import url('@/assets/css/components/search.css');
 </style>
