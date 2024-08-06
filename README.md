@@ -24,10 +24,10 @@ Spotify API를 이용하여 저희만의 방식대로 만든 스포티파이 클
 ![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 
 ## 주요기능
-oAuth2를 이용하여 accessToken을 받아와 로그인 기능 구현
-앨범, 아티스트, 플레이리스트 목록 불러오기
-앨범, 아티스트, 플레이리스트 상세 정보 불러오기
-노래 재생
+- oAuth2를 이용하여 accessToken을 받아와 로그인 기능 구현
+- 앨범, 아티스트, 플레이리스트 목록 불러오기
+- 앨범, 아티스트, 플레이리스트 상세 정보 불러오기
+- 노래 재생
 
 ### 사용된 라이브러리
 - axios
