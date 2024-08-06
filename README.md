@@ -24,7 +24,6 @@ Spotify API를 이용하여 저희만의 방식대로 만든 스포티파이 클
 ![nuxt](https://img.shields.io/badge/Nuxtjs-1db954?style=for-the-badge&logo=Nuxt.js&logoColor=#00DC82)
 ![pinia](https://img.shields.io/badge/pinia-ffd859?style=for-the-badge&logo=pinia&logoColor=black)
 ![tailwindcss](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![html](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![js](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white)
 ![node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
 ![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
