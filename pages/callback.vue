@@ -10,7 +10,7 @@ const loading = ref(true);
 const error = ref(null);
 const store = CommonStore();
 const { $axios } = useNuxtApp();
-const router = useRouter();
+const router = useRouter(); 
 
 // 📌 spotify 인증 코드로 인증 토큰 발급하기
 onMounted(async () => {
