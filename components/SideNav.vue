@@ -32,15 +32,6 @@
           pageUrl="/library"
         />
       </NuxtLink>
-      <NuxtLink to="/playlist">
-        <MenuItem
-          class="ml-[1px]"
-          :iconSize="23"
-          name="Playlist"
-          iconString="playlist"
-          pageUrl="/playlist"
-        />
-      </NuxtLink>
       <div class="py-3.5"></div>
       <MenuItem
         :iconSize="24"

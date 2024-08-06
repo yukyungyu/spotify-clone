@@ -110,11 +110,6 @@ onUnmounted(() => {
   searchKeyword.value = '';
 });
 
-// 페이지를 벗어날 때 `searchKeyword`를 초기화
-const clearSearchKeyword = () => {
-  searchKeyword.value = '';
-};
-
 watch(
   () => route.path,
   (newVal) => {
@@ -126,7 +121,7 @@ watch(
 </script>
 <style>
 input:focus {
-  outline: none !important;
-  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #fff;
+  outline: none;
 }
 </style>
