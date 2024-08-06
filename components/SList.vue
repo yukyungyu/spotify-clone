@@ -1,17 +1,27 @@
 <template>
   <section class="list_wrap">
-    <ul ref="list" class="list_box">
+    <ul ref="list" :class="`list_box ${type} ${borderRadius ? 'circle' : ''}`">
       <li v-for="(item, index) in items" :key="index" class="hover:bg-zinc-900">
         <a :href="item.href" class="">
           <img
             class="px-5 py-5"
-            :src="item.images[0].url"
+            :src="item.images[0]?.url"
             :alt="item.name"
-            :width="item.images[0].width"
-            :height="item.images[0].height"
+            :width="item.images[0]?.width"
+            :height="item.images[0]?.height"
           />
-          <h3 class="px-5 pt-2">{{ item.name }}</h3>
-          <p class="px-5 p-2 text-gray-400 text-sm">{{ item.release_date }}</p>
+          <template v-if="type === 'album'">
+            <h3 class="px-5 pt-2">{{ item.name }}</h3>  
+            <p v-if="!date" class="px-5 p-2 text-gray-400 text-sm">{{ item.artists[0].name }}</p> 
+            <p v-else class="px-5 p-2 text-gray-400 text-sm">
+              <span class="dot inline-block mr-5">{{ format(new Date(item.release_date), 'yyyy') }}</span>
+              <span>{{ item.artists[0].name }}</span>
+            </p>  
+          </template>
+          <template v-if="type === 'artist'">
+            <h3 class="px-5 pt-2">{{ item.name }}</h3> 
+            <p class="px-5 p-2 text-gray-400 text-sm">{{ item.type === 'artist' ? '아티스트' : '' }}</p> 
+          </template> 
         </a>
       </li>
     </ul>
@@ -19,14 +29,29 @@
 </template>
 
 <script setup>
+import { format } from 'date-fns';
+
 const props = defineProps({
   data: {
     type: Array,
     default: () => [],
   },
+  type: {
+    type: String,
+    default: '',
+  },
+  borderRadius: {
+    types: Boolean,
+    default: false,
+  },
+  date: {
+    type: Boolean,
+    default: false,
+  },
 });
 const items = computed(() => props.data);
-const list = ref('');
+const list = ref(''); 
+ 
 
 // 📌 데이터 내려받기
 watch(
@@ -57,15 +82,21 @@ const adjustItems = () => {
   let totalWidth = 0;
   const containerWidth = list.value.offsetWidth;
   const data = Array.from(list.value.children);
+  const windowWidth = window.innerWidth;
+
 
   data.forEach((item) => {
     item.classList.remove('hidden');
   });
 
   data.forEach((item) => {
-    totalWidth += item.offsetWidth;
-    if (totalWidth > containerWidth) {
+    totalWidth += item.offsetWidth; 
+    // console.log(totalWidth, containerWidth) 
+    if (totalWidth > containerWidth && totalWidth !== 0) {
       item.classList.add('hidden');
+    }
+    if(windowWidth < 768) {
+      data[0].classList.remove('hidden');
     }
   });
 };

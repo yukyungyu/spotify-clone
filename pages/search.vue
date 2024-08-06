@@ -66,7 +66,11 @@
     <!-- 아티스트 -->
     <Artist :data="searchList.artists" />
     <!-- 앨범 -->
-    <Album :data="searchList.albums" />
+    <Album 
+      type="album" 
+      :date="true"
+      :data="searchList.albums" 
+    />
     <!-- 플레이리스트 -->
     <Playlist />
   </div>
@@ -107,12 +111,12 @@ const getSearch = async (query) => {
         },
       },
     );
-    console.log('검색 결과:', response.data);
+    // console.log('검색 결과:', response.data);
     searchList.items = response.data;
     searchList.artists = response.data.artists.items;
     searchList.albums = response.data.albums.items;
     searchList.playlists = response.data.playlists.items;
-    searchList.tracks = response.data.tracks.items;
+    searchList.tracks = response.data.tracks.items; 
   } catch (error) {
     error.value = 'Failed to search category' + error.message;
   }

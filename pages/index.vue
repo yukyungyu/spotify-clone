@@ -1,5 +1,5 @@
 <template>
-  <Album />
+  <Album  :date="false"/>
   <Artist />
 </template>
 

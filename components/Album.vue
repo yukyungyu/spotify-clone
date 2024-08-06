@@ -1,13 +1,17 @@
 <template>
   <STitle v-if="route.path === '/'">인기앨범</STitle>
   <STitle v-else>앨범</STitle>
-  <SList :data="album" />
+  <SList 
+    type="album" 
+    :data="album"
+    :date="date"
+  />
 </template>
 
 <script setup>
 const { $axios } = useNuxtApp();
 const route = useRoute();
-import { CommonStore } from '@/stores/pinia';
+import { CommonStore } from '@/stores/pinia'; 
 
 const store = CommonStore();
 const album = ref([]);
@@ -27,6 +31,7 @@ const getAlbum = async () => {
       },
     );
     album.value = data.albums;
+    // console.log(data.albums,"albums");
   } catch (e) {
     console.error(e);
   }
@@ -37,8 +42,13 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  date: {
+    type: Boolean,
+    default: false,
+  },
 });
-
+ 
+ 
 watch(
   () => props.data,
   (newVal) => {
