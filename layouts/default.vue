@@ -8,4 +8,11 @@
     <slot />
     <div class="mb-100px"></div>
   </div>
+  <MusicPlayer />
 </template>
+<style>
+.content-area {
+  /* background: #484158; */
+  /* background: linear-gradient(90deg, #0e0425 0%, rgba(28, 28, 28, 1) 53%); */
+}
+</style>

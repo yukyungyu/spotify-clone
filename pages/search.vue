@@ -22,16 +22,30 @@
     <div class="tab ml-4 pt-4">
       <ul class="flex gap-3">
         <li
-          class="rounded-full py-2.5 px-4 bg-[#333] text-[14px] active:text-[black] active"
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition active"
         >
           모두
         </li>
-        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px]">아티스트</li>
-        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px]">
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
+        >
+          아티스트
+        </li>
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
+        >
           플레이리스트
         </li>
-        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px]">곡</li>
-        <li class="rounded-full py-2.5 px-4 bg-[#333] text-[14px]">앨범</li>
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
+        >
+          곡
+        </li>
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
+        >
+          앨범
+        </li>
       </ul>
     </div>
     <!-- 상위 결과, 곡 -->
@@ -39,7 +53,7 @@
       <section class="search-result w-[420px]">
         <STitle>상위 결과</STitle>
         <div
-          class="card mt-4 mx-4 p-5 bg-[#181818] hover:bg-[#333] rounded-md h-[240px]"
+          class="card mt-4 mx-4 p-5 bg-[#181818] hover:bg-[#333] transition ease-in rounded-md h-[240px] cursor-pointer"
         >
           <div
             class="profile-img rounded-full overflow-hidden w-[92px] h-[92px]"
@@ -62,11 +76,11 @@
       </section>
       <section class="search-songs grow">
         <STitle>곡</STitle>
-        <div class="song-list mt-4 mt-2 bg-[#181818] rounded-md h-[240px]">
+        <div class="song-list mt-4 mt-2 rounded-md h-[240px]">
           <div
             v-for="track in searchList.tracks"
             :key="track.id"
-            class="song-item px-4 py-2 hover:bg-[#333] hover:text-[white] rounded-md"
+            class="song-item px-4 py-2 hover:bg-[#333] transition hover:text-[white] rounded-md"
           >
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
@@ -96,10 +110,14 @@
                   </button>
                 </div>
                 <div class="song-info flex flex-col">
-                  <div class="song-name text-[18px] text-[white]">
+                  <div
+                    class="song-name text-[18px] text-[white] cursor-pointer hover:underline decoration-1"
+                  >
                     {{ track.name }}
                   </div>
-                  <div class="artist-name text-[14px] text-gray-400 mt-1">
+                  <div
+                    class="artist-name text-[14px] text-gray-400 mt-1 cursor-pointer hover:underline decoration-1"
+                  >
                     {{ track.artists[0].name }}
                   </div>
                 </div>
