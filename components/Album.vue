@@ -43,8 +43,8 @@ const props = defineProps({
     default: () => [],
   },
   date: {
-    type: Date || Booean,
-    default: new Date() || false,
+    type: Boolean,
+    default: false,
   },
 });
  

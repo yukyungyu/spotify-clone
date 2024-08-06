@@ -45,8 +45,8 @@ const props = defineProps({
     default: false,
   },
   date: {
-    type: Date || Booean,
-    default: new Date() || false,
+    type: Boolean,
+    default: false,
   },
 });
 const items = computed(() => props.data);
