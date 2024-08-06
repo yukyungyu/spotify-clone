@@ -58,12 +58,6 @@ Spotify API를 이용하여 저희만의 방식대로 만든 스포티파이 클
 > 
 --------------------------------------------------------
 
-### (8) 설치 가이드
-node 버전 : 20.9.0
-vue3 버전: 3.4.34
-
---------------------------------------------------------
-
 ### (8) 참고문서
 > API
 >
@@ -74,13 +68,13 @@ vue3 버전: 3.4.34
 >
 > https://github.com/John-Weeks-Dev/spotify-clone
 
+--------------------------------------------------------
+
+### (9) 설치 가이드
+node 버전 : 20.9.0
+vue3 버전: 3.4.34
+
 ![footer](https://capsule-render.vercel.app/api?section=footer&type=waving&color=7F7FD5)
-
-</div>
-
-<div align=center>
-  
-![header](https://capsule-render.vercel.app/api?type=venom&color=1db954&height=260&section=header&text=Spotify%20Clone&fontSize=90&fontColor=191919)
 
 </div>
 
