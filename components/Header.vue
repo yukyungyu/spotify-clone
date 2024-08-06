@@ -105,6 +105,24 @@ const LogOut = () => {
   });
   router.push('/login');
 };
+
+onUnmounted(() => {
+  searchKeyword.value = '';
+});
+
+// 페이지를 벗어날 때 `searchKeyword`를 초기화
+const clearSearchKeyword = () => {
+  searchKeyword.value = '';
+};
+
+watch(
+  () => route.path,
+  (newVal) => {
+    if (route.path !== '/search') {
+      searchKeyword.value = '';
+    }
+  },
+);
 </script>
 <style>
 input:focus {

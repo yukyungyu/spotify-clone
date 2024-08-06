@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <section>
     <STitle v-if="route.path === '/'">인기앨범</STitle>
     <STitle v-else>앨범</STitle>
     <SList type="album" :data="album" :date="date" />
-  </div>
+  </section>
 </template>
 
 <script setup>
