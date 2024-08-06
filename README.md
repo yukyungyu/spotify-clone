@@ -16,7 +16,7 @@
 - vue3 버전: 3.4.34
 
 ### 참고문서
-API: https://developer.spotify.com/documentation/web-api
-https://github.com/John-Weeks-Dev/spotify-clone
+- API: https://developer.spotify.com/documentation/web-api
+- https://github.com/John-Weeks-Dev/spotify-clone
 
 </div>
