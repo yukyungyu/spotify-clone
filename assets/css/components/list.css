@@ -8,20 +8,24 @@
   flex-direction: column;
   position: relative;
   -webkit-box-flex: 1;
-  contain-intrinsic-size: auto 260px;
+  contain-intrinsic-size: auto 180px;
   container-type: inline-size;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  min-height: 260px;
+  min-height: 180px;
 }
-.list_box {  
-  gap: 20px;
-  display: grid; 
+.list_box {
+  display: grid;
+  box-sizing: border-box;
   grid-template-rows: repeat(1, minmax(0, 1fr));
-  grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
-}  
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
 .list_box.circle img {
   border-radius: 50%;
   width: 100%; 
 }
- 
+.list_box .title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

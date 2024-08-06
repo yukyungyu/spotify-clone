@@ -18,7 +18,7 @@
 
   <!-- 검색결과 -->
   <div v-else class="searchList">
-    <!-- 텝 -->
+    <!-- 탭 -->
     <div class="tab ml-4 pt-4">
       <ul class="flex gap-3">
         <li
@@ -36,14 +36,16 @@
     </div>
     <!-- 상위 결과, 곡 -->
     <div class="flex items-center mb-6">
-      <section class="search-result">
+      <section class="search-result w-[420px]">
         <STitle>상위 결과</STitle>
-        <div class="card mt-4 mx-4 pt-2 bg-[#181818] rounded-md w-[420px]">
+        <div
+          class="card mt-4 mx-4 p-5 bg-[#181818] hover:bg-[#333] rounded-md h-[240px]"
+        >
           <div
             class="profile-img rounded-full overflow-hidden w-[92px] h-[92px]"
           >
             <img
-              :src="searchList.artists[0].images[2].url"
+              :src="searchList.artists[0].images[0].url"
               :alt="searchList.artists[0].name"
               class="w-fit"
             />
@@ -58,21 +60,64 @@
           </div>
         </div>
       </section>
-      <section class="search-songs">
+      <section class="search-songs grow">
         <STitle>곡</STitle>
-        <div class="song-list mt-2"></div>
+        <div class="song-list mt-4 mt-2 bg-[#181818] rounded-md h-[240px]">
+          <div
+            v-for="track in searchList.tracks"
+            :key="track.id"
+            class="song-item px-4 py-2 hover:bg-[#333] hover:text-[white] rounded-md"
+          >
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div
+                  class="song-image w-[40px] h-[40px] relative flex items-center justify-between"
+                >
+                  <img
+                    :src="track.album.images[2].url"
+                    :alt="track.album.name"
+                    class="album-image w-[40px] h-[40px] rounded-sm"
+                  />
+                  <button
+                    class="play-btn flex items-center justify-center w-full h-full text-[white] opacity-0 absolute"
+                    type="button"
+                  >
+                    <svg
+                      data-encore-id="icon"
+                      role="img"
+                      aria-hidden="true"
+                      class="Svg-sc-ytk21e-0 bneLcE zOsKPnD_9x3KJqQCSmAq w-[16px] h-[16px] fill-white"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="song-info flex flex-col">
+                  <div class="song-name text-[18px] text-[white]">
+                    {{ track.name }}
+                  </div>
+                  <div class="artist-name text-[14px] text-gray-400 mt-1">
+                    {{ track.artists[0].name }}
+                  </div>
+                </div>
+              </div>
+              <div class="duration-info text-gray-400">
+                {{ processTime(track.duration_ms) }}
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
     <!-- 아티스트 -->
-    <Artist :data="searchList.artists" />
+    <Artist type="artist" :data="searchList.artists" />
     <!-- 앨범 -->
-    <Album 
-      type="album" 
-      :date="true"
-      :data="searchList.albums" 
-    />
+    <Album type="album" :date="true" :data="searchList.albums" />
     <!-- 플레이리스트 -->
-    <Playlist />
+    <Playlist type="playlist" :date="true" :data="searchList.playlists" />
   </div>
 </template>
 
@@ -116,7 +161,8 @@ const getSearch = async (query) => {
     searchList.artists = response.data.artists.items;
     searchList.albums = response.data.albums.items;
     searchList.playlists = response.data.playlists.items;
-    searchList.tracks = response.data.tracks.items; 
+    searchList.tracks = response.data.tracks.items.slice(0, 4);
+    // console.log('searchList.playlists: ', searchList.playlists);
   } catch (error) {
     error.value = 'Failed to search category' + error.message;
   }
@@ -143,6 +189,15 @@ const getAllCategory = async () => {
   }
 };
 
+const processTime = (ms) => {
+  const totalSeconds = Math.floor(ms / 1000);
+
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};
+
 onMounted(() => {
   getAllCategory();
 });
@@ -154,12 +209,20 @@ watch(
     getSearch(route.query.q);
   },
 );
-
-onUnmounted(() => {});
 </script>
 <style>
 .tab > ul > li.active {
   background-color: #fff;
   color: #000;
+}
+
+.song-item:hover .album-image {
+  opacity: 0.65;
+}
+.song-item:hover .play-btn {
+  opacity: 1;
+}
+.song-item:hover .play-btn .svg {
+  fill: currentcolor;
 }
 </style>
