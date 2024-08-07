@@ -1,6 +1,9 @@
 <template>
   <section v-if="songList.length > 0">
-    <div class="song-list mt-4 mt-2 rounded-md">
+    <div
+      class="song-list mt-4 mt-2 rounded-md"
+      :class="`h-[${size?.height}px]`"
+    >
       <div
         v-for="track in songList"
         :key="track.id"
@@ -62,10 +65,6 @@ const props = defineProps({
     // default: () => [],
     required: true,
   },
-  width: {
-    type: Number,
-    default: 0,
-  },
   height: {
     type: Number,
     default: 0,
@@ -85,13 +84,10 @@ const processTime = (ms) => {
 };
 
 watch(
-  () => [props.data, props.width, props.height],
+  () => [props.data, props.height],
   (newVal) => {
-    console.log(newVal);
     songList.value = newVal[0];
-    size.value.width = newVal[1];
-    size.value.height = newVal[2];
-    console.log('size: ' + size.value.width + ' height: ' + size.value.height);
+    size.value.height = newVal[1];
   },
 );
 </script>
