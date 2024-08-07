@@ -90,13 +90,14 @@ const store = CommonStore();
 const router = useRouter();
 const route = useRoute();
 
-// search 페이지에서 나가면 검색어 초기화
+// 📌 search 페이지에서 나가면 검색어 초기화
 const handleSearch = () => {
   if (searchKeyword.value.trim()) {
     router.push({ path: '/search', query: { q: searchKeyword.value } });
   }
 };
 
+// 📌 로그아웃
 const LogOut = () => {
   store.logOut({
     accessToken: '',
@@ -112,7 +113,7 @@ onUnmounted(() => {
 
 watch(
   () => route.path,
-  (newVal) => {
+  () => {
     if (route.path !== '/search') {
       searchKeyword.value = '';
     }

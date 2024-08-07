@@ -15,7 +15,6 @@ import { CommonStore } from '@/stores/pinia';
 import { useRouter } from 'vue-router';
 
 const store = CommonStore();
-
 const config = useRuntimeConfig();
 const clientId = config.public.spotifyClientID;
 const uri = config.public.spotifyURL;

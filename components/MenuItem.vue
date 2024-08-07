@@ -21,15 +21,6 @@ const icon = ref(null)
 const textIsHover = ref(false) 
 const route = useRoute()  
 
-// 📌 이미지 변환
-const useAsset = (icon) => {
-  const assets = import.meta.glob('~/assets/images/icons/*.png', {
-    eager: true,
-    import: 'default',
-  })
-  return assets[`/assets/images/icons/${icon}.png`]
-}
-
 const props = defineProps({
   iconString: {
     type: String,
@@ -49,6 +40,15 @@ const props = defineProps({
   },
 })
  
+// 📌 이미지 변환
+const useAsset = (icon) => {
+  const assets = import.meta.glob('~/assets/images/icons/*.png', {
+    eager: true,
+    import: 'default',
+  })
+  return assets[`/assets/images/icons/${icon}.png`]
+}
+
 // 📌 네비 활성화, 비활성화
 watchEffect(() => {
   if(route.path === props.pageUrl) {

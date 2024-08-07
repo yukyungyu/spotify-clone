@@ -1,6 +1,6 @@
 <template>
-  <Album  icon/>
   <Artist icon />
+  <Album  icon/>
   <Playlist icon/>
 </template>
 
