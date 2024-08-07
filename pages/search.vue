@@ -21,19 +21,29 @@
     <!-- 텝 -->
     <div class="tab ml-4 pt-4">
       <ul class="flex gap-3">
-        <li class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition active">
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition active"
+        >
           모두
         </li>
-        <li class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition">
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
+        >
           아티스트
         </li>
-        <li class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition">
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
+        >
           플레이리스트
         </li>
-        <li class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition">
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
+        >
           곡
         </li>
-        <li class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition">
+        <li
+          class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
+        >
           앨범
         </li>
       </ul>
@@ -70,66 +80,16 @@
       </section>
       <section class="search-songs grow">
         <STitle>곡</STitle>
-        <div class="song-list mt-4 mt-2 rounded-md h-[240px]">
-          <div
-            v-for="track in searchList.tracks"
-            :key="track.id"
-            class="song-item px-4 py-2 hover:bg-[#333] transition hover:text-[white] rounded-md"
-          >
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <div
-                  class="song-image w-[40px] h-[40px] relative flex items-center justify-between"
-                >
-                  <img
-                    :src="track.album.images[2].url"
-                    :alt="track.album.name"
-                    class="album-image w-[40px] h-[40px] rounded-sm"
-                  />
-                  <button
-                    class="play-btn flex items-center justify-center w-full h-full text-[white] opacity-0 absolute"
-                    type="button"
-                  >
-                    <svg
-                      data-encore-id="icon"
-                      role="img"
-                      aria-hidden="true"
-                      class="Svg-sc-ytk21e-0 bneLcE zOsKPnD_9x3KJqQCSmAq w-[16px] h-[16px] fill-white"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-                <div class="song-info flex flex-col">
-                  <div
-                    class="song-name text-[18px] text-[white] cursor-pointer hover:underline decoration-1"
-                  >
-                    {{ track.name }}
-                  </div>
-                  <div
-                    class="artist-name text-[14px] text-gray-400 mt-1 cursor-pointer hover:underline decoration-1"
-                  >
-                    {{ track.artists[0].name }}
-                  </div>
-                </div>
-              </div>
-              <div class="duration-info text-gray-400">
-                {{ processTime(track.duration_ms) }}
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- SongLow 컴포넌트 -->
+        <SongRow :data="searchList.tracks" :height="240" />
       </section>
     </div>
     <!-- 아티스트 -->
-    <Artist :data="searchList.artists" />
+    <Artist :data="searchList.artists" :icon="true" />
     <!-- 앨범 -->
-    <Album date :data="searchList.albums" />
+    <Album date :data="searchList.albums" :icon="true" />
     <!-- 플레이리스트 -->
-    <Playlist :data="searchList.playlists" />
+    <Playlist :data="searchList.playlists" :icon="true" />
   </div>
 </template>
 
@@ -173,7 +133,7 @@ const getSearch = async (query) => {
     searchList.artists = response.data.artists.items;
     searchList.albums = response.data.albums.items;
     searchList.playlists = response.data.playlists.items;
-    searchList.tracks = response.data.tracks.items.slice(0, 4); 
+    searchList.tracks = response.data.tracks.items.slice(0, 4);
   } catch (error) {
     error.value = 'Failed to search category' + error.message;
   }
@@ -199,14 +159,6 @@ const getAllCategory = async () => {
     error.value = 'Failed to fetch category ' + error.message;
   }
 };
-const processTime = (ms) => {
-  const totalSeconds = Math.floor(ms / 1000);
-
-  const minutes = Math.floor(totalSeconds / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-};
 
 onMounted(() => {
   getAllCategory();
@@ -214,12 +166,11 @@ onMounted(() => {
 
 watch(
   () => route.query.q,
-  () => { 
+  () => {
     getSearch(route.query.q);
   },
 );
- 
 </script>
-<style lang="css" scoped>  
+<style lang="css" scoped>
 @import url('@/assets/css/components/search.css');
 </style>

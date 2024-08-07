@@ -9,7 +9,7 @@
         <NuxtLink :to="{ path: `/${type}/${item.id}` }">
           <div :class="icon ? 'play_icon' : 'no_icon'">
             <img
-              class="rounded-sm"
+              class="rounded-md"
               :src="item.images[0]?.url"
               :alt="item.name"
               :width="
