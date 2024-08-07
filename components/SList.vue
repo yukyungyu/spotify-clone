@@ -54,7 +54,9 @@
 </template>
 
 <script setup>
-import { format } from 'date-fns';
+import { format } from 'date-fns'; 
+const items = computed(() => props.data);
+const list = ref(null);
 
 const props = defineProps({
   data: {
@@ -77,19 +79,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-});
-const items = computed(() => props.data);
-const list = ref(null);
-
-// 📌 resize, 마운트 설정
-onMounted(() => {
-  window.addEventListener('resize', adjustItems);
-});
-
-// 📌 마운트 종료
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', adjustItems);
-});
+}); 
 
 // 📌 이미지 resize 처리
 const adjustItems = () => {
@@ -117,6 +107,14 @@ const adjustItems = () => {
   });
 };
 
+// 📌 ...으로 표시하기
+const ellipsis = (text, length = 42) => {
+  if (text.length > length) {
+    text = text.substr(0, length - 2) + '...';
+  }
+  return text;
+};
+
 // 📌 데이터 내려받기
 watch(
   () => props.data,
@@ -127,12 +125,15 @@ watch(
   { immediate: true },
 );
 
-const ellipsis = (text, length = 42) => {
-  if (text.length > length) {
-    text = text.substr(0, length - 2) + '...';
-  }
-  return text;
-};
+// 📌 resize, 마운트 설정
+onMounted(() => {
+  window.addEventListener('resize', adjustItems);
+});
+
+// 📌 마운트 종료
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', adjustItems);
+});
 </script>
 
 <style lang="css" scoped>

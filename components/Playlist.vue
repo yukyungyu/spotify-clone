@@ -11,14 +11,25 @@
 </template>
 
 <script setup>
-const { $axios } = useNuxtApp();
-const route = useRoute();
 import { CommonStore } from '@/stores/pinia';
-
+const { $axios } = useNuxtApp();
+const route = useRoute(); 
 const store = CommonStore();
 const playlist = ref([]);
 const local = ref('ko_KR');
 
+const props = defineProps({
+  data: {
+    type: Array,
+    default: () => [],
+  }, 
+  icon: {
+    type: Boolean,
+    default: false, 
+  }
+});
+
+// 📌 플레이 리스트 가져오기
 const getPlaylists = async () => {
   try {
     const { data } = await $axios.get(
@@ -34,17 +45,6 @@ const getPlaylists = async () => {
     console.error(error);
   }
 };
-
-const props = defineProps({
-  data: {
-    type: Array,
-    default: () => [],
-  }, 
-  icon: {
-    type: Boolean,
-    default: false, 
-  }
-});
 
 watch(
   () => props.data,

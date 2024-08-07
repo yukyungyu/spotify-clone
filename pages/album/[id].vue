@@ -1,7 +1,43 @@
 <template>
-  <section></section>
+  <section>
+
+  </section>
 </template>
 
-<script setup></script>
+<script setup>
+import { CommonStore } from '@/stores/pinia';
+import { useRoute } from 'vue-router';
+
+const local = ref('KR'); 
+const { $axios } = useNuxtApp();
+const store = CommonStore();
+const albumList = ref('')
+const route = useRoute(); 
+
+// 📌 앨범 가져오기
+const id = route.path.split('/')[2]
+const getIdAlbum = async() => {
+  try {
+    const { data } = await $axios.get(
+      `https://api.spotify.com/v1/albums/${id}?market=${local.value}`,
+      {
+        headers: {
+          Authorization: `Bearer ${store.accessToken}`,
+        },
+      },
+    );
+    console.log(data,"data")
+    albumList.value = data.albums;
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+onMounted(() => {
+  if (store.isUser) {
+    getIdAlbum();
+  }
+});
+</script>
 
 <style lang="css" scoped></style>
