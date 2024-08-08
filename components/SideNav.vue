@@ -1,5 +1,5 @@
 <template>
-  <nav id="SideNav" class="h-[100%] p-6 w-[420px] fixed z-50 bg-black">
+  <nav id="SideNav" class="h-[100%] p-6 w-[300px] fixed z-50 bg-black">
     <NuxtLink to="/">
       <img width="125" src="@/assets/images/icons/spotify-logo.png" />
     </NuxtLink>
