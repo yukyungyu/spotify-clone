@@ -3,20 +3,17 @@
     <img
       :src="items.images[0]?.url"
       :alt="items.name"
-      class="max-w-[250px] w-[35%] min-w-[10rem] h-[max-content] rounded-md"
+      class="max-w-[280px] w-[35%] min-w-[10rem] h-[max-content] rounded-md"
     />
     <div
       class="flex flex-col justify-center ml-5 sm:justify-end whitespace-nowrap"
     >
-      <p
-        v-for="item in typeName"
-        class="text-lg mt-2 text-[1rem] sm:text-[0.8rem] mb-0"
-      >
+      <p v-for="item in typeName" class="text-lg text-[1rem] sm:text-[0.8rem]">
         <template v-if="items.type === item.type">
           {{ item.name }}
         </template>
       </p>
-      <h2 class="text-9xl font-bold sm:text-[2rem]">
+      <h2 class="text-9xl font-bold md:text-[6rem] sm:text-[2rem]">
         {{ items.name }}
       </h2>
       <div class="flex">

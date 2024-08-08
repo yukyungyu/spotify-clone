@@ -28,6 +28,7 @@ const getIdAlbum = async () => {
         },
       },
     );
+    // console.log('album:', data);
     album.value = data;
   } catch (e) {
     console.error(e);
