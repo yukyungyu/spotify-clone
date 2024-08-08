@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { format } from 'date-fns'; 
+import { format } from 'date-fns';
 const items = computed(() => props.data);
 const list = ref(null);
 
@@ -79,7 +79,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-}); 
+});
 
 // 📌 이미지 resize 처리
 const adjustItems = () => {
