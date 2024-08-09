@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex pt-3">
+  <article class="relative flex pt-3">
     <img
       :src="items.images[0].url"
       class="max-w-[280px] w-[35%] min-w-[10rem] h-[max-content] rounded-md"
@@ -52,7 +52,7 @@
       </div>
     </div>
     <div :style="thumbnailStyle" class="thumbnail"></div>
-  </div>
+  </article>
 </template>
 
 <script setup>

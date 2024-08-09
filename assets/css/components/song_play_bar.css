@@ -1,0 +1,26 @@
+.song_play_bar {
+  /* height: 80px; */
+  background-color: transparent;
+}
+.song_play_bar .play {
+  position: relative;
+  text-indent: -9999px;
+  aspect-ratio: 1 / 1;
+  width: 55px;
+  background-color: #1abc54;
+  border-radius: 50%;
+}
+.song_play_bar .play::after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 1.2rem solid #000;
+  border-right: 0.8rem solid transparent;
+  border-top: 0.8rem solid transparent;
+  border-bottom: 0.8rem solid transparent;
+  top: 50%;
+  left: calc(50% + 0.6rem);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
