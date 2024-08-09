@@ -10,16 +10,17 @@
     >
       <p
         v-for="item in typeName"
-        class="text-lg mt-2 text-[1rem] sm:text-[0.8rem] mb-0"
+        class="text-sm mt-2 text-[1rem] sm:text-[0.8rem] mb-0 --white-opacity-7"
       >
         <template v-if="items.type === item.type">
           {{ item.name }}
         </template>
       </p>
-      <h2 class="text-9xl font-bold sm:text-[2rem]">
+      <h2 class="text-6xl font-bold mt-2 sm:text-[2rem] whitespace-nowrap">
         {{ items.name }}
       </h2>
-      <div class="flex">
+      <!-- 앨범 -->
+      <div v-if="items.type !== 'playlist'" class="flex">
         <!-- <img
           class="mr-4"
           :src="items.artists[0].href"
@@ -40,6 +41,20 @@
         <span class="text-lg text-[1rem] sm:text-[0.8rem]"
           >{{ time.sec }}초</span
         >
+      </div>
+      <!-- 플레이리스트 -->
+      <div v-else class="flex flex-col">
+        <div
+          class="playlist-tag text-sm mt-2 text-[1rem] sm:text-[0.8rem] mb-0 --white-opacity-7"
+        >
+          <span>{{ items.description }}</span>
+        </div>
+        <div
+          class="playlist-info flex text-sm mt-2 text-[1rem] sm:text-[0.8rem] mb-0 --white-opacity-7"
+        >
+          <span class="font-semibold">{{ items.owner.display_name }} </span>
+          <span class="total-cnt mx-4">{{ items.tracks.total }}곡</span>
+        </div>
       </div>
     </div>
     <div :style="thumbnailStyle" class="thumbnail"></div>
@@ -63,6 +78,10 @@ const typeName = ref([
   {
     type: 'artist',
     name: '아티스트',
+  },
+  {
+    type: 'playlist',
+    name: '플레이리스트',
   },
 ]);
 const items = ref({});
@@ -93,9 +112,17 @@ watch(
       time.value.min = Math.floor(totalTime / (1000 * 60));
       time.value.sec = Math.floor((totalTime % (1000 * 60)) / 1000);
     });
-    // console.log(time, 'item');
   },
 );
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.total-cnt {
+  position: relative;
+}
+.total-cnt::before {
+  position: absolute;
+  content: '•';
+  margin-left: -14px;
+}
+</style>
