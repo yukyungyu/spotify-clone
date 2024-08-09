@@ -1,10 +1,11 @@
 <template>
   <section>
     <SongThumbnail :data="album.thumbnail" />
+    <SongPlayBar />
+    <SongRow :data="album.tracks" />
     <div>
       <STitle>{{ album.name }}의 곡 더보기</STitle>
     </div>
-    <SongRow :data="album.tracks" />
     <footer />
   </section>
 </template>
@@ -37,6 +38,7 @@ const getIdAlbum = async () => {
     album.thumbnail = response.data;
     album.name = response.data.artists[0].name;
     album.tracks = response.data.tracks.items;
+    console.log(response.data, ': data');
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }

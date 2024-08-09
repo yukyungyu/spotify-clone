@@ -51,6 +51,7 @@
         </div>
       </div>
     </div>
+    <div :style="thumbnailStyle" class="thumbnail"></div>
   </div>
 </template>
 
@@ -93,6 +94,18 @@ const time = reactive({
   total: 0,
 });
 
+// 📌 배경 블러처리
+const thumbnailStyle = computed(() => ({
+  position: 'absolute',
+  zIndex: '-1',
+  width: '100%',
+  height: '100%',
+  background: `linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 100%), url(${items.images[0].url}) no-repeat`,
+  backgroundSize: '100%',
+  backgroundPosition: 'top',
+  filter: 'blur(70px)',
+}));
+
 // 📌 타입이름
 const typeName = ref([
   {
@@ -117,7 +130,6 @@ const totalPlayTimes = () => {
   items.tracks.items.forEach((item) => {
     time.total += item.duration_ms;
   });
-  console.log(time.total, 'total');
   time.min = Math.floor(time.total / (1000 * 60));
   time.sec = Math.floor((time.total % (1000 * 60)) / 1000);
 };
