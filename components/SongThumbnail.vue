@@ -1,7 +1,7 @@
 <template>
-  <div v-if="items.images?.length > 0" class="relative flex pt-3">
+  <div class="relative flex pt-3">
     <img
-      :src="items.images[0]?.url"
+      :src="items.images[0].url"
       :alt="items.name"
       class="max-w-[280px] w-[35%] min-w-[10rem] h-[max-content] rounded-md"
     />
