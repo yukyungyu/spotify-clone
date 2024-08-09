@@ -26,7 +26,7 @@ const { $axios } = useNuxtApp();
 const local = ref('ko_KR');
 
 const playlistData = reactive({
-  info: {},
+  info: [],
   track: [],
 });
 
@@ -42,23 +42,7 @@ const getPlaylistDetail = async (id) => {
       },
     );
     playlistData.info = response.data;
-  } catch (error) {
-    error.value = 'Failed to fetch category ' + error.message;
-  }
-};
-
-// 📌 트랙 리스트 가져오기
-const getTracks = async (id) => {
-  try {
-    const response = await $axios.get(
-      `https://api.spotify.com/v1/playlists/${id}/tracks?market=${local.value}`,
-      {
-        headers: {
-          Authorization: `Bearer ${store.accessToken}`,
-        },
-      },
-    );
-    playlistData.track = response.data.items.map((el) => el.track);
+    playlistData.track = response.data.tracks.items;
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
@@ -66,7 +50,6 @@ const getTracks = async (id) => {
 
 onMounted(() => {
   getPlaylistDetail(route.params.id);
-  getTracks(route.params.id);
 });
 watch(
   () => route.params.id,
