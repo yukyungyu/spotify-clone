@@ -171,3 +171,11 @@ table {
   padding: 2px;
   background-color: rgba(33, 122, 244, 0.1); /* 스크롤바 뒷배경 */
 }
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0);
+  margin: -1px;
+}

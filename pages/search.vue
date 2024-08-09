@@ -82,7 +82,7 @@
       <section class="search-songs grow">
         <STitle>곡</STitle>
         <!-- SongLow 컴포넌트 -->
-        <SongRow :data="searchList.tracks" :height="240" />
+        <MiniSongRow :data="searchList.tracks" :height="240" />
       </section>
     </div>
     <!-- 아티스트 -->
