@@ -1,16 +1,6 @@
 <template>
   <section>
-    <div class="top-container">
-      <div class="thumbnail">
-        <img src="" alt="playlist_thumnail" />
-      </div>
-      <div class="playlist-info">
-        <p>플레이리스트</p>
-        <h3 class="playlist-title"></h3>
-        <div class="playlist-tag"></div>
-        <div class="playlist-else"></div>
-      </div>
-    </div>
+    <SongThumbnail :data="playlistData.info" />
     <div class="under-container">
       <div class="play-area flex justify-between items-center">
         <div class="flex gap-6">
@@ -24,6 +14,7 @@
         <SongRow :data="playlistData.track" />
       </div>
     </div>
+    <footer />
   </section>
 </template>
 
@@ -39,8 +30,26 @@ const playlistData = reactive({
 });
 const local = ref('KR');
 
-// 📌 get PlaylistDetail, tracks
+// 📌 플레이리스트 디테일 가져오기
 const getPlaylistDetail = async (id) => {
+  try {
+    const response = await $axios.get(
+      `https://api.spotify.com/v1/playlists/${id}?market=${local.value}`,
+      {
+        headers: {
+          Authorization: `Bearer ${store.accessToken}`,
+        },
+      },
+    );
+
+    playlistData.info = response.data;
+  } catch (error) {
+    error.value = 'Failed to fetch category ' + error.message;
+  }
+};
+
+// 📌 트랙 리스트 가져오기
+const getTracks = async (id) => {
   try {
     const response = await $axios.get(
       `https://api.spotify.com/v1/playlists/${id}/tracks?market=${local.value}`,
@@ -50,7 +59,6 @@ const getPlaylistDetail = async (id) => {
         },
       },
     );
-    playlistData.info = response.data.items;
     playlistData.track = response.data.items.map((el) => el.track);
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
@@ -59,6 +67,7 @@ const getPlaylistDetail = async (id) => {
 
 onMounted(() => {
   getPlaylistDetail(route.params.id);
+  getTracks(route.params.id);
 });
 watch(
   () => route.params.id,
