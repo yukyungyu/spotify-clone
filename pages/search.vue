@@ -11,6 +11,7 @@
           :category="item.name"
           :image="item.icons[0].url"
           :key="item.id"
+          :id="item.id"
         />
       </div>
     </div>
