@@ -1,5 +1,5 @@
 <template>
-  <nav id="SideNav" class="h-[100%] p-6 w-[300px] fixed z-50 bg-black">
+  <nav id="SideNav" class="h-[100%] p-6 w-[360px] fixed z-50 bg-black">
     <NuxtLink to="/">
       <img width="125" src="@/assets/images/icons/spotify-logo.png" />
     </NuxtLink>
@@ -8,8 +8,8 @@
       <NuxtLink to="/">
         <MenuItem
           class="ml-[1px]"
-          :iconSize="23"
-          name="Home"
+          :iconSize="24"
+          name="홈"
           iconString="home"
           pageUrl="/"
         />
@@ -17,8 +17,8 @@
       <NuxtLink to="/search">
         <MenuItem
           class="ml-[1px]"
-          :iconSize="23"
-          name="Search"
+          :iconSize="24"
+          name="검색하기"
           iconString="search"
           pageUrl="/search"
         />
@@ -26,40 +26,18 @@
       <NuxtLink to="/library">
         <MenuItem
           class="ml-[1px]"
-          :iconSize="23"
-          name="Library"
+          :iconSize="24"
+          name="내 라이브러리"
           iconString="library"
           pageUrl="/library"
         />
       </NuxtLink>
       <div class="py-3.5"></div>
-      <MenuItem
-        :iconSize="24"
-        name="Create Playlist"
-        iconString="playlist"
-        pageUrl="/playlist"
-      />
-      <MenuItem
-        class="-ml-[1px]"
-        :iconSize="27"
-        name="Liked Songs"
-        iconString="liked"
-        pageUrl="/liked"
-      />
     </ul>
     <div class="border-b border-b-gray-700"></div>
     <ul>
       <li class="font-semibold text-[13px] mt-3 text-gray-300 hover:text-white">
-        My PlayList #1
-      </li>
-      <li class="font-semibold text-[13px] mt-3 text-gray-300 hover:text-white">
-        My PlayList #2
-      </li>
-      <li class="font-semibold text-[13px] mt-3 text-gray-300 hover:text-white">
-        My PlayList #3
-      </li>
-      <li class="font-semibold text-[13px] mt-3 text-gray-300 hover:text-white">
-        My PlayList #4
+        플레이리스트
       </li>
     </ul>
   </nav>
