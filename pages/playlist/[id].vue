@@ -23,12 +23,12 @@ import { ref } from 'vue';
 const route = useRoute();
 const store = CommonStore();
 const { $axios } = useNuxtApp();
+const local = ref('ko_KR');
 
 const playlistData = reactive({
-  info: [],
+  info: {},
   track: [],
 });
-const local = ref('KR');
 
 // 📌 플레이리스트 디테일 가져오기
 const getPlaylistDetail = async (id) => {
@@ -41,7 +41,6 @@ const getPlaylistDetail = async (id) => {
         },
       },
     );
-
     playlistData.info = response.data;
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;

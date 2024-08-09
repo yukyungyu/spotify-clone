@@ -1,5 +1,5 @@
 <template>
-  <section v-if="songList.length > 0">
+  <section>
     <div
       class="song-list mt-4 mt-2 rounded-md"
       :class="`h-[${size?.height}px]`"
@@ -12,6 +12,7 @@
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <div
+              v-if="track.album?.images.length > 0"
               class="song-image w-[40px] h-[40px] relative flex items-center justify-between"
             >
               <img
@@ -62,7 +63,7 @@
 const props = defineProps({
   data: {
     type: Array,
-    // default: () => [],
+    default: () => [],
     required: true,
   },
   height: {

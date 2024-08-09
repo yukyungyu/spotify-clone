@@ -1,7 +1,10 @@
 <template>
   <section>
-    <SongThumbnail :data="album" />
-    <div></div>
+    <SongThumbnail :data="album.thumbnail" />
+    <div>
+      <STitle>{{ album.name }}의 곡 더보기</STitle>
+    </div>
+    <SongRow :data="album.tracks" />
     <footer />
   </section>
 </template>
@@ -10,35 +13,36 @@
 import { CommonStore } from '@/stores/pinia';
 import { useRoute } from 'vue-router';
 
-const local = ref('KR');
+const local = ref('ko_KR');
 const { $axios } = useNuxtApp();
 const store = CommonStore();
-const album = ref({});
 const route = useRoute();
+const album = reactive({
+  thumbnail: {},
+  name: '',
+  tracks: [],
+});
 
 // 📌 앨범 가져오기
-const id = route.path.split('/')[2];
 const getIdAlbum = async () => {
   try {
-    const { data } = await $axios.get(
-      `https://api.spotify.com/v1/albums/${id}?market=${local.value}`,
+    const response = await $axios.get(
+      `https://api.spotify.com/v1/albums/${route.params.id}?market=${local.value}`,
       {
         headers: {
           Authorization: `Bearer ${store.accessToken}`,
         },
       },
     );
-    // console.log('album:', data);
-    album.value = data;
-  } catch (e) {
-    console.error(e);
+    album.thumbnail = response.data;
+    album.name = response.data.artists[0].name;
+    album.tracks = response.data.tracks.items;
+  } catch (error) {
+    error.value = 'Failed to fetch category ' + error.message;
   }
 };
-
 onMounted(() => {
-  if (store.isUser) {
-    getIdAlbum();
-  }
+  getIdAlbum();
 });
 </script>
 

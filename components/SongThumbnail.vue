@@ -2,7 +2,6 @@
   <div class="relative flex pt-3">
     <img
       :src="items.images[0].url"
-      :alt="items.name"
       class="max-w-[280px] w-[35%] min-w-[10rem] h-[max-content] rounded-md"
     />
     <div
@@ -21,19 +20,14 @@
       </h2>
       <!-- 앨범 -->
       <div v-if="items.type !== 'playlist'" class="flex">
-        <!-- <img
-          class="mr-4"
-          :src="items.artists[0].href"
-          :alt="items.artists[0].name"
-        /> -->
         <span class="dot mr-4 text-lg text-[1rem] sm:text-[0.8rem]">{{
           items.artists[0].name
         }}</span>
         <span class="dot mr-4 text-lg text-[1rem] sm:text-[0.8rem]">{{
-          format(new Date(items.release_date), 'yyyy')
+          items.release_date && computedDate(items.release_date)
         }}</span>
         <span class="dot mr-4 text-lg text-[1rem] sm:text-[0.8rem]"
-          >{{ items.tracks.total }}곡</span
+          >{{ items.total_tracks }}곡</span
         >
         <span class="mr-1 text-lg text-[1rem] sm:text-[0.8rem]"
           >{{ time.min }}분</span
@@ -57,12 +51,11 @@
         </div>
       </div>
     </div>
-    <div :style="thumbnailStyle" class="thumbnail"></div>
   </div>
 </template>
 
 <script setup>
-import { format } from 'date-fns';
+import { format as dateFormat } from 'date-fns';
 const props = defineProps({
   data: {
     type: Object,
@@ -70,6 +63,37 @@ const props = defineProps({
   },
 });
 
+const items = reactive({
+  images: [
+    {
+      url: '',
+    },
+  ],
+  name: '',
+  artists: [
+    {
+      name: '',
+    },
+  ],
+  type: '',
+  tracks: [
+    {
+      duration_ms: 0,
+    },
+  ],
+  total_tracks: '',
+  description: '',
+  release_date: '',
+  owner: '',
+});
+
+const time = reactive({
+  min: 0,
+  sec: 0,
+  total: 0,
+});
+
+// 📌 타입이름
 const typeName = ref([
   {
     type: 'album',
@@ -84,34 +108,48 @@ const typeName = ref([
     name: '플레이리스트',
   },
 ]);
-const items = ref({});
 
-const time = ref({
-  min: 0,
-  sec: 0,
-});
+// 📌 날짜 변환
+const computedDate = (date) => dateFormat(new Date(date), 'yyyy');
 
-const thumbnailStyle = computed(() => ({
-  position: 'absolute',
-  zIndex: '-1',
-  width: '100%',
-  height: '100%',
-  background: `linear-gradient(transparent 0, rgba(0, 0, 0, 0.5) 100%), url(${items.value.images[0]?.url}) no-repeat`,
-  backgroundSize: '100%',
-  backgroundPosition: 'top',
-  filter: 'blur(70px)',
-}));
+// 📌 시간 변환
+const totalPlayTimes = () => {
+  items.tracks.items.forEach((item) => {
+    time.total += item.duration_ms;
+  });
+  console.log(time.total, 'total');
+  time.min = Math.floor(time.total / (1000 * 60));
+  time.sec = Math.floor((time.total % (1000 * 60)) / 1000);
+};
+
 watch(
   () => props.data,
-  (newData) => {
-    let totalTime = 0;
-    items.value = newData;
-    console.log(items.value);
-    items.value.tracks.items.map((item) => {
-      totalTime += item.duration_ms;
-      time.value.min = Math.floor(totalTime / (1000 * 60));
-      time.value.sec = Math.floor((totalTime % (1000 * 60)) / 1000);
+  (newVal) => {
+    const {
+      type = '',
+      images = [],
+      name = '',
+      artists = [],
+      total_tracks = '',
+      description = '',
+      owner = { display_name: '' },
+      release_date = '',
+      tracks = { items: [], total: 0 },
+    } = newVal;
+
+    Object.assign(items, {
+      type,
+      images,
+      name,
+      artists,
+      total_tracks,
+      description,
+      owner,
+      release_date,
+      tracks,
     });
+
+    totalPlayTimes();
   },
 );
 </script>
