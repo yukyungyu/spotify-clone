@@ -10,9 +10,10 @@ export default {
   ],
   theme: {
     screens: {
-      sm: { min: '390px', max: '1023px' },
-      md: { min: '1024px', max: '1999px' },
-      lg: { min: '1200px' },
+      sm: { min: '390px', max: '819px' },
+      md: { min: '820px', max: '1023px' },
+      lg: { min: '1024px', max: '1279px' },
+      xl: { min: '1280px' },
     },
   },
   plugins: [],
