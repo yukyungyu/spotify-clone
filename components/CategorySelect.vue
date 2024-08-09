@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink to="/library">
+  <NuxtLink :to="{ path: `/category/${id}` }">
     <div
       v-if="randColor.color"
       :style="`background-color: ${randColor.color}`"
@@ -26,6 +26,7 @@ randColor.value = uniqolor.random();
 const props = defineProps({
   category: { type: String, required: true },
   image: { type: String, default: '' },
+  id: { type: String, required: true },
 });
 const { category } = toRefs(props);
 </script>
