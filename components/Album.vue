@@ -2,17 +2,13 @@
   <section>
     <STitle v-if="route.path === '/'">인기앨범</STitle>
     <STitle v-else>앨범</STitle>
-    <SList 
-      type="album" 
-      :data="albumList" 
-      :icon="icon"
-      :date="date"  
-    />
+    <SList type="album" :data="albumList" :icon="icon" :date="date" />
   </section>
 </template>
 
 <script setup>
 import { CommonStore } from '@/stores/pinia';
+import album from '@/server/api/album.json';
 const { $axios } = useNuxtApp();
 const route = useRoute();
 const store = CommonStore();
@@ -33,8 +29,8 @@ const props = defineProps({
   },
   icon: {
     type: Boolean,
-    default: false, 
-  }
+    default: false,
+  },
 });
 
 // 📌 앨범 리스트 가져오기
@@ -48,7 +44,7 @@ const getAlbum = async () => {
         },
       },
     );
-    albumList.value = data.albums; 
+    albumList.value = data.albums;
   } catch (e) {
     console.error(e);
   }

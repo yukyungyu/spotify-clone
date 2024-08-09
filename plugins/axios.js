@@ -1,8 +1,8 @@
-import axios from 'axios'; 
+import axios from 'axios';
 
-export default defineNuxtPlugin(nuxtApp => {
+export default defineNuxtPlugin(async (nuxtApp) => {
   const api = axios.create({
-    baseURL: process.env.SPOTIFY_URL, 
+    baseURL: process.env.SPOTIFY_URL,
     headers: {
       'Content-Type': 'application/json',
     },
