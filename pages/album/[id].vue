@@ -1,11 +1,16 @@
 <template>
   <section>
     <SongThumbnail :data="album.thumbnail" />
-    <SongPlayBar />
+    <SongPlayBar
+      @play="handlePlay"
+      @heart="handleHeart"
+      @option="handleOption"
+      @playlist="handlePlaylist"
+    />
     <SongRow :data="album.tracks" />
-    <div>
+    <article>
       <STitle>{{ album.name }}의 곡 더보기</STitle>
-    </div>
+    </article>
     <footer />
   </section>
 </template>
@@ -23,6 +28,26 @@ const album = reactive({
   name: '',
   tracks: [],
 });
+
+const handlePlay = () => {
+  console.log('Play button clicked');
+  // Add your play logic here
+};
+
+const handleHeart = () => {
+  console.log('Heart button clicked');
+  // Add your heart logic here
+};
+
+const handleOption = () => {
+  console.log('Option button clicked');
+  // Add your option logic here
+};
+
+const handlePlaylist = () => {
+  console.log('Playlist button clicked');
+  // Add your playlist logic here
+};
 
 // 📌 앨범 가져오기
 const getIdAlbum = async () => {

@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <article>
     <div
       class="song-list mt-4 mt-2 rounded-md"
       :class="`h-[${size?.height}px]`"
@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </article>
 </template>
 
 <script setup>

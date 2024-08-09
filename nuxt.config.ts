@@ -1,25 +1,25 @@
-import { fileURLToPath } from 'url'; 
+import { fileURLToPath } from 'url';
 
-export default defineNuxtConfig({ 
+export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   pages: true,
   devServer: {
     port: 3001,
-  },  
-  modules: [ 
+  },
+  modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
   ],
   runtimeConfig: {
     public: {
-      spotifyClientID : process.env.SPOTIFY_CLIENT_ID, 
-      spotifyClientSecret : process.env.SPOTIFY_CLIENT_SECRET, 
-      spotifyURL : process.env.SPOTIFY_URL,
-      spotifyRefreshToken : process.env.SPOTIFY_RT,
-    }
-  },  
+      spotifyClientID: process.env.SPOTIFY_CLIENT_ID,
+      spotifyClientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      spotifyURL: process.env.SPOTIFY_URL,
+      spotifyRefreshToken: process.env.SPOTIFY_RT,
+    },
+  },
   alias: {
     '@': fileURLToPath(new URL('./', import.meta.url)),
     '~': fileURLToPath(new URL('./', import.meta.url)),
@@ -44,12 +44,19 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'Spotify clone study' },
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Spotify clone study',
+        },
       ],
       link: [
-        { rel: 'icon', type: 'image/png', href: 'https://open.spotifycdn.com/cdn/images/favicon16.1c487bff.png' }
+        {
+          rel: 'icon',
+          type: 'image/png',
+          href: 'https://open.spotifycdn.com/cdn/images/favicon16.1c487bff.png',
+        },
       ],
-    }
-  }
-})
-
+    },
+  },
+});
