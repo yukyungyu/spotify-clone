@@ -8,7 +8,7 @@
       class="flex flex-col justify-center ml-5 sm:justify-end whitespace-nowrap"
     >
       <p
-        v-for="item in typeName"
+        v-for="(item, index) in typeName" :key="index"
         class="text-sm mt-2 text-[1rem] sm:text-[0.8rem] mb-0 --white-opacity-7"
       >
         <template v-if="items.type === item.type">
