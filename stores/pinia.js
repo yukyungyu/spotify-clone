@@ -4,8 +4,8 @@ export const CommonStore = defineStore('common',{
   state: () => ({
     accessToken: '',
     refreshToken: '',
-    isUser: false
-    
+    isUser: false,
+    local: 'ko_KR',
   }), 
   actions: {
     login(token) {

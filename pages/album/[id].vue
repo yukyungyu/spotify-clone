@@ -19,8 +19,7 @@
 <script setup>
 import { CommonStore } from '@/stores/pinia';
 import { useRoute } from 'vue-router';
-
-const local = ref('ko_KR');
+ 
 const { $axios } = useNuxtApp();
 const store = CommonStore();
 const route = useRoute();
@@ -35,7 +34,7 @@ const album = reactive({
 const getIdAlbum = async () => {
   try {
     const response = await $axios.get(
-      `https://api.spotify.com/v1/albums/${route.params.id}?market=${local.value}`,
+      `https://api.spotify.com/v1/albums/${route.params.id}?market=${store.local}`,
       {
         headers: {
           Authorization: `Bearer ${store.accessToken}`,
@@ -54,7 +53,7 @@ const getIdAlbum = async () => {
 const getTracksList = async () => {
   try {
     const response = await $axios.get(
-      `https://api.spotify.com/v1/albums/${route.params.id}/tracks?market=${local.value}`,
+      `https://api.spotify.com/v1/albums/${route.params.id}/tracks?market=${store.local}`,
       {
         headers: {
           Authorization: `Bearer ${store.accessToken}`,
@@ -66,11 +65,12 @@ const getTracksList = async () => {
     error.value = 'Failed to fetch category ' + error.message;
   }
 };
+
 // 📌 추천 앨범 가져오기
 const getRecommanded = async (id) => {
   try {
     const response = await $axios.get(
-      `https://api.spotify.com/v1/artists/${id}/albums?include_groups=single,appears_on&limit=10&offset=5&market=${local.value}`,
+      `https://api.spotify.com/v1/artists/${id}/albums?include_groups=single,appears_on&limit=10&offset=5&market=${store.local}`,
       {
         headers: {
           Authorization: `Bearer ${store.accessToken}`,
