@@ -57,7 +57,7 @@
       <div :style="thumbnailBg" class="thumbnail"></div>
     </template>
     <!-- 아티스트 -->
-    <template v-if="route.path.includes('/artise')">
+    <template v-if="route.path.includes('/artist')">
       <div class="w-[100%] h-[400px] overflow-hidden rounded-md">
         <div :style="thumbnailBgArtist"></div>
       </div>
