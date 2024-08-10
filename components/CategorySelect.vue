@@ -5,7 +5,7 @@
       :style="`background-color: ${randColor.color}`"
       class="categoryItem contrast-[2] brightness-[0.87] rounded-xl p-2 aspect-square relative overflow-hidden"
     >
-      <div class="text-white pt-3 pl-4 font-semibold text-[23px]">
+      <div class="text-white pt-3 pl-4 font-medium text-[23px]">
         {{ category }}
       </div>
       <img
