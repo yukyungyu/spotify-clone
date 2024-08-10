@@ -28,6 +28,7 @@ const local = ref('ko_KR');
 const playlistData = reactive({
   info: [],
   track: [],
+  item: [],
 });
 
 // 📌 플레이리스트 디테일 가져오기
@@ -42,7 +43,14 @@ const getPlaylistDetail = async (id) => {
       },
     );
     playlistData.info = response.data;
-    playlistData.track = response.data.tracks.items;
+    // playlistData.track = response.data.tracks.items
+    
+    playlistData.track = response.data.tracks.items.map(item => ({
+      ...item.track,
+      added_at: item.added_at
+    }));
+    // console.log('playlistData.track:', playlistData.track);
+
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }

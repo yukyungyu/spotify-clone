@@ -2,13 +2,14 @@
   <article>
     <div class="tracks mt-4 mt-2 rounded-md" :class="`h-[${size?.height}px]`">
       <div
-        class="track-header sticky z-2 h-[36px] px-4 border-b border-solid border-[#ffffff1a] mb-3"
+        :class="route.path === '/album' ? 'album-track-header' : 'track-header'"
+        class="sticky z-2 h-[36px] px-4 border-b border-solid border-[#ffffff1a] mb-3"
       >
-        <div class="">#</div>
-        <div class="">제목</div>
-        <div class="">앨범</div>
-        <div class="">추가한 날짜</div>
-        <div class="">
+        <div>#</div>
+        <div>제목</div>
+        <div v-if="route.path.includes('/playlist')">앨범</div>
+        <div v-if="route.path.includes('/playlist')">추가한 날짜</div>
+        <div>
           <span class="blind">재생</span>
           <svg
             data-encore-id="icon"
@@ -30,11 +31,11 @@
       </div>
       <div
         v-for="(track, index) in songList"
-        :key="track.track.id"
+        :key="track.id"
         class="track-list px-4 py-2 hover:bg-[#ffffff1a] transition hover:text-[white] rounded-md"
       >
-        <div class="track-item flex items-center">
-          <!-- track number -->
+        <div :class="route.path === '/album' ? 'album-track-item' : 'track-item'" class="flex items-center">
+          <!-- 트랙넘버 -->
           <div class="track-number text-[#b3b3b3]">
             <div class="flex items-center justify-center">{{ index + 1 }}</div>
             <button
@@ -54,41 +55,52 @@
               </svg>
             </button>
           </div>
+
           <!-- 재생곡정보 -->
           <div class="flex items-center gap-2">
             <!-- 앨범이미지 -->
-            <div
-              v-if="track.track.album?.images.length > 0"
+            <!-- /playlist -->
+            <div v-if="route.path.includes('/playlist')">
+              <div
+              v-if="track.album?.images.length > 0"
               class="track-image w-[40px] h-[40px] relative flex items-center justify-between"
-            >
-              <img
-                :src="track.track.album.images[2].url"
-                :alt="track.track.album.name"
-                class="album-image w-[40px] h-[40px] rounded-sm"
-              />
+              >
+                <img
+                  :src="track.album.images[2].url"
+                  :alt="track.album.name"
+                  class="album-image w-[40px] h-[40px] rounded-sm"
+                />
+              </div>
             </div>
             <div class="track-info flex flex-col">
               <div
                 class="track-name text-[18px] text-white cursor-pointer hover:text-[white] hover:underline decoration-1"
               >
-                {{ track.track.name }}
+                {{ track.name }}
               </div>
               <div
                 class="artist-name text-[14px] text-gray-400 mt-1 cursor-pointer hover:underline decoration-1"
               >
-                {{ track.track.artists[0].name }}
+                {{ track.artists[0].name }}
               </div>
             </div>
           </div>
+          
+          <!-- 플레이리스트에서만 출력 -->
           <!-- 앨범 -->
-          <div class="text-[#b3b3b3]">{{ track.track.album.name }}</div>
-          <!-- 추가한 날짜 -->
-          <div class="text-[#b3b3b3]">
-            {{ track.added_at }}
+          <div v-if="route.path.includes('/playlist')">
+            <div class="text-[#b3b3b3]">{{ track.album.name }}</div>
           </div>
+          <!-- 추가한 날짜 -->
+          <div v-if="route.path.includes('/playlist')">
+            <div class="text-[#b3b3b3]">
+              {{ formatDate(track.added_at) }}
+            </div>
+          </div>
+
           <!-- 재생시간 -->
           <div class="duration-info text-[#b3b3b3]">
-            {{ processTime(track.track.duration_ms) }}
+            {{ processTime(track.duration_ms) }}
           </div>
         </div>
       </div>
@@ -97,7 +109,7 @@
 </template>
 
 <script setup>
-import { format } from 'date-fns';
+const route = useRoute();
 
 const props = defineProps({
   data: {
@@ -139,15 +151,34 @@ watch(
     songList.value = newVal[0];
     size.value.height = newVal[1];
 
-    console.log('songList: ', songList);
+    // if (route.path.includes('/album')) {
+    //   console.log('album songList: ', songList.value);
+    // } else if (route.path.includes('/playlist')){
+    //   console.log('playlist songList: ', songList.value);
+    // }
   },
 );
+
 </script>
 
 <style lang="css" scoped>
 .track-list:hover .play-btn {
   opacity: 1;
 }
+
+/* 📌 SongRow style
+ * /album에서 보는 songrow는 3열
+ * /playlist에서 보는 songrow는 5열이므로 각각 grid 스타일 다름
+ */
+.album-track-item,
+.album-track-header {
+  display: grid;
+  grid-gap: 16px;
+  grid-template-columns:
+    [index] 16px [first] minmax(120px, 6fr)
+    [last] minmax(120px, 1fr);
+}
+
 .track-item,
 .track-header {
   display: grid;
