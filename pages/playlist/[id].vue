@@ -1,19 +1,13 @@
 <template>
   <section>
     <SongThumbnail :data="playlistData.info" />
-    <div class="under-container">
-      <div class="play-area flex justify-between items-center">
-        <div class="flex gap-6">
-          <button class="play-btn"></button>
-          <button class="plus-btn"></button>
-      </div>
-      <div>목록<i></i></div>
-      </div>
-      <div class="playlist-row">
-        <!-- Song List -->
-        <SongRow :data="playlistData.track" />
-      </div>
-    </div>
+    <SongPlayBar
+      @play="handlePlay"
+      @heart="handleHeart"
+      @option="handleOption"
+      @playlist="handlePlaylist"
+    />
+    <SongRow :data="playlistData.track" />
     <footer />
   </section>
 </template>
@@ -27,7 +21,6 @@ const { $axios } = useNuxtApp();
 const playlistData = reactive({
   info: [],
   track: [],
-  item: [],
 });
 
 // 📌 플레이리스트 디테일 가져오기
@@ -43,13 +36,12 @@ const getPlaylistDetail = async (id) => {
     );
     playlistData.info = response.data;
     // playlistData.track = response.data.tracks.items
-    
-    playlistData.track = response.data.tracks.items.map(item => ({
+
+    playlistData.track = response.data.tracks.items.map((item) => ({
       ...item.track,
-      added_at: item.added_at
+      added_at: item.added_at,
     }));
     // console.log('playlistData.track:', playlistData.track);
-
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
