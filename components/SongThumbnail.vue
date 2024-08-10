@@ -57,20 +57,38 @@
       <div :style="thumbnailBg" class="thumbnail"></div>
     </template>
     <!-- 아티스트 -->
-    <template v-else>
+    <template v-if="route.path.includes('/artise')">
       <div class="w-[100%] h-[400px] overflow-hidden rounded-md">
         <div :style="thumbnailBgArtist"></div>
       </div>
+    </template>
+    <!-- 카테고리 -->
+    <template v-if="route.path.includes('/category')">
+      <div
+        v-if="randColor.color"
+        class="w-[100%] min-w-[10rem] h-[400px] rounded-md"
+        :style="`background-color: ${randColor.color}`"
+      ></div>
     </template>
   </article>
 </template>
 
 <script setup>
 import { format as dateFormat } from 'date-fns';
+import uniqolor from 'uniqolor';
+
+let randColor = ref('');
+randColor.value = uniqolor.random();
+
+const route = useRoute();
 const props = defineProps({
   data: {
     type: Object,
     default: () => {},
+  },
+  title: {
+    type: String,
+    default: '',
   },
 });
 const items = reactive({
