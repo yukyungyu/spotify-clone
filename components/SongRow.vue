@@ -36,10 +36,10 @@
       >
         <div :class="route.path.includes('/album') ? 'album-track-item' : 'track-item'" class="flex items-center">
           <!-- 트랙넘버 -->
-          <div class="track-number text-[#b3b3b3]">
+          <div class="relative track-number text-[#b3b3b3]">
             <div class="flex items-center justify-center">{{ index + 1 }}</div>
             <button
-              class="play-btn flex items-center justify-center w-full h-full text-[white] opacity-0 absolute"
+              class="play-btn flex items-center justify-center w-full h-full top-0 text-[white] opacity-0 absolute"
               type="button"
             >
               <svg

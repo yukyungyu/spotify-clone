@@ -10,7 +10,7 @@
     <SongRow :data="album.tracks" />
     <article>
       <STitle>{{ album.name }}의 곡 더보기</STitle>
-      <!-- <SList :data="album.mores"></SList> -->
+      <SList type="album" :data="album.mores" icon date></SList>
     </article>
     <footer />
   </section>
@@ -28,6 +28,8 @@ const album = reactive({
   thumbnail: {},
   name: '',
   tracks: [],
+  mores: [],
+  artistId: ''
 });
 // 📌 앨범 가져오기
 const getIdAlbum = async () => {
@@ -41,8 +43,8 @@ const getIdAlbum = async () => {
       },
     );
     album.thumbnail = response.data;
-    album.name = response.data.artists[0].name;
-    d;
+    album.name = response.data.artists[0].name; 
+    album.artistId = response.data.artists[0].id
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
@@ -59,24 +61,23 @@ const getTracksList = async () => {
         },
       },
     );
-    album.tracks = response.data.items;
-    console.log(response.data.items, 'tracks');
+    album.tracks = response.data.items; 
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
 };
 // 📌 추천 앨범 가져오기
-const getRecommanded = async () => {
+const getRecommanded = async (id) => {
   try {
     const response = await $axios.get(
-      `https://api.spotify.com/v1/artists/${route.params.id}/albums?limit=10&offset=5&market=${local.value}`,
+      `https://api.spotify.com/v1/artists/${id}/albums?include_groups=single,appears_on&limit=10&offset=5&market=${local.value}`,
       {
         headers: {
           Authorization: `Bearer ${store.accessToken}`,
         },
       },
     );
-    // console.log(response.data);
+    album.mores = response.data.items 
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
@@ -103,10 +104,14 @@ const handlePlaylist = () => {
   // Add your playlist logic here
 };
 
+watch(() => album.artistId, 
+(id) => { 
+  getRecommanded(id);
+},{once: true })
+
 onMounted(() => {
   getIdAlbum();
   getTracksList();
-  // getRecommanded();
 });
 </script>
 

@@ -4,7 +4,7 @@
       <li
         v-for="(item, index) in items"
         :key="index"
-        class="hover:bg-zinc-900 px-2 py-2"
+        class="hover:bg-[#ffffff1a] rounded px-2 py-2"
       >
         <NuxtLink :to="{ path: `/${type}/${item.id}` }">
           <div :class="icon ? 'play_icon' : 'no_icon'">
