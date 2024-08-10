@@ -5,22 +5,22 @@
       :class="`h-[${size?.height}px]`"
     >
       <div
-        v-for="(track, index) in songList"
+        v-for="track in songList"
         :key="track.id"
         class="mini-track-list px-4 py-2 hover:bg-[#ffffff1a] transition hover:text-[white] rounded-md"
       >
         <div class="minit-rack-item flex items-center">
           <!-- track info -->
-          <div class="pl-4 flex items-center justify-between grow">
-            <div class="flex items-center gap-2">
+          <div class="flex items-center justify-between grow">
+            <div class="flex items-center gap-3">
               <div
                 v-if="track.album?.images.length > 0"
-                class="track-image w-[40px] h-[40px] relative flex items-center justify-between"
+                class="w-[40px] h-[40px] relative flex items-center justify-between"
               >
                 <img
                   :src="track.album.images[2].url"
                   :alt="track.album.name"
-                  class="album-image w-[40px] h-[40px] rounded-sm"
+                  class="mini-track-image w-[40px] h-[40px] rounded-sm"
                 />
                 <button
                   class="mini-play-btn flex items-center justify-center w-full h-full text-[white] opacity-0 absolute"
@@ -39,9 +39,9 @@
                   </svg>
                 </button>
               </div>
-              <div class="track-info flex flex-col">
+              <div class="mini-track-info flex flex-col">
                 <div
-                  class="track-name text-[18px] text-[#b3b3b3] cursor-pointer hover:text-[white] hover:underline decoration-1"
+                  class="mini-track-name text-[18px] text-[#b3b3b3] cursor-pointer hover:text-[white] hover:underline decoration-1"
                 >
                   {{ track.name }}
                 </div>
@@ -99,5 +99,8 @@ watch(
 <style lang="css" scoped>
 .mini-track-list:hover .mini-play-btn {
   opacity: 1;
+}
+.mini-track-list:hover .mini-track-image {
+  opacity: 0.5;
 }
 </style>

@@ -43,8 +43,10 @@
           class="flex items-center"
         >
           <!-- 트랙넘버 -->
-          <div class="relative track-number text-[#b3b3b3]">
-            <div class="flex items-center justify-center">{{ index + 1 }}</div>
+          <div class="relative track-index text-[#b3b3b3]">
+            <div class="track-number flex items-center justify-center opacity">
+              {{ index + 1 }}
+            </div>
             <button
               class="play-btn flex items-center justify-center w-full h-full top-0 text-[white] opacity-0 absolute"
               type="button"
@@ -64,18 +66,18 @@
           </div>
 
           <!-- 재생곡정보 -->
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-3">
             <!-- 앨범이미지 -->
             <!-- /playlist -->
             <div v-if="route.path.includes('/playlist')">
               <div
                 v-if="track.album?.images.length > 0"
-                class="track-image w-[40px] h-[40px] relative flex items-center justify-between"
+                class="w-[40px] h-[40px] relative flex items-center justify-between"
               >
                 <img
                   :src="track.album.images[2].url"
                   :alt="track.album.name"
-                  class="album-image w-[40px] h-[40px] rounded-sm"
+                  class="track-image w-[40px] h-[40px] rounded-sm opacity"
                 />
               </div>
             </div>
@@ -168,8 +170,14 @@ watch(
 </script>
 
 <style lang="css" scoped>
+.track-list:hover .track-number {
+  opacity: 0;
+}
 .track-list:hover .play-btn {
   opacity: 1;
+}
+.track-list:hover .track-image {
+  opacity: 0.5;
 }
 
 /* 📌 SongRow style
