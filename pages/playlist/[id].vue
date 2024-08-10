@@ -6,8 +6,8 @@
         <div class="flex gap-6">
           <button class="play-btn"></button>
           <button class="plus-btn"></button>
-        </div>
-        <div>목록<i></i></div>
+      </div>
+      <div>목록<i></i></div>
       </div>
       <div class="playlist-row">
         <!-- Song List -->
@@ -18,12 +18,11 @@
   </section>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script setup> 
+import { CommonStore } from '@/stores/pinia';
 const route = useRoute();
 const store = CommonStore();
-const { $axios } = useNuxtApp();
-const local = ref('ko_KR');
+const { $axios } = useNuxtApp(); 
 
 const playlistData = reactive({
   info: [],
@@ -35,7 +34,7 @@ const playlistData = reactive({
 const getPlaylistDetail = async (id) => {
   try {
     const response = await $axios.get(
-      `https://api.spotify.com/v1/playlists/${id}?market=${local.value}`,
+      `https://api.spotify.com/v1/playlists/${id}?market=${store.local}`,
       {
         headers: {
           Authorization: `Bearer ${store.accessToken}`,

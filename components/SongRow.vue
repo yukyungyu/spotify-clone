@@ -1,8 +1,10 @@
 <template>
   <article>
-    <div class="tracks mt-4 mt-2 rounded-md" :class="`h-[${size?.height}px]`">
+    <div class="tracks mt-4 mt-2 rounded-md">
       <div
-        :class="route.path.includes('/album') ? 'album-track-header' : 'track-header'"
+        :class="
+          route.path.includes('/album') ? 'album-track-header' : 'track-header'
+        "
         class="sticky z-2 h-[36px] px-4 border-b border-solid border-[#ffffff1a] mb-3"
       >
         <div>#</div>
@@ -34,12 +36,17 @@
         :key="track.id"
         class="track-list px-4 py-2 hover:bg-[#ffffff1a] transition hover:text-[white] rounded-md"
       >
-        <div :class="route.path.includes('/album') ? 'album-track-item' : 'track-item'" class="flex items-center">
+        <div
+          :class="
+            route.path.includes('/album') ? 'album-track-item' : 'track-item'
+          "
+          class="flex items-center"
+        >
           <!-- 트랙넘버 -->
-          <div class="track-number text-[#b3b3b3]">
+          <div class="relative track-number text-[#b3b3b3]">
             <div class="flex items-center justify-center">{{ index + 1 }}</div>
             <button
-              class="play-btn flex items-center justify-center w-full h-full text-[white] opacity-0 absolute"
+              class="play-btn flex items-center justify-center w-full h-full top-0 text-[white] opacity-0 absolute"
               type="button"
             >
               <svg
@@ -62,8 +69,8 @@
             <!-- /playlist -->
             <div v-if="route.path.includes('/playlist')">
               <div
-              v-if="track.album?.images.length > 0"
-              class="track-image w-[40px] h-[40px] relative flex items-center justify-between"
+                v-if="track.album?.images.length > 0"
+                class="track-image w-[40px] h-[40px] relative flex items-center justify-between"
               >
                 <img
                   :src="track.album.images[2].url"
@@ -85,7 +92,7 @@
               </div>
             </div>
           </div>
-          
+
           <!-- 플레이리스트에서만 출력 -->
           <!-- 앨범 -->
           <div v-if="route.path.includes('/playlist')">
@@ -158,7 +165,6 @@ watch(
     // }
   },
 );
-
 </script>
 
 <style lang="css" scoped>

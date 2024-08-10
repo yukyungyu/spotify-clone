@@ -15,8 +15,7 @@ import { CommonStore } from '@/stores/pinia';
 const { $axios } = useNuxtApp();
 const route = useRoute(); 
 const store = CommonStore();
-const playlist = ref([]);
-const local = ref('ko_KR');
+const playlist = ref([]); 
 
 const props = defineProps({
   data: {
@@ -33,7 +32,7 @@ const props = defineProps({
 const getPlaylists = async () => {
   try {
     const { data } = await $axios.get(
-      `https://api.spotify.com/v1/browse/featured-playlists?offset=9&market=${local.value}`,
+      `https://api.spotify.com/v1/browse/featured-playlists?offset=9&market=${store.local}`,
       {
         headers: {
           Authorization: `Bearer ${store.accessToken}`,

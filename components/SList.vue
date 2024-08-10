@@ -4,21 +4,19 @@
       <li
         v-for="(item, index) in items"
         :key="index"
-        class="hover:bg-zinc-900 px-2 py-2"
+        class="hover:bg-[#ffffff1a] rounded px-2 py-2"
       >
         <NuxtLink :to="{ path: `/${type}/${item.id}` }">
           <div :class="icon ? 'play_icon' : 'no_icon'">
             <img
               class="rounded-md"
-              :src="item.images[0]?.url"
+              :src="item.images[0].url"
               :alt="item.name"
               :width="
-                item.images[0]?.width !== null ? item.images[0]?.width : '100%'
+                item.images[0].width !== null ? item.images[0].width : '100%'
               "
               :height="
-                item.images[0]?.height !== null
-                  ? item.images[0]?.height
-                  : '100%'
+                item.images[0].height !== null ? item.images[0]?.height : '100%'
               "
             />
             <button @click="play">재생</button>
@@ -55,9 +53,8 @@
 
 <script setup>
 import { format } from 'date-fns';
-const items = computed(() => props.data);
 const list = ref(null);
-
+const items = ref([]);
 const props = defineProps({
   data: {
     type: Array,
@@ -118,11 +115,11 @@ const ellipsis = (text, length = 42) => {
 // 📌 데이터 내려받기
 watch(
   () => props.data,
-  async () => {
+  async (newVal) => {
+    items.value = newVal;
     await nextTick();
     adjustItems();
   },
-  { immediate: true },
 );
 
 // 📌 resize, 마운트 설정
