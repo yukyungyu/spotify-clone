@@ -19,7 +19,7 @@
 <script setup>
 import { CommonStore } from '@/stores/pinia';
 import { useRoute } from 'vue-router';
- 
+
 const { $axios } = useNuxtApp();
 const store = CommonStore();
 const route = useRoute();
@@ -28,7 +28,7 @@ const album = reactive({
   name: '',
   tracks: [],
   mores: [],
-  artistId: ''
+  artistId: '',
 });
 // 📌 앨범 가져오기
 const getIdAlbum = async () => {
@@ -42,8 +42,8 @@ const getIdAlbum = async () => {
       },
     );
     album.thumbnail = response.data;
-    album.name = response.data.artists[0].name; 
-    album.artistId = response.data.artists[0].id
+    album.name = response.data.artists[0].name;
+    album.artistId = response.data.artists[0].id;
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
@@ -60,7 +60,7 @@ const getTracksList = async () => {
         },
       },
     );
-    album.tracks = response.data.items; 
+    album.tracks = response.data.items;
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
@@ -77,7 +77,7 @@ const getRecommanded = async (id) => {
         },
       },
     );
-    album.mores = response.data.items 
+    album.mores = response.data.items;
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
@@ -104,10 +104,13 @@ const handlePlaylist = () => {
   // Add your playlist logic here
 };
 
-watch(() => album.artistId, 
-(id) => { 
-  getRecommanded(id);
-},{once: true })
+watch(
+  () => album.artistId,
+  (id) => {
+    getRecommanded(id);
+  },
+  { once: true },
+);
 
 onMounted(() => {
   getIdAlbum();

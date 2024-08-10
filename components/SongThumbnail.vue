@@ -1,5 +1,5 @@
 <template>
-  <article class="relative flex pt-3">
+  <article class="flex pt-3 border-box w-[100%]">
     <!-- 앨범, 플레이리스트 -->
     <template v-if="typeName.some((item) => [items.type].includes(item.type))">
       <img
@@ -109,6 +109,8 @@ const thumbnailBg = computed(() => ({
   zIndex: '-1',
   width: '100%',
   height: '100%',
+  top: 0,
+  left: 0,
   background: `linear-gradient(transparent 0px, rgba(0, 0, 0, 0.5) 100%) center top / 100%, url(${items.images[0].url}) no-repeat`,
   filter: 'blur(70px)',
 }));
@@ -116,6 +118,8 @@ const thumbnailBg = computed(() => ({
 const thumbnailBgArtist = computed(() => ({
   position: 'absolute',
   width: '100%',
+  top: 0,
+  left: 0,
   height: '100%',
   background: `url(${items.images[0].url}) 100% -200px / 100% no-repeat`,
 }));
