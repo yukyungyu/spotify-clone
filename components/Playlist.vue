@@ -1,12 +1,9 @@
 <template>
   <section>
     <STitle v-if="route.path === '/'">Spotify 플레이리스트</STitle>
-    <STitle v-else>플레이리스트</STitle>
-    <SList 
-      type="playlist" 
-      :data="playlist"  
-      :icon="icon"
-    />
+    <STitle v-if="route.path === '/search'">플레이리스트</STitle>
+    <STitle v-if="route.path.includes('/category')">새로운 음악 찾기</STitle>
+    <SList type="playlist" :data="playlist" :icon="icon" />
   </section>
 </template>
 
@@ -21,11 +18,11 @@ const props = defineProps({
   data: {
     type: Array,
     default: () => [],
-  }, 
+  },
   icon: {
     type: Boolean,
-    default: false, 
-  }
+    default: false,
+  },
 });
 
 // 📌 플레이 리스트 가져오기
