@@ -122,7 +122,7 @@ const LogOut = () => {
   router.push('/login');
 };
 
-onMounted(() => {
+onBeforeUpdate(() => {
   getUserInfo();
 });
 
