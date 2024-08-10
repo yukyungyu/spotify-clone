@@ -2,7 +2,7 @@
   <article>
     <div class="tracks mt-4 mt-2 rounded-md" :class="`h-[${size?.height}px]`">
       <div
-        :class="route.path === '/album' ? 'album-track-header' : 'track-header'"
+        :class="route.path.includes('/album') ? 'album-track-header' : 'track-header'"
         class="sticky z-2 h-[36px] px-4 border-b border-solid border-[#ffffff1a] mb-3"
       >
         <div>#</div>
@@ -34,7 +34,7 @@
         :key="track.id"
         class="track-list px-4 py-2 hover:bg-[#ffffff1a] transition hover:text-[white] rounded-md"
       >
-        <div :class="route.path === '/album' ? 'album-track-item' : 'track-item'" class="flex items-center">
+        <div :class="route.path.includes('/album') ? 'album-track-item' : 'track-item'" class="flex items-center">
           <!-- 트랙넘버 -->
           <div class="track-number text-[#b3b3b3]">
             <div class="flex items-center justify-center">{{ index + 1 }}</div>
@@ -176,7 +176,7 @@ watch(
   grid-gap: 16px;
   grid-template-columns:
     [index] 16px [first] minmax(120px, 6fr)
-    [last] minmax(120px, 1fr);
+    [last] 120px;
 }
 
 .track-item,
