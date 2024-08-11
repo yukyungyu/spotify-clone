@@ -10,7 +10,22 @@ const loading = ref(true);
 const error = ref(null);
 const store = CommonStore();
 const { $axios } = useNuxtApp();
-const router = useRouter(); 
+const router = useRouter();
+
+// 📌 get UserInfo
+const getUserInfo = async () => {
+  try {
+    const response = await $axios.get('https://api.spotify.com/v1/me', {
+      headers: {
+        Authorization: `Bearer ${store.accessToken}`,
+      },
+    });
+    store.name = response.data.display_name;
+    // console.log(response.data, 'data');
+  } catch (error) {
+    error.value = 'Failed to fetch category ' + error.message;
+  }
+};
 
 // 📌 spotify 인증 코드로 인증 토큰 발급하기
 onMounted(async () => {
@@ -28,6 +43,7 @@ onMounted(async () => {
         isUser: true,
       });
       router.push('/');
+      getUserInfo();
     } catch (error) {
       error.value = 'Authentication failed: ' + error.message;
     }
