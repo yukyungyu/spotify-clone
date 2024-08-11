@@ -93,7 +93,8 @@ const adjustItems = () => {
 
   childrenWidth.forEach((item) => {
     totalWidth += item.clientWidth;
-    if (totalWidth > containerWidth) {
+    // console.log(item.clientWidth, containerWidth, 'width');
+    if (totalWidth - +5 > containerWidth) {
       item.classList.add('hidden');
     }
     if (windowWidth <= 768) {
