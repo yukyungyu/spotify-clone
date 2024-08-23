@@ -1,7 +1,7 @@
 <template>
   <Artist icon />
-  <Album  icon/>
-  <Playlist icon/>
+  <Album icon />
+  <Playlist icon />
 </template>
 
 <script setup>
