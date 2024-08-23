@@ -135,6 +135,7 @@ const thumbnailBg = computed(() => ({
 
 const thumbnailBgArtist = computed(() => ({
   position: 'absolute',
+  zIndex: '-1',
   width: '100%',
   top: 0,
   left: 0,

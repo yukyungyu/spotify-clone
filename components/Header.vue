@@ -39,7 +39,7 @@
           <img width="27" src="@/assets/images/icons/user_icon.png" />
         </div>
         <div class="text-white text-[14px] ml-1.5 font-medium">
-          {{ store.isUser ? userInfo.display_name : '로그인이 필요합니다' }}
+          {{ store.isUser ? store.name : '로그인이 필요합니다' }}
         </div>
         <ChevronDown
           v-if="!openMenu"
@@ -81,7 +81,7 @@ import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
 import { CommonStore } from '@/stores/pinia';
 import { useRouter, useRoute } from 'vue-router';
-const { $axios } = useNuxtApp();
+// const { $axios } = useNuxtApp();
 
 let openMenu = ref(false);
 const searchKeyword = ref('');
@@ -89,26 +89,12 @@ const store = CommonStore();
 const router = useRouter();
 const route = useRoute();
 
-const userInfo = ref({});
+// const userInfo = ref({});
 
 // 📌 search 페이지에서 나가면 검색어 초기화
 const handleSearch = () => {
   if (searchKeyword.value.trim()) {
     router.push({ path: '/search', query: { q: searchKeyword.value } });
-  }
-};
-
-// get user info
-const getUserInfo = async () => {
-  try {
-    const response = await $axios.get('https://api.spotify.com/v1/me', {
-      headers: {
-        Authorization: `Bearer ${store.accessToken}`,
-      },
-    });
-    userInfo.value = response.data;
-  } catch (error) {
-    error.value = 'Failed to fetch category ' + error.message;
   }
 };
 
@@ -122,14 +108,9 @@ const LogOut = () => {
   router.push('/login');
 };
 
-onBeforeUpdate(() => {
-  getUserInfo();
-});
-
 onUnmounted(() => {
   searchKeyword.value = '';
 });
-
 watch(
   () => route.path,
   () => {
