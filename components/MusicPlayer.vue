@@ -6,15 +6,20 @@
     <!-- 재생중인 곡 정보 -->
     <div class="flex items-center w-1/4">
       <div class="flex items-center ml-4">
-        <img class="rounded-sm shadow-2xl" src="" width="55" alt="albumCover" />
+        <img
+          class="rounded-sm shadow-2xl"
+          :src="songInfo.album.images[0].url"
+          width="55"
+          alt="albumCover"
+        />
         <div class="ml-4 flex flex-col gap-1">
           <div class="text-[14px] text-white hover:underline cursor-pointer">
-            currentTrack.name
+            {{ songInfo.name }}
           </div>
           <div
             class="text-[11px] text-gray-300 hover:underline hover:text-white cursor-pointer"
           >
-            currentTrack.name
+            {{ songInfo.album.artists[0].name }}
           </div>
         </div>
       </div>
@@ -25,14 +30,21 @@
       <!-- 재생버튼 -->
       <div class="flex-col items-center justify-center">
         <div class="buttons flex items-center justify-center h-[30px]">
-          <button class="mx-2">
+          <button class="btn-prev mx-2">
             <SkipBackward fillColor="#f8f8f8" :size="25" />
           </button>
-          <button class="p-1 rounded-full mx-3 bg-[#f8f8f8] hover:scale-105">
-            <Play v-if="!isPlaying" fillColor="#181818" :size="25" />
-            <Pause v-else fillColor="#181818" :size="25" />
+          <button
+            class="btn-play p-1 rounded-full mx-3 bg-[#f8f8f8] hover:scale-105"
+          >
+            <Play
+              @click="playSong"
+              v-if="!isPlaying"
+              fillColor="#181818"
+              :size="25"
+            />
+            <Pause @click="pauseSong" v-else fillColor="#181818" :size="25" />
           </button>
-          <button class="mx-2">
+          <button class="btn-next mx-2">
             <SkipForward fillColor="#f8f8f8" :size="25" />
           </button>
         </div>
@@ -93,6 +105,18 @@ import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue';
+
+import { CommonStore } from '@/stores/pinia';
+
+const store = CommonStore();
+
+const songInfo = computed(() => store.currentSong);
+
+// 📌 곡 재생
+const playSong = () => {};
+
+// 📌 일시정지
+const pauseSong = () => {};
 
 const isHover = ref(false);
 </script>

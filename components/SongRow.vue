@@ -50,6 +50,7 @@
             <button
               class="play-btn flex items-center justify-center w-full h-full top-0 text-[white] opacity-0 absolute"
               type="button"
+              @click="playTrack(track)"
             >
               <svg
                 data-encore-id="icon"
@@ -118,6 +119,9 @@
 </template>
 
 <script setup>
+import { CommonStore } from '@/stores/pinia';
+const store = CommonStore();
+
 const route = useRoute();
 
 const props = defineProps({
@@ -152,6 +156,11 @@ const formatDate = (inputDate) => {
   const day = date.getDate();
 
   return `${year}년 ${month}월 ${day}일`;
+};
+
+// 📌 MucisPlayer 컴포넌트에 곡 정보 전달
+const playTrack = (track) => {
+  store.playTrack(track);
 };
 
 watch(

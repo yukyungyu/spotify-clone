@@ -7,6 +7,7 @@ export const CommonStore = defineStore('common', {
     isUser: false,
     name: '',
     local: 'ko_KR',
+    currentSong: null,
   }),
   actions: {
     login(token) {
@@ -18,6 +19,10 @@ export const CommonStore = defineStore('common', {
       this.isUser = false;
       this.accessToken = '';
       this.refreshToken = '';
+    },
+    playTrack(track) {
+      this.currentSong = track;
+      console.log('재생곡:', this.currentSong);
     },
   },
   persist: {
