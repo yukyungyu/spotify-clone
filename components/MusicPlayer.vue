@@ -110,7 +110,7 @@ import { CommonStore } from '@/stores/pinia';
 
 const store = CommonStore();
 
-const songInfo = computed(() => store.currentSong);
+const songInfo = store.currentSong;
 
 // 📌 곡 재생
 const playSong = () => {};
