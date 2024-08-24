@@ -9,6 +9,6 @@
     <slot />
     <div class="mb-100px"></div>
   </main>
-  <MusicPlayer />
+  <!-- <MusicPlayer /> -->
 </template>
 <style></style>
