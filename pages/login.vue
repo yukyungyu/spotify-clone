@@ -25,7 +25,7 @@ const router = useRouter();
 
 */
 const scope =
-  'user-read-private%20user-read-email%20ugc-image-upload%20playlist-read-private%20playlist-modify-private%20playlist-modify-public%20user-read-recently-played%20user-top-read%20user-library-modify%20user-library-read';
+  'user-read-private%20user-read-email%20ugc-image-upload%20playlist-read-private%20playlist-modify-private%20playlist-modify-public%20user-read-recently-played%20user-top-read%20user-library-modify%20user-library-read%20streaming%20app-remote-control';
 
 // 📌 로그인
 const Login = () => {
