@@ -168,12 +168,6 @@ watch(
   (newVal) => {
     songList.value = newVal[0];
     size.value.height = newVal[1];
-
-    // if (route.path.includes('/album')) {
-    //   console.log('album songList: ', songList.value);
-    // } else if (route.path.includes('/playlist')){
-    //   console.log('playlist songList: ', songList.value);
-    // }
   },
 );
 </script>
