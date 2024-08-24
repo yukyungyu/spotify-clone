@@ -34,15 +34,12 @@
             <SkipBackward fillColor="#f8f8f8" :size="25" />
           </button>
           <button
+            id="playBtn"
             class="btn-play p-1 rounded-full mx-3 bg-[#f8f8f8] hover:scale-105"
+            @click="togglePlay(songInfo.uri)"
           >
-            <Play
-              @click="playSong"
-              v-if="!isPlaying"
-              fillColor="#181818"
-              :size="25"
-            />
-            <Pause @click="pauseSong" v-else fillColor="#181818" :size="25" />
+            <Play v-if="!isPlaying" fillColor="#181818" :size="25" />
+            <Pause v-else fillColor="#181818" :size="25" />
           </button>
           <button class="btn-next mx-2">
             <SkipForward fillColor="#f8f8f8" :size="25" />
@@ -87,7 +84,7 @@
 
     <!-- 볼륨 -->
     <div class="flex items-center w-1/4 justify-end pr-10">
-      <MusicPlayerVolume />
+      <!-- <MusicPlayerVolume /> -->
       <div class="flex items-center ml-8">
         <PictureInPictureBottomRight
           class="ml-4"
@@ -106,109 +103,77 @@ import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue';
 
+// import { play } from '../plugins/webplayback';
 import { CommonStore } from '@/stores/pinia';
-
-const { $axios } = useNuxtApp();
-const store = CommonStore();
 
 const script = document.createElement('script');
 // web Playback SDK CDN
 script.src = 'https://sdk.scdn.co/spotify-player.js';
 script.async = true;
 
-// 📌 플레이어 초기화
-// Web Playback SDK가 성공적으로 로드되면 자동으로 호출
-if (store.accessToken) {
-  document.body.appendChild(script);
+const isHover = ref(false);
 
-  window.onSpotifyWebPlaybackSDKReady = () => {
-    const player = new Spotify.Player({
-      name: 'Web Playback SDK',
-      getOAuthToken: (cb) => {
-        cb(store.accessToken);
-      },
-      volume: 0.5,
-    });
-
-    console.log('player:', player);
-    // Ready,
-    player.addListener('ready', ({ device_id }) => {
-      console.log('Ready with Device ID', device_id);
-    });
-
-    // Not Ready
-    player.addListener('not_ready', ({ device_id }) => {
-      console.log('Device ID has gone offline', device_id);
-    });
-
-    player.addListener('initialization_error', ({ message }) => {
-      console.error(message);
-    });
-
-    player.addListener('authentication_error', ({ message }) => {
-      console.error(message);
-    });
-
-    player.addListener('account_error', ({ message }) => {
-      console.error(message);
-    });
-
-    // document.getElementById('togglePlay').onclick = function () {
-    //   player.togglePlay();
-    // };
-
-    player.connect();
-  };
-}
+const store = CommonStore();
 const songInfo = store.currentSong;
 
-const isPlaying = store.isPlaying;
+const isPlaying = computed(() => store.isPlaying);
 
-watch(songInfo, () => {
-  // console.log('songInfo:', songInfo);
-});
+const deviceId = ref(null);
 
-// 예시
-const deviceId = '0d1841b0976bae2a3a310dd74c0f3df354899bc8';
+// 📌 플레이어 초기화
+// Web Playback SDK가 성공적으로 로드되면 자동으로 호출
+document.body.appendChild(script);
 
-// 📌 PUT - 곡 재생
-const playSong = async (songInfo) => {
-  try {
-    const response = await $axios.put(
-      `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
-      {
-        context_uri: songInfo.uri,
-        position_ms: 0,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${store.accessToken}`,
-        },
-      },
-    );
-  } catch (error) {
-    console.error(e);
-  }
+window.onSpotifyWebPlaybackSDKReady = () => {
+  const player = new Spotify.Player({
+    name: 'Web Playback SDK',
+    getOAuthToken: (cb) => {
+      cb(store.accessToken);
+    },
+    volume: 0.5,
+  });
+
+  console.log('player:', player);
+  // Ready,
+  player.addListener('ready', ({ device_id }) => {
+    console.log('Ready with Device ID', device_id);
+    deviceId.value = device_id;
+    console.log('deviceId:', deviceId.value);
+  });
+
+  // Not Ready
+  player.addListener('not_ready', ({ device_id }) => {
+    console.log('Device ID has gone offline', device_id);
+  });
+
+  player.addListener('initialization_error', ({ message }) => {
+    console.error(message);
+  });
+
+  player.addListener('authentication_error', ({ message }) => {
+    console.error(message);
+  });
+
+  player.addListener('account_error', ({ message }) => {
+    console.error(message);
+  });
+
+  document.getElementById('playBtn').onclick = function () {
+    player.togglePlay();
+  };
+
+  player.connect();
 };
 
-// 📌 일시정지
-const pauseSong = async () => {
-  try {
-    const response = await $axios.put(
-      'https://api.spotify.com/v1/me/player/pause',
-      {
-        headers: {
-          Authorization: `Bearer ${store.accessToken}`,
-        },
-      },
-    );
-  } catch (error) {
-    console.error(error);
+// 📌 재생, 일시정지
+const togglePlay = (uri) => {
+  store.togglePlay();
+  if (isPlaying.value) {
+    // play(uri, deviceId.value);
+  } else {
+    // pause();
   }
 };
-
-const isHover = ref(false);
 </script>
 
 <style>
