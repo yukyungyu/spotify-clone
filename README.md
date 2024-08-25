@@ -9,7 +9,7 @@ Spotify API를 이용하여 저희만의 방식대로 만든 스포티파이 클
 
 ## (2) 개발 기간
 * 24.07.30 ~
-회사에서 시간날 때마다 틈틈히 만들었습니다.
+회사에서 업무 외 시간날 때마다 만들었습니다.
 
 --------------------------------------------------------
 
@@ -61,12 +61,13 @@ Spotify API를 이용하여 저희만의 방식대로 만든 스포티파이 클
 ### (8) 참고문서
 > API
 >
+> 1. Web Playback SDK
+> https://developer.spotify.com/documentation/web-playback-sdk
+> 플레이어(device)를 생성하고 초기화합니다.
+> 2. web API
 > https://developer.spotify.com/documentation/web-api/reference/get-an-artist
+> Spotify 웹 API를 사용하면 콘텐츠 메타데이터 검색, 추천 받기, 재생 목록 만들기 및 관리, 재생 제어 등 Spotify 스트리밍 서비스 등 애플리케이션을 만드는 데 필요한 API입니다.
 
-
-> 코드
->
-> https://github.com/John-Weeks-Dev/spotify-clone
 
 --------------------------------------------------------
 
