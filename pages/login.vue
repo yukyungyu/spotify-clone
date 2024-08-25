@@ -22,10 +22,48 @@ const router = useRouter();
 
 /*
   scope: 데이터 범위
-
+  'ugc-image-upload',
+  'user-read-private',
+  'user-read-email',
+  'user-read-playback-state',
+  'user-modify-playback-state',
+  'playlist-read-private',
+  'playlist-read-collaborative',
+  'playlist-modify-private',
+  'playlist-modify-public',
+  'user-read-playback-position',
+  'user-read-recently-played',
+  'user-read-currently-playing',
+  'user-top-read',
+  'user-library-modify',
+  'user-library-read',
+  'streaming',
+  'app-remote-control',
 */
 const scope =
-  'user-read-private%20user-read-email%20ugc-image-upload%20playlist-read-private%20playlist-modify-private%20playlist-modify-public%20user-read-recently-played%20user-top-read%20user-library-modify%20user-library-read%20streaming%20app-remote-control%20user-modify-playback-state%20user-read-currently-playing%20playlist-read-private%20playlist-read-collaborative';
+  'user-read-private%20user-read-email%20ugc-image-upload%20user-read-playback-state%20playlist-read-private%20playlist-modify-private%20playlist-modify-public%20user-read-recently-played%20user-top-read%20user-library-modify%20user-library-read%20streaming%20app-remote-control%20user-modify-playback-state%20user-read-currently-playing%20playlist-read-collaborative%20user-read-playback-position';
+
+const scopeArr = [
+  'ugc-image-upload',
+  'user-read-private',
+  'user-read-email',
+  'user-read-playback-state',
+  'user-modify-playback-state',
+  'playlist-read-private',
+  'playlist-read-collaborative',
+  'playlist-modify-private',
+  'playlist-modify-public',
+  'user-read-playback-position',
+  'user-read-recently-played',
+  'user-read-currently-playing',
+  'user-top-read',
+  'user-library-modify',
+  'user-library-read',
+  'streaming',
+  'app-remote-control',
+];
+
+const combinedScopes = scopeArr.join('%20');
 
 // 📌 로그인
 const Login = () => {

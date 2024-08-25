@@ -36,7 +36,7 @@
           <button
             id="playBtn"
             class="btn-play p-1 rounded-full mx-3 bg-[#f8f8f8] hover:scale-105"
-            @click="togglePlay(songInfo.uri)"
+            @click="togglePlay(songInfo.album.uri, songInfo.uri)"
           >
             <Play v-if="!isPlaying" fillColor="#181818" :size="25" />
             <Pause v-else fillColor="#181818" :size="25" />
@@ -103,7 +103,7 @@ import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue';
 
-// import { play } from '../plugins/webplayback';
+const { $play, $pause } = useNuxtApp();
 import { CommonStore } from '@/stores/pinia';
 
 const script = document.createElement('script');
@@ -114,11 +114,9 @@ script.async = true;
 const isHover = ref(false);
 
 const store = CommonStore();
-const songInfo = store.currentSong;
+const songInfo = computed(() => store.currentSong);
 
 const isPlaying = computed(() => store.isPlaying);
-
-const deviceId = ref(null);
 
 // 📌 플레이어 초기화
 // Web Playback SDK가 성공적으로 로드되면 자동으로 호출
@@ -133,12 +131,12 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     volume: 0.5,
   });
 
-  console.log('player:', player);
+  // console.log('player:', player);
+
   // Ready,
   player.addListener('ready', ({ device_id }) => {
     console.log('Ready with Device ID', device_id);
-    deviceId.value = device_id;
-    console.log('deviceId:', deviceId.value);
+    store.setDevice(device_id);
   });
 
   // Not Ready
@@ -166,12 +164,12 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 };
 
 // 📌 재생, 일시정지
-const togglePlay = (uri) => {
+const togglePlay = (context_uri, track_uri) => {
   store.togglePlay();
   if (isPlaying.value) {
-    // play(uri, deviceId.value);
+    $play(context_uri, track_uri, store.deviceId);
   } else {
-    // pause();
+    $pause(store.deviceId);
   }
 };
 </script>

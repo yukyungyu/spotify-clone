@@ -9,6 +9,7 @@ export const CommonStore = defineStore('common', {
     local: 'ko_KR',
     currentSong: null,
     isPlaying: false,
+    deviceId: null,
   }),
   actions: {
     login(token) {
@@ -21,6 +22,9 @@ export const CommonStore = defineStore('common', {
       this.accessToken = '';
       this.refreshToken = '';
     },
+    setDevice(deviceId) {
+      this.deviceId = deviceId;
+    },
     playTrack(track) {
       this.currentSong = track;
       this.isPlaying = true;
@@ -28,7 +32,7 @@ export const CommonStore = defineStore('common', {
     },
     togglePlay() {
       this.isPlaying = !this.isPlaying;
-      console.log('this.isPlaying:', this.isPlaying);
+      // console.log('this.isPlaying:', this.isPlaying);
     },
   },
   persist: {
