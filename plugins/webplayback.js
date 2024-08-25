@@ -4,11 +4,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const store = CommonStore();
   const { $axios } = useNuxtApp();
 
-  const headers = {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${store.accessToken}`,
-  };
-
   /* 예시 URI
    * Context_uri: 재생할 컨텍스트의 spotify uri로 type이 album이어야한다.
    * offset: { uri: track_uri } - 재생할 곡의 track_uri
@@ -23,7 +18,10 @@ export default defineNuxtPlugin(async (nuxtApp) => {
           position_ms: 0,
         },
         {
-          headers: headers,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${store.accessToken}`,
+          },
         },
       );
     } catch (error) {
@@ -36,7 +34,10 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       await $axios.put(
         `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
         {
-          headers: headers,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${store.accessToken}`,
+          },
         },
       );
     } catch (error) {
