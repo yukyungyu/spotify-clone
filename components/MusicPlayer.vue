@@ -7,8 +7,8 @@
     <div class="flex items-center w-1/4">
       <div class="flex items-center ml-4">
         <img
-          class="rounded-sm shadow-2xl"
           :src="songInfo.album.images[0].url"
+          class="rounded-sm shadow-2xl"
           width="55"
           alt="albumCover"
         />
@@ -34,15 +34,12 @@
             <SkipBackward fillColor="#f8f8f8" :size="25" />
           </button>
           <button
+            id="playBtn"
             class="btn-play p-1 rounded-full mx-3 bg-[#f8f8f8] hover:scale-105"
+            @click="togglePlay(songInfo.album.uri, songInfo.uri)"
           >
-            <Play
-              @click="playSong"
-              v-if="!isPlaying"
-              fillColor="#181818"
-              :size="25"
-            />
-            <Pause @click="pauseSong" v-else fillColor="#181818" :size="25" />
+            <Play v-if="!isPlaying" fillColor="#181818" :size="25" />
+            <Pause v-else fillColor="#181818" :size="25" />
           </button>
           <button class="btn-next mx-2">
             <SkipForward fillColor="#f8f8f8" :size="25" />
@@ -87,7 +84,7 @@
 
     <!-- 볼륨 -->
     <div class="flex items-center w-1/4 justify-end pr-10">
-      <MusicPlayerVolume />
+      <!-- <MusicPlayerVolume /> -->
       <div class="flex items-center ml-8">
         <PictureInPictureBottomRight
           class="ml-4"
@@ -106,19 +103,75 @@ import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue';
 
+const { $play, $pause } = useNuxtApp();
 import { CommonStore } from '@/stores/pinia';
 
-const store = CommonStore();
-
-const songInfo = computed(() => store.currentSong);
-
-// 📌 곡 재생
-const playSong = () => {};
-
-// 📌 일시정지
-const pauseSong = () => {};
+const script = document.createElement('script');
+// web Playback SDK CDN
+script.src = 'https://sdk.scdn.co/spotify-player.js';
+script.async = true;
 
 const isHover = ref(false);
+
+const store = CommonStore();
+const songInfo = computed(() => store.currentSong);
+
+const isPlaying = computed(() => store.isPlaying);
+
+// 📌 플레이어 초기화
+// Web Playback SDK가 성공적으로 로드되면 자동으로 호출
+document.body.appendChild(script);
+
+window.onSpotifyWebPlaybackSDKReady = () => {
+  const player = new Spotify.Player({
+    name: 'Web Playback SDK',
+    getOAuthToken: (cb) => {
+      cb(store.accessToken);
+    },
+    volume: 0.5,
+  });
+
+  // console.log('player:', player);
+
+  // Ready,
+  player.addListener('ready', ({ device_id }) => {
+    console.log('Ready with Device ID', device_id);
+    store.setDevice(device_id);
+  });
+
+  // Not Ready
+  player.addListener('not_ready', ({ device_id }) => {
+    console.log('Device ID has gone offline', device_id);
+  });
+
+  player.addListener('initialization_error', ({ message }) => {
+    console.error(message);
+  });
+
+  player.addListener('authentication_error', ({ message }) => {
+    console.error(message);
+  });
+
+  player.addListener('account_error', ({ message }) => {
+    console.error(message);
+  });
+
+  document.getElementById('playBtn').onclick = function () {
+    player.togglePlay();
+  };
+
+  player.connect();
+};
+
+// 📌 재생, 일시정지
+const togglePlay = (context_uri, track_uri) => {
+  store.togglePlay();
+  if (isPlaying.value) {
+    $play(context_uri, track_uri, store.deviceId);
+  } else {
+    $pause(store.deviceId);
+  }
+};
 </script>
 
 <style>

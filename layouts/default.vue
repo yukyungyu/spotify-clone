@@ -9,6 +9,13 @@
     <slot />
     <div class="mb-100px"></div>
   </main>
-  <MusicPlayer />
+  <div v-if="store.currentSong">
+    <MusicPlayer />
+  </div>
 </template>
+<script setup>
+import { CommonStore } from '@/stores/pinia';
+
+const store = CommonStore();
+</script>
 <style></style>

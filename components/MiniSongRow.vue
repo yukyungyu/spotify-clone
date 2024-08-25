@@ -25,6 +25,7 @@
                 <button
                   class="mini-play-btn flex items-center justify-center w-full h-full text-[white] opacity-0 absolute"
                   type="button"
+                  @click="playTrack(track)"
                 >
                   <svg
                     data-encore-id="icon"
@@ -63,6 +64,9 @@
 </template>
 
 <script setup>
+import { CommonStore } from '@/stores/pinia';
+const store = CommonStore();
+
 const props = defineProps({
   data: {
     type: Array,
@@ -94,6 +98,12 @@ watch(
     size.value.height = newVal[1];
   },
 );
+
+// 📌 MucisPlayer 컴포넌트에 곡 정보 전달
+const playTrack = (track) => {
+  store.playTrack(track);
+  store.togglePlay();
+};
 </script>
 
 <style lang="css" scoped>
