@@ -29,10 +29,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     }
   };
 
+  // spotify 공식 api 문서에서는 url과 header만 있으면 된다고 나와있지만 401 에러 발생, data로 빈 객체를 넣어주어야 정상작동함
   const pause = async (deviceId) => {
     try {
       await $axios.put(
         `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
+        {},
         {
           headers: {
             'Content-Type': 'application/json',
