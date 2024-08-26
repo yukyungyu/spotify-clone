@@ -27,10 +27,13 @@ export const CommonStore = defineStore('common', {
     },
     playTrack(track) {
       this.currentSong = track;
-      this.isPlaying = true;
+      // this.isPlaying = true;
       console.log('재생곡:', this.currentSong);
     },
-    pauseTrack() {
+    play() {
+      this.isPlaying = true;
+    },
+    pause() {
       this.isPlaying = false;
     },
   },

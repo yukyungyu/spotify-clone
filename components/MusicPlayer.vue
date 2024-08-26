@@ -34,12 +34,20 @@
             <SkipBackward fillColor="#f8f8f8" :size="25" />
           </button>
           <button
+            v-if="!isPlaying"
             id="playBtn"
             class="btn-play p-1 rounded-full mx-3 bg-[#f8f8f8] hover:scale-105"
-            @click="togglePlay(songInfo.album.uri, songInfo.uri)"
+            @click="play(songInfo.album.uri, songInfo.uri)"
           >
-            <Play v-if="!isPlaying" fillColor="#181818" :size="25" />
-            <Pause v-else fillColor="#181818" :size="25" />
+            <Play fillColor="#181818" :size="25" />
+          </button>
+          <button
+            v-else
+            id="pauseBtn"
+            class="btn-play p-1 rounded-full mx-3 bg-[#f8f8f8] hover:scale-105"
+            @click="pause"
+          >
+            <Pause fillColor="#181818" :size="25" />
           </button>
           <button class="btn-next mx-2">
             <SkipForward fillColor="#f8f8f8" :size="25" />
@@ -116,7 +124,7 @@ const isHover = ref(false);
 const store = CommonStore();
 const songInfo = computed(() => store.currentSong);
 
-const isPlaying = computed(() => store.isPlaying);
+const { isPlaying } = storeToRefs(store);
 
 // 📌 플레이어 초기화
 // Web Playback SDK가 성공적으로 로드되면 자동으로 호출
@@ -156,20 +164,23 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     console.error(message);
   });
 
-  document.getElementById('playBtn').onclick = function () {
-    player.togglePlay();
-  };
+  // document.getElementById('playBtn').onclick = function () {
+  //   player.togglePlay();
+  // };
 
   player.connect();
 };
 
-// 📌 재생, 일시정지
-const togglePlay = (context_uri, track_uri) => {
-  if (isPlaying.value) {
-    $play(context_uri, track_uri, store.deviceId);
-  } else {
-    $pause(store.deviceId);
-  }
+// 📌 재생
+const play = (context_uri, track_uri) => {
+  $play(context_uri, track_uri, store.deviceId);
+  store.play();
+};
+
+// 📌 일시정지
+const pause = () => {
+  store.pause();
+  $pause(store.deviceId);
 };
 </script>
 
