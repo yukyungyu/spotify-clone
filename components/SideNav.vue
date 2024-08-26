@@ -23,15 +23,6 @@
           pageUrl="/search"
         />
       </NuxtLink>
-      <NuxtLink to="/library">
-        <MenuItem
-          class="ml-[1px]"
-          :iconSize="24"
-          name="내 라이브러리"
-          iconString="library"
-          pageUrl="/library"
-        />
-      </NuxtLink>
       <div class="py-3.5"></div>
     </ul>
     <div class="border-b border-b-gray-700"></div>
