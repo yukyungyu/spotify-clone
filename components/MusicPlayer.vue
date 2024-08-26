@@ -30,29 +30,54 @@
       <!-- 재생버튼 -->
       <div class="flex-col items-center justify-center">
         <div class="buttons flex items-center justify-center h-[30px]">
-          <button class="btn-prev mx-2">
+          <button
+            class="btn-shuffle mx-2"
+            @click="shuffle"
+            aria-label="랜덤재생하기"
+          >
+            <Shuffle fillColor="#f8f8f8" :size="25" />
+          </button>
+          <button
+            class="btn-prev mx-2"
+            @click="skipPrev"
+            aria-label="이전곡으로 건너뛰기"
+          >
             <SkipBackward fillColor="#f8f8f8" :size="25" />
           </button>
           <button
+            v-if="!isPlaying"
             id="playBtn"
             class="btn-play p-1 rounded-full mx-3 bg-[#f8f8f8] hover:scale-105"
-            @click="togglePlay(songInfo.album.uri, songInfo.uri)"
+            @click="play(songInfo.album.uri, songInfo.uri)"
+            aria-label="재생하기"
           >
-            <Play v-if="!isPlaying" fillColor="#181818" :size="25" />
-            <Pause v-else fillColor="#181818" :size="25" />
+            <Play fillColor="#181818" :size="25" />
           </button>
-          <button class="btn-next mx-2">
+          <button
+            v-else
+            id="pauseBtn"
+            class="btn-play p-1 rounded-full mx-3 bg-[#f8f8f8] hover:scale-105"
+            @click="pause"
+            aria-label="일시정지하기"
+          >
+            <Pause fillColor="#181818" :size="25" />
+          </button>
+          <button
+            class="btn-next mx-2"
+            @click="skipNext"
+            aria-label="다음곡으로 건너뛰기"
+          >
             <SkipForward fillColor="#f8f8f8" :size="25" />
+          </button>
+          <button class="btn-repeat mx-2" @click="repeat" aria-label="반복하기">
+            <Repeat fillColor="#f8f8f8" :size="25" />
           </button>
         </div>
       </div>
 
       <!-- 진행바 -->
       <div class="flex items-center h-[25px]">
-        <div
-          v-if="isTrackTimeCurrent"
-          class="text-white text-[12px] pr-2 pt-[11px]"
-        >
+        <div class="text-white text-[12px] pr-2 pt-[11px]">
           isTrackTimeCurrent
         </div>
         <div
@@ -73,37 +98,62 @@
             class="absolute h-[4px] z-[-0] mt-[6px] inset-y-0 left-0 w-full bg-gray-500 rounded-full"
           />
         </div>
-        <div
-          v-if="isTrackTimeTotal"
-          class="text-white text-[12px] pl-2 pt-[11px] pt-[11px]"
-        >
-          isTrackTimeTotal
+        <div class="text-white text-[12px] pl-2 pt-[11px] pt-[11px]">
+          {{ processTime(songInfo.duration_ms) }}
         </div>
       </div>
     </div>
 
     <!-- 볼륨 -->
-    <div class="flex items-center w-1/4 justify-end pr-10">
-      <!-- <MusicPlayerVolume /> -->
-      <div class="flex items-center ml-8">
-        <PictureInPictureBottomRight
-          class="ml-4"
-          fillColor="#FFFFFF"
-          :size="18"
-        />
-      </div>
+    <div class="flex items-center w-1/4 justify-end pr-10 gap-4">
+      <!-- 기기에 연결하기 -->
+      <button
+        class="btn-connect flex items-center"
+        data-active="false"
+        aria-pressed="false"
+        aria-label="기기에 연결하기"
+      >
+        <svg
+          data-encore-id="icon"
+          role="img"
+          aria-hidden="true"
+          viewBox="0 0 16 16"
+          class="Svg-sc-ytk21e-0 dYnaPI fill-white"
+          width="16"
+          height="16"
+        >
+          <path
+            d="M6 2.75C6 1.784 6.784 1 7.75 1h6.5c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 14.25 15h-6.5A1.75 1.75 0 0 1 6 13.25V2.75zm1.75-.25a.25.25 0 0 0-.25.25v10.5c0 .138.112.25.25.25h6.5a.25.25 0 0 0 .25-.25V2.75a.25.25 0 0 0-.25-.25h-6.5zm-6 0a.25.25 0 0 0-.25.25v6.5c0 .138.112.25.25.25H4V11H1.75A1.75 1.75 0 0 1 0 9.25v-6.5C0 1.784.784 1 1.75 1H4v1.5H1.75zM4 15H2v-1.5h2V15z"
+          ></path>
+          <path
+            d="M13 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm-1-5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
+          ></path>
+        </svg>
+      </button>
+      <button class="btn-volume flex items-center" aria-label="볼륨 조절하기">
+        <MusicPlayerVolume />
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import PictureInPictureBottomRight from 'vue-material-design-icons/PictureInPictureBottomRight.vue';
 import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue';
+import Shuffle from 'vue-material-design-icons/Shuffle.vue';
+import Repeat from 'vue-material-design-icons/Repeat.vue';
 
-const { $play, $pause } = useNuxtApp();
+const {
+  $play,
+  $pause,
+  $prev,
+  $next,
+  $currentPlaying,
+  $currentTrack,
+  $browsePosition,
+} = useNuxtApp();
 import { CommonStore } from '@/stores/pinia';
 
 const script = document.createElement('script');
@@ -116,7 +166,16 @@ const isHover = ref(false);
 const store = CommonStore();
 const songInfo = computed(() => store.currentSong);
 
-const isPlaying = computed(() => store.isPlaying);
+const { isPlaying } = storeToRefs(store);
+
+const processTime = (ms) => {
+  const totalSeconds = Math.floor(ms / 1000);
+
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};
 
 // 📌 플레이어 초기화
 // Web Playback SDK가 성공적으로 로드되면 자동으로 호출
@@ -137,6 +196,14 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   player.addListener('ready', ({ device_id }) => {
     console.log('Ready with Device ID', device_id);
     store.setDevice(device_id);
+
+    // 📌 현재 재생중인 트랙
+    $currentTrack();
+    // 📌 재생 상태 가져오기
+    $currentPlaying();
+    // 재생중이면 재생하기
+    if (isPlaying) {
+    }
   });
 
   // Not Ready
@@ -156,22 +223,46 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     console.error(message);
   });
 
-  document.getElementById('playBtn').onclick = function () {
-    player.togglePlay();
-  };
+  // document.getElementById('playBtn').onclick = function () {
+  //   player.togglePlay();
+  // };
 
   player.connect();
 };
 
-// 📌 재생, 일시정지
-const togglePlay = (context_uri, track_uri) => {
-  store.togglePlay();
-  if (isPlaying.value) {
-    $play(context_uri, track_uri, store.deviceId);
-  } else {
-    $pause(store.deviceId);
-  }
+// 📌 재생
+const play = (context_uri, track_uri) => {
+  $play(context_uri, track_uri, store.deviceId);
+  store.play();
 };
+
+// 📌 일시정지
+const pause = () => {
+  store.pause();
+  $pause(store.deviceId);
+};
+
+// 📌 이전 곡 재생
+const skipPrev = () => {
+  $prev(store.deviceId);
+  // 이전 곡 정보 전달
+
+  store.play();
+};
+
+// 📌 다음 곡 재생
+const skipNext = () => {
+  $next(store.deviceId);
+  // 다음 곡 정보 전달
+
+  store.play();
+};
+
+// 📌 셔플
+const shuffle = () => {};
+
+// 📌 반복재생
+const repeat = () => {};
 </script>
 
 <style>

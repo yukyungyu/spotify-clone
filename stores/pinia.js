@@ -25,14 +25,16 @@ export const CommonStore = defineStore('common', {
     setDevice(deviceId) {
       this.deviceId = deviceId;
     },
-    playTrack(track) {
+    currentTrack(track) {
       this.currentSong = track;
-      this.isPlaying = true;
+      // this.isPlaying = true;
       console.log('재생곡:', this.currentSong);
     },
-    togglePlay() {
-      this.isPlaying = !this.isPlaying;
-      // console.log('this.isPlaying:', this.isPlaying);
+    play() {
+      this.isPlaying = true;
+    },
+    pause() {
+      this.isPlaying = false;
     },
   },
   persist: {
