@@ -35,11 +35,7 @@
       <div class="py-3.5"></div>
     </ul>
     <div class="border-b border-b-gray-700"></div>
-    <ul>
-      <li class="font-semibold text-[13px] mt-3 text-gray-300 hover:text-white">
-        플레이리스트
-      </li>
-    </ul>
+    <MyPlaylist />
   </nav>
 </template>
 

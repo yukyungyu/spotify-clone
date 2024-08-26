@@ -5,6 +5,7 @@ export const CommonStore = defineStore('common', {
     accessToken: '',
     refreshToken: '',
     isUser: false,
+    userId: '',
     name: '',
     local: 'ko_KR',
     currentSong: null,

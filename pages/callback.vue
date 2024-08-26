@@ -21,6 +21,7 @@ const getUserInfo = async () => {
       },
     });
     store.name = response.data.display_name;
+    store.userId = response.data.id;
     // console.log(response.data, 'data');
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
