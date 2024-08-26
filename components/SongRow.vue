@@ -47,23 +47,46 @@
             <div class="track-number flex items-center justify-center opacity">
               {{ index + 1 }}
             </div>
-            <button
-              class="play-btn flex items-center justify-center w-full h-full top-0 text-[white] opacity-0 absolute"
-              type="button"
-              @click="playTrack(track)"
-            >
-              <svg
-                data-encore-id="icon"
-                role="img"
-                aria-hidden="true"
-                class="Svg-sc-ytk21e-0 bneLcE zOsKPnD_9x3KJqQCSmAq w-[16px] h-[16px] fill-white"
-                viewBox="0 0 24 24"
+            <div>
+              <button
+                v-if="isPlaying === false"
+                class="play-btn flex items-center justify-center w-full h-full top-0 text-[white] opacity-0 absolute"
+                type="button"
+                aria-label="재생하기"
+                @click="playTrack(track)"
               >
-                <path
-                  d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"
-                ></path>
-              </svg>
-            </button>
+                <svg
+                  data-encore-id="icon"
+                  role="img"
+                  aria-hidden="true"
+                  class="Svg-sc-ytk21e-0 bneLcE zOsKPnD_9x3KJqQCSmAq w-[16px] h-[16px] fill-white"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m7.05 3.606 13.49 7.788a.7.7 0 0 1 0 1.212L7.05 20.394A.7.7 0 0 1 6 19.788V4.212a.7.7 0 0 1 1.05-.606z"
+                  ></path>
+                </svg>
+              </button>
+              <button
+                v-else
+                class="pause-btn flex items-center justify-center w-full h-full top-0 text-[white] opacity-0 absolute"
+                type="button"
+                aria-label="정지하기"
+                @click="pauseTrack"
+              >
+                <svg
+                  data-encore-id="icon"
+                  role="img"
+                  aria-hidden="true"
+                  class="Svg-sc-ytk21e-0 bneLcE zOsKPnD_9x3KJqQCSmAq w-[16px] h-[16px] fill-white"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M5.7 3a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7H5.7zm10 0a.7.7 0 0 0-.7.7v16.6a.7.7 0 0 0 .7.7h2.6a.7.7 0 0 0 .7-.7V3.7a.7.7 0 0 0-.7-.7h-2.6z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
           </div>
 
           <!-- 재생곡정보 -->
@@ -120,7 +143,11 @@
 
 <script setup>
 import { CommonStore } from '@/stores/pinia';
+import { storeToRefs } from 'pinia';
+
 const store = CommonStore();
+const { isPlaying } = storeToRefs(store);
+const { $play, $pause } = useNuxtApp();
 
 const route = useRoute();
 
@@ -161,7 +188,13 @@ const formatDate = (inputDate) => {
 // 📌 MucisPlayer 컴포넌트에 곡 정보 전달
 const playTrack = (track) => {
   store.playTrack(track);
-  store.togglePlay();
+  console.log('isPlaying:', isPlaying.value);
+};
+
+const pauseTrack = () => {
+  store.pauseTrack();
+  $pause(store.deviceId);
+  console.log('isPlaying:', isPlaying.value);
 };
 
 watch(
@@ -177,7 +210,7 @@ watch(
 .track-list:hover .track-number {
   opacity: 0;
 }
-.track-list:hover .play-btn {
+.track-list:hover > div button {
   opacity: 1;
 }
 .track-list:hover .track-image {

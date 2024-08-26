@@ -165,7 +165,6 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
 // 📌 재생, 일시정지
 const togglePlay = (context_uri, track_uri) => {
-  store.togglePlay();
   if (isPlaying.value) {
     $play(context_uri, track_uri, store.deviceId);
   } else {

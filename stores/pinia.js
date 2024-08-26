@@ -30,9 +30,8 @@ export const CommonStore = defineStore('common', {
       this.isPlaying = true;
       console.log('재생곡:', this.currentSong);
     },
-    togglePlay() {
-      this.isPlaying = !this.isPlaying;
-      // console.log('this.isPlaying:', this.isPlaying);
+    pauseTrack() {
+      this.isPlaying = false;
     },
   },
   persist: {
