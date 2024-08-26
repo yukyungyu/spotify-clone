@@ -25,7 +25,7 @@ export const CommonStore = defineStore('common', {
     setDevice(deviceId) {
       this.deviceId = deviceId;
     },
-    playTrack(track) {
+    currentTrack(track) {
       this.currentSong = track;
       // this.isPlaying = true;
       console.log('재생곡:', this.currentSong);

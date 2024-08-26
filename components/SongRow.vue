@@ -187,7 +187,7 @@ const formatDate = (inputDate) => {
 
 // 📌 MucisPlayer 컴포넌트에 곡 정보 전달
 const playTrack = (track) => {
-  store.playTrack(track);
+  store.currentTrack(track);
   $play(track.album.uri, track.uri, store.deviceId);
   store.play();
 };
