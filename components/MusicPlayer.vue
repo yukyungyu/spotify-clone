@@ -30,7 +30,10 @@
       <!-- 재생버튼 -->
       <div class="flex-col items-center justify-center">
         <div class="buttons flex items-center justify-center h-[30px]">
-          <button class="btn-prev mx-2">
+          <button class="btn-shuffle mx-2" @click="shuffle">
+            <Shuffle fillColor="#f8f8f8" :size="25" />
+          </button>
+          <button class="btn-prev mx-2" @click="skipPrev">
             <SkipBackward fillColor="#f8f8f8" :size="25" />
           </button>
           <button
@@ -49,18 +52,18 @@
           >
             <Pause fillColor="#181818" :size="25" />
           </button>
-          <button class="btn-next mx-2">
+          <button class="btn-next mx-2" @click="skipNext">
             <SkipForward fillColor="#f8f8f8" :size="25" />
+          </button>
+          <button class="btn-repeat mx-2" @click="repeat">
+            <Repeat fillColor="#f8f8f8" :size="25" />
           </button>
         </div>
       </div>
 
       <!-- 진행바 -->
       <div class="flex items-center h-[25px]">
-        <div
-          v-if="isTrackTimeCurrent"
-          class="text-white text-[12px] pr-2 pt-[11px]"
-        >
+        <div class="text-white text-[12px] pr-2 pt-[11px]">
           isTrackTimeCurrent
         </div>
         <div
@@ -81,11 +84,8 @@
             class="absolute h-[4px] z-[-0] mt-[6px] inset-y-0 left-0 w-full bg-gray-500 rounded-full"
           />
         </div>
-        <div
-          v-if="isTrackTimeTotal"
-          class="text-white text-[12px] pl-2 pt-[11px] pt-[11px]"
-        >
-          isTrackTimeTotal
+        <div class="text-white text-[12px] pl-2 pt-[11px] pt-[11px]">
+          {{ processTime(songInfo.duration_ms) }}
         </div>
       </div>
     </div>
@@ -110,8 +110,18 @@ import Play from 'vue-material-design-icons/Play.vue';
 import Pause from 'vue-material-design-icons/Pause.vue';
 import SkipBackward from 'vue-material-design-icons/SkipBackward.vue';
 import SkipForward from 'vue-material-design-icons/SkipForward.vue';
+import Shuffle from 'vue-material-design-icons/Shuffle.vue';
+import Repeat from 'vue-material-design-icons/Repeat.vue';
 
-const { $play, $pause } = useNuxtApp();
+const {
+  $play,
+  $pause,
+  $prev,
+  $next,
+  $currentPlaying,
+  $currentTrack,
+  $browsePosition,
+} = useNuxtApp();
 import { CommonStore } from '@/stores/pinia';
 
 const script = document.createElement('script');
@@ -125,6 +135,15 @@ const store = CommonStore();
 const songInfo = computed(() => store.currentSong);
 
 const { isPlaying } = storeToRefs(store);
+
+const processTime = (ms) => {
+  const totalSeconds = Math.floor(ms / 1000);
+
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};
 
 // 📌 플레이어 초기화
 // Web Playback SDK가 성공적으로 로드되면 자동으로 호출
@@ -145,6 +164,14 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   player.addListener('ready', ({ device_id }) => {
     console.log('Ready with Device ID', device_id);
     store.setDevice(device_id);
+
+    // 📌 현재 재생중인 트랙
+    $currentTrack();
+    // 📌 재생 상태 가져오기
+    $currentPlaying();
+    // 재생중이면 재생하기
+    if (isPlaying) {
+    }
   });
 
   // Not Ready
@@ -182,6 +209,28 @@ const pause = () => {
   store.pause();
   $pause(store.deviceId);
 };
+
+// 📌 이전 곡 재생
+const skipPrev = () => {
+  $prev(store.deviceId);
+  // 이전 곡 정보 전달
+
+  store.play();
+};
+
+// 📌 다음 곡 재생
+const skipNext = () => {
+  $next(store.deviceId);
+  // 다음 곡 정보 전달
+
+  store.play();
+};
+
+// 📌 셔플
+const shuffle = () => {};
+
+// 📌 반복재생
+const repeat = () => {};
 </script>
 
 <style>
