@@ -152,6 +152,20 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     }
   };
 
+  const adjustVolume = (volume) => {
+    try {
+      $axios.put(
+        `https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`,
+        {},
+        {
+          headers: headers,
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   nuxtApp.provide('play', play);
   nuxtApp.provide('pause', pause);
   nuxtApp.provide('prev', prev);
@@ -161,4 +175,5 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   nuxtApp.provide('currentTrack', currentTrack);
   nuxtApp.provide('repeat', repeat);
   nuxtApp.provide('shuffle', shuffle);
+  nuxtApp.provide('adjustVolume', adjustVolume);
 });

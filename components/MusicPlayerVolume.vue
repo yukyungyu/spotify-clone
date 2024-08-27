@@ -28,13 +28,17 @@
 import VolumeMute from 'vue-material-design-icons/VolumeMute.vue';
 import VolumeHigh from 'vue-material-design-icons/VolumeHigh.vue';
 
+const { $adjustVolume } = useNuxtApp();
+
+const vol = ref(80);
 let volume = ref(null);
 
 let isHover = ref(false);
 
 onMounted(() => {
   volume.value.addEventListener('input', (e) => {
-    audio.value.volume = e.currentTarget.value / 100;
+    // audio.value.volume = e.currentTarget.value / 100;
+    $adjustVolume(vol.value);
   });
 });
 </script>
