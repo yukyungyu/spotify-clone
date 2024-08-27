@@ -4,6 +4,11 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const store = CommonStore();
   const { $axios } = useNuxtApp();
 
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${store.accessToken}`,
+  };
+
   // 📌 put - 재생하기
   /* 예시 URI
    * Context_uri: 재생할 컨텍스트의 spotify uri로 type이 album이어야한다.
@@ -19,10 +24,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
           position_ms: 0,
         },
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -38,10 +40,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
         {},
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -56,10 +55,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         `https://api.spotify.com/v1/me/player/previous?device_id=${deviceId}`,
         {},
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -74,10 +70,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         `https://api.spotify.com/v1/me/player/next?device_id=${deviceId}`,
         {},
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -91,10 +84,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       await $axios.get(
         `https://api.spotify.com/v1/me/player/seek?position_ms=${positionMs}?device_id=${deviceId}`,
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -108,10 +98,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       const response = await $axios.get(
         `https://api.spotify.com/v1/me/player?market=KR`,
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
       console.log('response:', response);
@@ -127,10 +114,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       const response = await $axios.get(
         `https://api.spotify.com/v1/me/player/currently-playing?market=KR&deviceId=${deviceId}`,
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -145,10 +129,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         `https://api.spotify.com/v1/me/player/repeat?state=${mode}`,
         {},
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -163,10 +144,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         `https://api.spotify.com/v1/me/player/shuffle?state=${mode}`,
         {},
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
