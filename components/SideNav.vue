@@ -26,10 +26,14 @@
       <div class="py-3.5"></div>
     </ul>
     <div class="border-b border-b-gray-700"></div>
-    <MyPlaylist />
+    <MyPlaylist v-if="store.isUser" />
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import { CommonStore } from '@/stores/pinia';
+
+const store = CommonStore();
+</script>
 
 <style lang="css" scoped></style>
