@@ -78,7 +78,7 @@
       <!-- 진행바 -->
       <div class="flex items-center h-[25px]">
         <div class="text-white text-[12px] pr-2 pt-[11px]">
-          isTrackTimeCurrent
+          {{ processTime(store.currentState.progress_ms) }}
         </div>
         <div
           class="w-full relative mt-2 mb-3"
@@ -150,7 +150,7 @@ const {
   $pause,
   $prev,
   $next,
-  $currentPlaying,
+  $currentState,
   $currentTrack,
   $browsePosition,
   $shuffle,
@@ -179,6 +179,8 @@ const processTime = (ms) => {
   return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 };
 
+const currentState = reactive({});
+
 // 📌 플레이어 초기화
 // Web Playback SDK가 성공적으로 로드되면 자동으로 호출
 document.body.appendChild(script);
@@ -199,13 +201,11 @@ window.onSpotifyWebPlaybackSDKReady = () => {
     console.log('Ready with Device ID', device_id);
     store.setDevice(device_id);
 
-    // 📌 현재 재생중인 트랙
-    $currentTrack();
-    // 📌 재생 상태 가져오기
-    $currentPlaying();
-    // 재생중이면 재생하기
-    if (isPlaying) {
-    }
+    $currentState(store.deviceId);
+    console.log('store.setCurrentState:', store.currentState);
+    isPlaying.value = store.currentState.is_playing;
+
+    // $browsePosition(store.currentState.progress_ms, store.deviceId);
   });
 
   // Not Ready
@@ -231,6 +231,8 @@ window.onSpotifyWebPlaybackSDKReady = () => {
 
   player.connect();
 };
+
+onMounted(() => {});
 
 // 📌 재생
 const play = (context_uri, track_uri) => {
