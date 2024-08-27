@@ -81,15 +81,12 @@ import ChevronLeft from 'vue-material-design-icons/ChevronLeft.vue';
 import ChevronRight from 'vue-material-design-icons/ChevronRight.vue';
 import { CommonStore } from '@/stores/pinia';
 import { useRouter, useRoute } from 'vue-router';
-// const { $axios } = useNuxtApp();
 
 let openMenu = ref(false);
 const searchKeyword = ref('');
 const store = CommonStore();
 const router = useRouter();
 const route = useRoute();
-
-// const userInfo = ref({});
 
 // 📌 search 페이지에서 나가면 검색어 초기화
 const handleSearch = () => {

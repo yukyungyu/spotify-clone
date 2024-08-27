@@ -65,7 +65,6 @@ const getMyPlayList = async () => {
       },
     );
     myPlayList.value = response.data.items;
-    console.log('myplaylist', myPlayList.value);
   } catch (error) {
     console.log('error: ' + error.message);
   }
