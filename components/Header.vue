@@ -117,7 +117,7 @@ watch(
   },
 );
 </script>
-<style>
+<style lang="css" scoped>
 input:focus {
   box-shadow: 0 0 0 2px #fff;
   outline: none;
