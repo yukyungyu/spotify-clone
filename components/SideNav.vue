@@ -23,26 +23,17 @@
           pageUrl="/search"
         />
       </NuxtLink>
-      <NuxtLink to="/library">
-        <MenuItem
-          class="ml-[1px]"
-          :iconSize="24"
-          name="내 라이브러리"
-          iconString="library"
-          pageUrl="/library"
-        />
-      </NuxtLink>
       <div class="py-3.5"></div>
     </ul>
     <div class="border-b border-b-gray-700"></div>
-    <ul>
-      <li class="font-semibold text-[13px] mt-3 text-gray-300 hover:text-white">
-        플레이리스트
-      </li>
-    </ul>
+    <MyPlaylist v-if="store.isUser" />
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import { CommonStore } from '@/stores/pinia';
+
+const store = CommonStore();
+</script>
 
 <style lang="css" scoped></style>

@@ -126,11 +126,13 @@ watch(
 
 // 📌 MucisPlayer 컴포넌트에 곡 정보 전달
 const playTrack = (track) => {
-  store.playTrack(track);
+  store.currentTrack(track);
+  $play(track.album.uri, track.uri, store.deviceId);
+  store.play();
 };
 
 const pauseTrack = () => {
-  store.pauseTrack();
+  store.pause();
   $pause(store.deviceId);
 };
 </script>

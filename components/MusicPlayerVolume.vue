@@ -10,7 +10,7 @@
       v-model="vol"
       ref="volume"
       type="range"
-      class="mt-[24px] absolute rounded-full my-2 w-full h-0 z-40 appearance-none bg-opacity-100 focus:outline-none accent-white"
+      class="mt-[24px] absolute rounded-full my-2 w-full h-0 z-40 bg-opacity-100 focus:outline-none accent-white"
       :class="{ rangeDotHidden: !isHover }"
     />
     <div
@@ -28,13 +28,17 @@
 import VolumeMute from 'vue-material-design-icons/VolumeMute.vue';
 import VolumeHigh from 'vue-material-design-icons/VolumeHigh.vue';
 
+const { $adjustVolume } = useNuxtApp();
+
+const vol = ref(80);
 let volume = ref(null);
 
 let isHover = ref(false);
 
 onMounted(() => {
   volume.value.addEventListener('input', (e) => {
-    audio.value.volume = e.currentTarget.value / 100;
+    // audio.value.volume = e.currentTarget.value / 100;
+    $adjustVolume(vol.value);
   });
 });
 </script>

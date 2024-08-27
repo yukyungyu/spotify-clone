@@ -5,11 +5,13 @@ export const CommonStore = defineStore('common', {
     accessToken: '',
     refreshToken: '',
     isUser: false,
+    userId: '',
     name: '',
     local: 'ko_KR',
     currentSong: null,
     isPlaying: false,
     deviceId: null,
+    currentState: null,
   }),
   actions: {
     login(token) {
@@ -25,9 +27,11 @@ export const CommonStore = defineStore('common', {
     setDevice(deviceId) {
       this.deviceId = deviceId;
     },
+    setCurrentState(data) {
+      this.currentState = data;
+    },
     currentTrack(track) {
       this.currentSong = track;
-      // this.isPlaying = true;
       console.log('재생곡:', this.currentSong);
     },
     play() {

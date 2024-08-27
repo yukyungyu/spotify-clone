@@ -1,4 +1,5 @@
 <template>
+  <TopItems icon />
   <Artist icon />
   <Album icon />
   <Playlist icon />

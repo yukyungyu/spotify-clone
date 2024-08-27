@@ -2,7 +2,12 @@ import { CommonStore } from '@/stores/pinia';
 
 export default defineNuxtPlugin(async (nuxtApp) => {
   const store = CommonStore();
-  const { $axios } = useNuxtApp();
+  const { $axios, $setCurrentState } = useNuxtApp();
+
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${store.accessToken}`,
+  };
 
   // 📌 put - 재생하기
   /* 예시 URI
@@ -19,10 +24,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
           position_ms: 0,
         },
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -38,10 +40,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         `https://api.spotify.com/v1/me/player/pause?device_id=${deviceId}`,
         {},
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -56,10 +55,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         `https://api.spotify.com/v1/me/player/previous?device_id=${deviceId}`,
         {},
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -74,10 +70,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         `https://api.spotify.com/v1/me/player/next?device_id=${deviceId}`,
         {},
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -85,16 +78,29 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     }
   };
 
-  // 📌 get - 사용자가 현재 재생 중인 트랙에서 주어진 위치 찾기
-  const browsePosition = async (positionMs, deviceId) => {
+  // 📌 put - 랜덤재생
+  const shuffle = async (mode) => {
     try {
-      await $axios.get(
-        `https://api.spotify.com/v1/me/player/seek?position_ms=${positionMs}?device_id=${deviceId}`,
+      const response = await $axios.put(
+        `https://api.spotify.com/v1/me/player/shuffle?state=${mode}`,
+        {},
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 📌 put - 볼륨조절
+  const adjustVolume = (volume) => {
+    try {
+      $axios.put(
+        `https://api.spotify.com/v1/me/player/volume?volume_percent=${volume}`,
+        {},
+        {
+          headers: headers,
         },
       );
     } catch (error) {
@@ -103,18 +109,16 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   };
 
   // 📌 get - 재생 상태 가져오기
-  const currentPlaying = async () => {
+  const currentState = async (deviceId) => {
     try {
       const response = await $axios.get(
         `https://api.spotify.com/v1/me/player?market=KR`,
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
-      console.log('response:', response);
+      store.setCurrentState(response.data);
+      // console.log('response.data:', response.data);
       return response.data;
     } catch (error) {
       console.error(error);
@@ -122,15 +126,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   };
 
   // 📌 get - 현재 재생중인 트랙 가져오기
-  const currentTrack = async () => {
+  const currentTrack = async (deviceId) => {
     try {
-      const response = await $axios.get(
-        `https://api.spotify.com/v1/me/player/currently-playing?market=KR`,
+      await $axios.get(
+        `https://api.spotify.com/v1/me/player/currently-playing?market=KR&deviceId=${deviceId}`,
         {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${store.accessToken}`,
-          },
+          headers: headers,
         },
       );
     } catch (error) {
@@ -138,11 +139,78 @@ export default defineNuxtPlugin(async (nuxtApp) => {
     }
   };
 
+  // 📌 put - 사용자가 현재 재생 중인 트랙에서 주어진 위치 찾기
+  const browsePosition = async (positionMs, deviceId) => {
+    try {
+      const res = await $axios.put(
+        `https://api.spotify.com/v1/me/player/seek?position_ms=${positionMs}`,
+        {
+          headers: headers,
+        },
+      );
+      console.log('position_ms', res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 📌 put - 반복모드 설정
+  const repeat = async (mode) => {
+    try {
+      const response = await $axios.put(
+        `https://api.spotify.com/v1/me/player/repeat?state=${mode}`,
+        {},
+        {
+          headers: headers,
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 📌 get - 사용자 대기열 가져오기
+  const getQueue = async (deviceId) => {
+    try {
+      const response = await $axios.get(
+        `https://api.spotify.com/v1/me/player/queue&device_id=${deviceId}`,
+        {
+          headers: headers,
+        },
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 📌 post - 사용자 대기열에 곡 추가
+  const addToQueue = async (trackId, deviceId) => {
+    try {
+      await $axios.post(
+        `https://api.spotify.com/v1/me/player/queue?uri=${uri}`,
+        {
+          uri: trackId,
+        },
+        {
+          headers: headers,
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 📌 delete - 사용자 대기열에서
+
   nuxtApp.provide('play', play);
   nuxtApp.provide('pause', pause);
   nuxtApp.provide('prev', prev);
   nuxtApp.provide('next', next);
   nuxtApp.provide('browsePosition', browsePosition);
-  nuxtApp.provide('currentPlaying', currentPlaying);
+  nuxtApp.provide('currentState', currentState);
   nuxtApp.provide('currentTrack', currentTrack);
+  nuxtApp.provide('repeat', repeat);
+  nuxtApp.provide('shuffle', shuffle);
+  nuxtApp.provide('adjustVolume', adjustVolume);
 });
