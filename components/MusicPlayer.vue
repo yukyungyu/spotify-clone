@@ -153,6 +153,8 @@ const {
   $currentPlaying,
   $currentTrack,
   $browsePosition,
+  $shuffle,
+  $repeat,
 } = useNuxtApp();
 import { CommonStore } from '@/stores/pinia';
 
@@ -259,10 +261,26 @@ const skipNext = () => {
 };
 
 // 📌 셔플
-const shuffle = () => {};
+const shuffleMode = ref(false);
+const shuffle = () => {
+  $shuffle(shuffleMode.value);
+  shuffleMode.value = !shuffleMode.value;
+};
 
-// 📌 반복재생
-const repeat = () => {};
+/* 📌 반복재생
+ * track: 현재 트랙 반복
+ * context: 현재 컨텍스트를 반복
+ * off: 반복 종료
+ */
+const repeatMode = ['track', 'context', 'off'];
+let currentModeIndex = 0;
+const repeat = () => {
+  currentModeIndex = (currentModeIndex + 1) % repeatMode.length;
+  const mode = repeatMode[currentModeIndex];
+
+  // console.log('current mode: ', mode);
+  $repeat(mode);
+};
 </script>
 
 <style>

@@ -103,7 +103,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   };
 
   // 📌 get - 재생 상태 가져오기
-  const currentPlaying = async () => {
+  const currentPlaying = async (deviceId) => {
     try {
       const response = await $axios.get(
         `https://api.spotify.com/v1/me/player?market=KR`,
@@ -122,10 +122,46 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   };
 
   // 📌 get - 현재 재생중인 트랙 가져오기
-  const currentTrack = async () => {
+  const currentTrack = async (deviceId) => {
     try {
       const response = await $axios.get(
-        `https://api.spotify.com/v1/me/player/currently-playing?market=KR`,
+        `https://api.spotify.com/v1/me/player/currently-playing?market=KR&deviceId=${deviceId}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${store.accessToken}`,
+          },
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 📌 put - 반복모드 설정
+  const repeat = async (mode) => {
+    try {
+      const response = await $axios.put(
+        `https://api.spotify.com/v1/me/player/repeat?state=${mode}`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${store.accessToken}`,
+          },
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // 📌 put - 랜덤재생
+  const shuffle = async (mode) => {
+    try {
+      const response = await $axios.put(
+        `https://api.spotify.com/v1/me/player/shuffle?state=${mode}`,
+        {},
         {
           headers: {
             'Content-Type': 'application/json',
@@ -145,4 +181,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   nuxtApp.provide('browsePosition', browsePosition);
   nuxtApp.provide('currentPlaying', currentPlaying);
   nuxtApp.provide('currentTrack', currentTrack);
+  nuxtApp.provide('repeat', repeat);
+  nuxtApp.provide('shuffle', shuffle);
 });
