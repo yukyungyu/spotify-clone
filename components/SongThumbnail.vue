@@ -58,7 +58,7 @@
     </template>
     <!-- 아티스트 -->
     <template v-if="route.path.includes('/artist')">
-      <div class="w-[100%] h-[400px] overflow-hidden rounded-md">
+      <div class="w-[100%] h-[400px] overflow-hidden rounded-md relative">
         <div :style="thumbnailBgArtist"></div>
       </div>
     </template>
@@ -140,7 +140,7 @@ const thumbnailBgArtist = computed(() => ({
   top: 0,
   left: 0,
   height: '100%',
-  background: `url(${items.images[0].url}) 100% -200px / 100% no-repeat`,
+  background: `url(${items.images[0].url})  center center / contain no-repeat`,
 }));
 
 // 📌 타입이름

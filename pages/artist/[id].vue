@@ -4,6 +4,7 @@
     <SongPlayBar type="artist" />
     <SongRow :data="artist.track" />
   </section>
+  <Error />
 </template>
 
 <script setup>
@@ -47,7 +48,7 @@ const getIdArtistTrack = async () => {
       },
     );
     artist.track = response.data.tracks;
-    console.log(response.data, ': artist');
+    // console.log(response.data, ': artist');
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }

@@ -39,7 +39,7 @@
           <img width="27" src="@/assets/images/icons/user_icon.png" />
         </div>
         <div class="text-white text-[14px] ml-1.5 font-medium">
-          {{ store.isUser ? store.name : '로그인이 필요합니다' }}
+          <!-- {{ store.isUser ? store.name : '로그인이 필요합니다' }} -->
         </div>
         <ChevronDown
           v-if="!openMenu"

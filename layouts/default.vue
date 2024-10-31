@@ -15,7 +15,16 @@
 </template>
 <script setup>
 import { CommonStore } from '@/stores/pinia';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const store = CommonStore();
+onMounted(() => {
+  if (store.accessToken === '') {
+    router.push('/login');
+  } else {
+    router.push('/');
+  }
+});
 </script>
 <style></style>
