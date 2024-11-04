@@ -38,9 +38,11 @@
         <div class="rounded-full overflow-hidden bg-[#f8f8f8]" width="27">
           <img width="27" src="@/assets/images/icons/user_icon.png" />
         </div>
-        <div class="text-white text-[14px] ml-1.5 font-medium">
-          <!-- {{ store.isUser ? store.name : '로그인이 필요합니다' }} -->
-        </div>
+        <ClientOnly>
+          <div class="text-white text-[14px] ml-1.5 font-medium">
+            {{ store.isUser ? store.name : '로그인이 필요합니다' }}
+          </div>
+        </ClientOnly>
         <ChevronDown
           v-if="!openMenu"
           @click="openMenu = true"

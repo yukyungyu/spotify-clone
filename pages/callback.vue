@@ -45,7 +45,7 @@ onMounted(async () => {
       });
       router.push('/');
       console.log('로그인 api 통신 ======>');
-      // getUserInfo();
+      getUserInfo();
     } catch (error) {
       error.value = 'Authentication failed: ' + error.message;
     }
