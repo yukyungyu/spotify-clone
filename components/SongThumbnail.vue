@@ -4,7 +4,7 @@
     <template v-if="typeName.some((item) => [items.type].includes(item.type))">
       <img
         :src="items.images[0].url"
-        class="max-w-[280px] w-[35%] min-w-[10rem] h-[max-content] rounded-md"
+        class="max-w-[280px] w-[35%] min-w-[10rem] h-[max-content] rounded-md reative"
       />
       <div
         class="flex flex-col justify-center ml-5 sm:justify-end whitespace-nowrap"
@@ -58,7 +58,7 @@
     </template>
     <!-- 아티스트 -->
     <template v-if="route.path.includes('/artist')">
-      <div class="w-[100%] h-[400px] overflow-hidden rounded-md relative">
+      <div class="w-[100%] h-[400px] overflow-hidden rounded-md">
         <div :style="thumbnailBgArtist"></div>
       </div>
     </template>
@@ -140,7 +140,7 @@ const thumbnailBgArtist = computed(() => ({
   top: 0,
   left: 0,
   height: '100%',
-  background: `url(${items.images[0].url})  center center / contain no-repeat`,
+  background: `url(${items.images[0].url}) center center / contain no-repeat`,
 }));
 
 // 📌 타입이름

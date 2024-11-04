@@ -1,5 +1,5 @@
 <template>
-  <article class="song_play_bar my-5 flex justify-between">
+  <article class="song_play_bar px-4 py-4 flex justify-between">
     <div class="flex items-center gap-5">
       <button @click="$emit('play')" class="play">재생</button>
       <button v-if="type !== 'artist'" @click="$emit('heart')">

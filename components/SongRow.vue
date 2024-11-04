@@ -93,7 +93,7 @@
           <div class="flex items-center gap-3">
             <!-- 앨범이미지 -->
             <!-- /playlist -->
-            <div v-if="route.path.includes('/playlist')">
+            <div v-if="pathsToCheck.some((path) => route.path.includes(path))">
               <div
                 v-if="track.album?.images.length > 0"
                 class="w-[40px] h-[40px] relative flex items-center justify-between"
@@ -150,7 +150,7 @@ const { isPlaying } = storeToRefs(store);
 const { $play, $pause } = useNuxtApp();
 
 const route = useRoute();
-
+const pathsToCheck = ['/playlist', '/artist'];
 const props = defineProps({
   data: {
     type: Array,
