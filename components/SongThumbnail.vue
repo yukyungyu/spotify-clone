@@ -1,5 +1,5 @@
 <template>
-  <article class="flex pt-3 border-box w-[100%]">
+  <article class="flex py-4 px-2 border-box w-[100%]">
     <!-- 앨범, 플레이리스트 -->
     <template v-if="typeName.some((item) => [items.type].includes(item.type))">
       <img

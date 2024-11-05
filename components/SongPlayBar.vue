@@ -8,7 +8,7 @@
       <button
         v-else
         @click="$emit('follow')"
-        class="py-3 px-5 rounded-[25px] border-2 border-[#9c9c9c] hover:scale-105 ease-linear duration-75 hover:border-[#fff]"
+        class="py-2 px-5 text-sm rounded-[25px] border-2 border-[#9c9c9c] hover:scale-105 ease-linear duration-75 hover:border-[#fff]"
       >
         <span> 팔로우하기</span>
       </button>

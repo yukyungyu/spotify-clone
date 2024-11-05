@@ -1,6 +1,6 @@
 <template>
-  <article>
-    <div class="tracks mt-4 mt-2 rounded-md">
+  <article class="bg-black">
+    <div class="tracks pt-4 rounded-md">
       <div
         :class="
           route.path.includes('/album') ? 'album-track-header' : 'track-header'
