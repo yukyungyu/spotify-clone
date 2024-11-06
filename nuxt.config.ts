@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     '@': fileURLToPath(new URL('./', import.meta.url)),
     '~': fileURLToPath(new URL('./', import.meta.url)),
   },
-  css: ['@/assets/css/main.css'],
+  css: ['@/assets/css/main.css', '@/assets/css/fonts.css'],
   postcss: {
     plugins: {
       tailwindcss: {},

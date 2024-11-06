@@ -1,5 +1,5 @@
 <template>
-  <article class="bg-black">
+  <article>
     <div class="tracks pt-4 rounded-md">
       <div
         :class="
@@ -107,7 +107,7 @@
             </div>
             <div class="track-info flex flex-col">
               <div
-                class="track-name text-[18px] text-white cursor-pointer hover:text-[white] hover:underline decoration-1"
+                class="track-name text-[16px] text-white cursor-pointer hover:text-[white] hover:underline decoration-1"
               >
                 {{ track.name }}
               </div>

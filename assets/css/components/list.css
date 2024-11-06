@@ -31,13 +31,14 @@
 .list_box.circle img {
   border-radius: 50%;
   width: 100%;
+  object-fit: cover;
 }
 .list_box .no_icon button {
   display: none;
 }
 .list_box div {
   display: grid;
-  grid-template-rows: repeat(1, minmax(180px, 1fr));
+  /* grid-template-rows: repeat(1, minmax(180px, 1fr)); */
   /* overflow: hidden; */
   align-items: stretch;
   aspect-ratio: 1;

@@ -31,7 +31,7 @@ const getIdArtist = async () => {
       },
     );
     artist.thumbnail = response.data;
-    console.log('artist =====> :', response.data);
+    // console.log('artist =====> :', response.data);
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
@@ -49,7 +49,7 @@ const getIdArtistTrack = async () => {
       },
     );
     artist.track = response.data.tracks;
-    console.log('artist tracks =====> :', response.data.tracks);
+    // console.log('artist tracks =====> :', response.data.tracks);
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }
@@ -65,7 +65,7 @@ const getRelatedArtist = async () => {
         },
       },
     );
-    console.log(response.data, ': related');
+    // console.log(response.data, ': related');
   } catch (error) {
     error.value = 'Failed to fetch category ' + error.message;
   }

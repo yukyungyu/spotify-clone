@@ -1,18 +1,16 @@
-.song_play_bar {
-  /* background: #ff5454; */
-  position: relative;
-}
-.song_play_bar::after {
+.song_play_bar_bg {
   position: absolute;
-  content: '';
-  background: rgb(240, 104, 136);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212, 100%),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6) 0, #121212 100%),
     var(--background-noise);
+  /* background-color: #d333ff; */
   width: 100%;
   height: 232px;
   z-index: -1;
   left: 0;
   top: 0;
+}
+.song_play_bar {
+  position: relative;
 }
 .song_play_bar .play {
   position: relative;
