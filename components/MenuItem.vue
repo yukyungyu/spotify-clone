@@ -21,14 +21,6 @@ const icon = ref(null)
 const textIsHover = ref(false) 
 const route = useRoute()  
 
-const useAsset = (icon) => {
-  const assets = import.meta.glob('~/assets/images/icons/*.png', {
-    eager: true,
-    import: 'default',
-  })
-  return assets[`/assets/images/icons/${icon}.png`]
-}
-
 const props = defineProps({
   iconString: {
     type: String,
@@ -48,6 +40,16 @@ const props = defineProps({
   },
 })
  
+// 📌 이미지 변환
+const useAsset = (icon) => {
+  const assets = import.meta.glob('~/assets/images/icons/*.png', {
+    eager: true,
+    import: 'default',
+  })
+  return assets[`/assets/images/icons/${icon}.png`]
+}
+
+// 📌 네비 활성화, 비활성화
 watchEffect(() => {
   if(route.path === props.pageUrl) {
     icon.value = props.iconString + '-active'  
@@ -58,6 +60,7 @@ watchEffect(() => {
   }
 })
 
+// 📌 네비 호버, 비호버
 const isHover = () => {
   if(icon.value === props.iconString + '-active') return
 
@@ -68,8 +71,7 @@ const isHover = () => {
     icon.value = props.iconString + '-inactive'
     textIsHover.value = false
   }
-}
-
+} 
 </script>
 
 <style lang="css" scoped>

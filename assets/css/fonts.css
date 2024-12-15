@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'trends';
+  src: url('../../assets/fonts/Trends.ttf');
+}
+@font-face {
+  font-family: 'klein';
+  src: url('../../assets/fonts/Klein-Condensed-ExtraBold-trial.ttf');
+}
+
+@font-face {
+  font-family: 'riaSans';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'paperlogy';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2')
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'impact';
+  src: url('../../assets/fonts/Impact.ttf');
+}

@@ -1,0 +1,28 @@
+
+### env
+SPOTIFY_CLIENT_ID=7b28f6f89d6c426fb6b55a0594e90dae
+SPOTIFY_CLIENT_SECRET=9b3593a8c993416e9b8eb1089eabd45f 
+SPOTIFY_URL=http://localhost:3001/callback
+SPOTIFY_RT=
+
+
+#npm 설치
+```
+npm i axios
+npm i date-fns
+npm i uniqolor
+npm i vue-material-design-icons
+```
+
+#api 설치
+```
+npm i spotify-web-api-node
+```
+
+
+#pinia 설치
+``` 
+npm i @pinia/nuxt
+npm i pinia
+npm i @pinia-plugin-persistedstate/nuxt
+```

@@ -1,6 +1,12 @@
-<!-- pages/index.vue -->
 <template>
-    <!-- <div class="bg-red-400"> 
-      Cool
-    </div> -->
-  </template>
+  <TopItems icon />
+  <Artist icon />
+  <Album icon />
+  <Playlist icon />
+</template>
+
+<script setup>
+// definePageMeta({ middleware: 'auth' });
+</script>
+
+<style lang="css" scoped></style>

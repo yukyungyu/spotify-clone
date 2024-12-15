@@ -1,0 +1,15 @@
+
+.tab > ul > li.active {
+  background-color: #fff;
+  color: #000;
+}
+
+.song-item:hover .album-image {
+  opacity: 0.65;
+}
+.song-item:hover .play-btn {
+  opacity: 1;
+}
+.song-item:hover .play-btn .svg {
+  fill: currentcolor;
+}
