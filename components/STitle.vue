@@ -1,6 +1,6 @@
 <template>
   <div class="px-2 pt-10 pb-5 flex items-end justify-between">
-    <h2 class="text-2xl font-bold text-black">
+    <h2 class="text-2xl font-bold text-white">
       <slot />
     </h2>
     <button

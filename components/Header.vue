@@ -1,6 +1,6 @@
 <template>
   <header
-    class="w-[calc(100%-280px)] h-[68px] fixed right-0 z-20 flex items-center justify-between bg-white"
+    class="w-[calc(100%-420px)] h-[68px] fixed right-0 z-20 flex items-center justify-between bg-black"
   >
     <div class="flex items-center ml-6">
       <!-- search -->
@@ -9,7 +9,7 @@
           v-model="searchKeyword"
           type="text"
           placeholder="어떤 콘텐츠를 감상하고 싶으세요?"
-          class="search-box p-3 pl-10 ml-2 w-[320px] rounded-md bg-[#ffffff] flex items-center"
+          class="search-box p-3 pl-10 ml-2 w-[320px] rounded-md flex items-center bg-[#2a2a2a]"
           @input="handleSearch"
         />
         <div class="icon-container">
@@ -17,7 +17,7 @@
             data-encore-id="icon"
             role="img"
             aria-hidden="true"
-            class="Svg-sc-ytk21e-0 bHdpig TTmGm8qVTZIyhkzEGOq"
+            class="Svg-sc-ytk21e-0 bHdpig TTmGm8qVTZIyhkzEGOq invert"
             viewBox="0 0 24 24"
           >
             <path
@@ -117,6 +117,9 @@ watch(
 );
 </script>
 <style lang="css" scoped>
+input {
+  color: #fff;
+}
 input:focus {
   box-shadow: 0 0 0 2px #fff;
   outline: none;
@@ -126,7 +129,7 @@ input:focus {
   top: 50%;
   transform: translateY(-50%);
   display: flex;
-  color: #656565;
+  color: #fff;
   left: 4px;
   right: auto;
   z-index: 1;

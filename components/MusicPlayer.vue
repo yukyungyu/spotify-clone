@@ -78,7 +78,7 @@
       <!-- 진행바 -->
       <div class="flex items-center h-[25px]">
         <div class="text-white text-[12px] pr-2 pt-[11px]">
-          {{ processTime(store.currentState.progress_ms) }}
+          <!-- {{ processTime(store.currentState.progress_ms) }} -->
         </div>
         <div
           class="w-full relative mt-2 mb-3"
@@ -200,11 +200,12 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   player.addListener('ready', ({ device_id }) => {
     console.log('Ready with Device ID', device_id);
     store.setDevice(device_id);
+    store.deviceId = device_id;
 
     $currentState(store.deviceId);
 
     if (store.currentState !== '') {
-      isPlaying.value = store.currentState.is_playing;
+      isPlaying.value = store.is_playing;
     } else {
       isPlaying.value = false;
     }

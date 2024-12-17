@@ -3,7 +3,7 @@
   <SideNav />
   <main
     id="main"
-    class="fixed right-0 top-0 w-[calc(100%-280px)] px-4 pb-24 overflow-auto h-full bg-white"
+    class="fixed right-0 top-0 w-[calc(100%-420px)] px-4 pb-24 overflow-auto h-full bg-black"
   >
     <div class="mt-[70px]"></div>
     <slot />

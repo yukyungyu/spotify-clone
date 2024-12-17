@@ -4,7 +4,7 @@
     <template v-if="typeName.some((item) => [items.type].includes(item.type))">
       <img
         :src="items.images[0].url"
-        class="max-w-[280px] w-[35%] min-w-[10rem] h-[max-content] rounded-md"
+        class="max-w-[420px] w-[35%] min-w-[10rem] h-[max-content] rounded-md"
       />
       <div
         class="flex flex-col justify-center ml-5 sm:justify-end whitespace-nowrap"

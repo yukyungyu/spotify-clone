@@ -22,7 +22,7 @@
             <button @click="play">재생</button>
           </div>
           <template v-if="type === 'album'">
-            <h3 class="title pt-5 pb-2 text-black font-semibold">
+            <h3 class="title pt-5 pb-2 text-white font-semibold">
               {{ item.name }}
             </h3>
             <p v-if="!date" class="add-info pb-5 text-gray-500 text-sm">
@@ -36,7 +36,7 @@
             </p>
           </template>
           <template v-if="type === 'artist'">
-            <h3 class="title pt-5 pb-2 text-black font-semibold">
+            <h3 class="title pt-5 pb-2 text-white font-semibold">
               {{ item.name }}
             </h3>
             <p class="add-info pb-5 text-gray-500 text-sm">
@@ -44,7 +44,7 @@
             </p>
           </template>
           <template v-if="type === 'playlist'">
-            <h3 class="title pt-5 pb-2 text-black font-semibold">
+            <h3 class="title pt-5 pb-2 text-white font-semibold">
               {{ item.name }}
             </h3>
             <p class="add-info pb-5 text-gray-500 text-sm">

@@ -7,11 +7,10 @@
     <img
       :width="iconSize"
       :src="useAsset(icon)"
-      class="invert"
-      :class="textIsHover ? 'bg-rose-400' : 'bg-black'"
+      :class="textIsHover ? 'bg-rose-400' : 'bg-white'"
     />
     <div
-      :class="textIsHover ? 'text-rose-400' : 'text-black'"
+      :class="textIsHover ? 'text-rose-400' : 'text-white'"
       class="font-semibold text-[14px] ml-4 mt-0.5"
     >
       <span :class="route.path === pageUrl ? 'text-rose-400' : ''">
