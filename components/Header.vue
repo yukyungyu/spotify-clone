@@ -1,31 +1,30 @@
 <template>
   <header
-    class="w-[calc(100%-360px)] h-[68px] fixed right-0 z-20 bg-[#101010] bg-opacity-20 flex items-center justify-between"
+    class="w-[calc(100%-420px)] h-[68px] fixed right-0 z-20 flex items-center justify-between bg-black"
   >
-    <div class="flex items-center">
-      <div class="flex items-center ml-6">
-        <button
-          type="button"
-          class="rounded-full bg-black p-[1px] cursor-pointer"
-        >
-          <ChevronLeft fillColor="#FFFFFF" :size="30" />
-        </button>
-        <button
-          type="button"
-          class="rounded-full bg-black p-[1px] ml-4 cursor-pointer"
-        >
-          <ChevronRight fillColor="#FFFFFF" :size="30" />
-        </button>
-      </div>
+    <div class="flex items-center ml-6">
       <!-- search -->
-      <div v-if="route.path === '/search'">
+      <div v-if="route.path === '/search'" class="relative">
         <input
           v-model="searchKeyword"
           type="text"
           placeholder="어떤 콘텐츠를 감상하고 싶으세요?"
-          class="search-box p-3 ml-2 w-[320px] rounded-full bg-[#333333] flex items-center"
+          class="search-box p-3 pl-10 ml-2 w-[320px] rounded-md flex items-center bg-[#2a2a2a]"
           @input="handleSearch"
         />
+        <div class="icon-container">
+          <svg
+            data-encore-id="icon"
+            role="img"
+            aria-hidden="true"
+            class="Svg-sc-ytk21e-0 bHdpig TTmGm8qVTZIyhkzEGOq invert"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M10.533 1.27893C5.35215 1.27893 1.12598 5.41887 1.12598 10.5579C1.12598 15.697 5.35215 19.8369 10.533 19.8369C12.767 19.8369 14.8235 19.0671 16.4402 17.7794L20.7929 22.132C21.1834 22.5226 21.8166 22.5226 22.2071 22.132C22.5976 21.7415 22.5976 21.1083 22.2071 20.7178L17.8634 16.3741C19.1616 14.7849 19.94 12.7634 19.94 10.5579C19.94 5.41887 15.7138 1.27893 10.533 1.27893ZM3.12598 10.5579C3.12598 6.55226 6.42768 3.27893 10.533 3.27893C14.6383 3.27893 17.94 6.55226 17.94 10.5579C17.94 14.5636 14.6383 17.8369 10.533 17.8369C6.42768 17.8369 3.12598 14.5636 3.12598 10.5579Z"
+            ></path>
+          </svg>
+        </div>
       </div>
     </div>
     <!-- 로그인 -->
@@ -38,11 +37,9 @@
         <div class="rounded-full overflow-hidden bg-[#f8f8f8]" width="27">
           <img width="27" src="@/assets/images/icons/user_icon.png" />
         </div>
-        <ClientOnly>
-          <div class="text-white text-[14px] ml-1.5 font-medium">
-            {{ store.isUser ? store.name : '로그인이 필요합니다' }}
-          </div>
-        </ClientOnly>
+        <div class="text-white text-[14px] ml-1.5 font-medium">
+          {{ store.isUser ? store.name : '로그인이 필요합니다' }}
+        </div>
         <ChevronDown
           v-if="!openMenu"
           @click="openMenu = true"
@@ -120,8 +117,27 @@ watch(
 );
 </script>
 <style lang="css" scoped>
+input {
+  color: #fff;
+}
 input:focus {
   box-shadow: 0 0 0 2px #fff;
   outline: none;
+}
+.icon-container {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  color: #fff;
+  left: 4px;
+  right: auto;
+  z-index: 1;
+  height: 48px;
+  width: 48px;
+}
+.icon-container > svg {
+  display: block;
+  padding-inline: 12px;
 }
 </style>

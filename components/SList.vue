@@ -1,15 +1,15 @@
 <template>
   <section class="list_wrap">
-    <ul ref="list" :class="`list_box ${type} ${borderRadius ? 'circle' : ''}`">
+    <ul ref="list" :class="`list_box ${type}`">
       <li
         v-for="(item, index) in items"
         :key="index"
-        class="hover:bg-[#ffffff1a] rounded px-2 py-2"
+        class="hover:bg-[#ffffff1a] rounded px-3 py-2"
       >
         <NuxtLink :to="{ path: `/${type}/${item.id}` }">
           <div :class="icon ? 'play_icon' : 'no_icon'">
             <img
-              class="rounded-md"
+              class="thumbnail"
               :src="item.images[0].url"
               :alt="item.name"
               :width="
@@ -22,11 +22,13 @@
             <button @click="play">재생</button>
           </div>
           <template v-if="type === 'album'">
-            <h3 class="title pt-5 pb-2">{{ item.name }}</h3>
-            <p v-if="!date" class="add-info pb-5 text-gray-400 text-sm">
+            <h3 class="title pt-5 pb-2 text-white font-semibold">
+              {{ item.name }}
+            </h3>
+            <p v-if="!date" class="add-info pb-5 text-gray-500 text-sm">
               {{ item.artists[0].name }}
             </p>
-            <p v-else class="add-info pb-5 text-gray-400 text-sm">
+            <p v-else class="add-info pb-5 text-gray-500 text-sm">
               <span class="dot inline-block mr-5">{{
                 format(new Date(item.release_date), 'yyyy')
               }}</span>
@@ -34,14 +36,18 @@
             </p>
           </template>
           <template v-if="type === 'artist'">
-            <h3 class="title pt-5 pb-2">{{ item.name }}</h3>
-            <p class="add-info pb-5 text-gray-400 text-sm">
-              {{ item.type === 'artist' ? '아티스트' : '' }}
+            <h3 class="title pt-5 pb-2 text-white font-semibold">
+              {{ item.name }}
+            </h3>
+            <p class="add-info pb-5 text-gray-500 text-sm">
+              {{ item.type === 'artist' ? 'Artist' : '' }}
             </p>
           </template>
           <template v-if="type === 'playlist'">
-            <h3 class="title pt-5 pb-2">{{ item.name }}</h3>
-            <p class="add-info pb-5 text-gray-400 text-sm">
+            <h3 class="title pt-5 pb-2 text-white font-semibold">
+              {{ item.name }}
+            </h3>
+            <p class="add-info pb-5 text-gray-500 text-sm">
               {{ ellipsis(item.description) }}
             </p>
           </template>

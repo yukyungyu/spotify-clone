@@ -78,7 +78,7 @@
       <!-- 진행바 -->
       <div class="flex items-center h-[25px]">
         <div class="text-white text-[12px] pr-2 pt-[11px]">
-          {{ processTime(store.currentState.progress_ms) }}
+          <!-- {{ processTime(store.currentState.progress_ms) }} -->
         </div>
         <div
           class="w-full relative mt-2 mb-3"
@@ -200,10 +200,15 @@ window.onSpotifyWebPlaybackSDKReady = () => {
   player.addListener('ready', ({ device_id }) => {
     console.log('Ready with Device ID', device_id);
     store.setDevice(device_id);
+    store.deviceId = device_id;
 
     $currentState(store.deviceId);
-    console.log('store.setCurrentState:', store.currentState);
-    isPlaying.value = store.currentState.is_playing;
+
+    if (store.currentState !== '') {
+      isPlaying.value = store.is_playing;
+    } else {
+      isPlaying.value = false;
+    }
 
     // $browsePosition(store.currentState.progress_ms, store.deviceId);
   });
@@ -291,7 +296,7 @@ const repeat = () => {
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(7.5px);
   -webkit-backdrop-filter: blur(7.5px);
-  border-radius: 10px;
+  border-radius: 28px 28px 0 0;
   border: 1px solid rgba(255, 255, 255, 0.18);
   z-index: 999;
 }

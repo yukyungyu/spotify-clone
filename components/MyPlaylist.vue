@@ -35,7 +35,7 @@
               </div>
             </div>
             <div
-              class="playlist-info py-2 flex flex-col justify-between gap-1 truncate"
+              class="playlist-info py-2 flex flex-col justify-between gap-1 truncate text-white hover:text-rose-400"
             >
               <p>{{ item.name }}</p>
               <p class="text-zinc-400 text-sm">{{ item.owner.display_name }}</p>

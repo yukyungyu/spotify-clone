@@ -50,8 +50,17 @@ const combinedScopes = scopeArr.join('%20');
 const Login = () => {
   const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&scope=${combinedScopes}&response_type=code&redirect_uri=${uri}`;
 
-  console.log('로그인 ====>');
-  window.location.href = authUrl;
+  if (!store.isUser) {
+    window.location.href = authUrl;
+  }
 };
+
+onMounted(() => {
+  if (store.accessToken === '') {
+    router.push('/login');
+  } else {
+    router.push('/');
+  }
+});
 </script>
 <style lang="css" scoped></style>
