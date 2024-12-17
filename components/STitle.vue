@@ -1,11 +1,11 @@
 <template>
   <div class="px-2 pt-10 pb-5 flex items-end justify-between">
-    <h2 class="text-2xl">
+    <h2 class="text-2xl font-bold text-black">
       <slot />
     </h2>
     <button
       v-if="route.path === '/'"
-      class="text-sm text-gray-300"
+      class="text-sm text-gray-500"
       type="button"
       @click="this.$emit('click')"
     >

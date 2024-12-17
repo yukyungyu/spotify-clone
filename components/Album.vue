@@ -1,6 +1,6 @@
 <template>
   <section>
-    <STitle v-if="route.path === '/'">인기앨범</STitle>
+    <STitle v-if="route.path === '/'">Popular Albums</STitle>
     <STitle v-else>앨범</STitle>
     <SList type="album" :data="albumList" :icon="icon" :date="date" />
   </section>

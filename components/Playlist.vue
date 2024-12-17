@@ -1,8 +1,8 @@
 <template>
   <section>
-    <STitle v-if="route.path === '/'">Spotify 플레이리스트</STitle>
-    <STitle v-if="route.path === '/search'">플레이리스트</STitle>
-    <STitle v-if="route.path.includes('/category')">새로운 음악 찾기</STitle>
+    <STitle v-if="route.path === '/'">Spotify Playlists</STitle>
+    <STitle v-if="route.path === '/search'">Playlists</STitle>
+    <STitle v-if="route.path.includes('/category')">Find New Music</STitle>
     <SList type="playlist" :data="playlist" :icon="icon" />
   </section>
 </template>
@@ -10,9 +10,9 @@
 <script setup>
 import { CommonStore } from '@/stores/pinia';
 const { $axios } = useNuxtApp();
-const route = useRoute(); 
+const route = useRoute();
 const store = CommonStore();
-const playlist = ref([]); 
+const playlist = ref([]);
 
 const props = defineProps({
   data: {

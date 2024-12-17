@@ -1,6 +1,6 @@
 <template>
   <article>
-    <div class="tracks pt-4 rounded-md">
+    <div class="tracks mt-4 mt-2 rounded-md">
       <div
         :class="
           route.path.includes('/album') ? 'album-track-header' : 'track-header'
@@ -93,7 +93,7 @@
           <div class="flex items-center gap-3">
             <!-- 앨범이미지 -->
             <!-- /playlist -->
-            <div v-if="pathsToCheck.some((path) => route.path.includes(path))">
+            <div v-if="route.path.includes('/playlist')">
               <div
                 v-if="track.album?.images.length > 0"
                 class="w-[40px] h-[40px] relative flex items-center justify-between"
@@ -107,7 +107,7 @@
             </div>
             <div class="track-info flex flex-col">
               <div
-                class="track-name text-[16px] text-white cursor-pointer hover:text-[white] hover:underline decoration-1"
+                class="track-name text-[18px] text-white cursor-pointer hover:text-[white] hover:underline decoration-1"
               >
                 {{ track.name }}
               </div>
@@ -150,7 +150,7 @@ const { isPlaying } = storeToRefs(store);
 const { $play, $pause } = useNuxtApp();
 
 const route = useRoute();
-const pathsToCheck = ['/playlist', '/artist'];
+
 const props = defineProps({
   data: {
     type: Array,

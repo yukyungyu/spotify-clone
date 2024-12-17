@@ -6,7 +6,7 @@
 import { CommonStore } from '@/stores/pinia';
 import { useRouter } from 'vue-router';
 
-// const loading = ref(true);
+const loading = ref(true);
 const error = ref(null);
 const store = CommonStore();
 const { $axios } = useNuxtApp();
@@ -30,10 +30,10 @@ const getUserInfo = async () => {
 
 // 📌 spotify 인증 코드로 인증 토큰 발급하기
 onMounted(async () => {
-  console.log('accessToken ======>' + store.accessToken);
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
-  if (code !== '') {
+
+  if (code) {
     try {
       const result = await $axios.post('http://localhost:3001/api/login', {
         code: code,
@@ -44,11 +44,12 @@ onMounted(async () => {
         isUser: true,
       });
       router.push('/');
-      console.log('로그인 api 통신 ======>');
       getUserInfo();
     } catch (error) {
       error.value = 'Authentication failed: ' + error.message;
     }
+  } else {
+    console.error('No authorization code found');
   }
 });
 </script>

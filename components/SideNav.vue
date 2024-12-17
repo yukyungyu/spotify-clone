@@ -1,7 +1,10 @@
 <template>
-  <nav id="SideNav" class="h-[100%] p-6 w-[360px] fixed z-50 bg-black">
+  <nav id="SideNav" class="h-[100%] p-6 w-[280px] fixed z-50 bg-[#e8e7e794]">
     <NuxtLink to="/">
-      <img width="125" src="@/assets/images/icons/spotify-logo.png" />
+      <img
+        width="125"
+        src="@/assets/images/icons/Spotify_Full_Logo_RGB_Black.png"
+      />
     </NuxtLink>
     <div class="my-8"></div>
     <ul>
@@ -9,7 +12,7 @@
         <MenuItem
           class="ml-[1px]"
           :iconSize="24"
-          name="홈"
+          name="Home"
           iconString="home"
           pageUrl="/"
         />
@@ -18,7 +21,7 @@
         <MenuItem
           class="ml-[1px]"
           :iconSize="24"
-          name="검색하기"
+          name="Browse"
           iconString="search"
           pageUrl="/search"
         />
