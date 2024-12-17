@@ -1,7 +1,7 @@
 <template>
   <!-- 카테고리 -->
   <section v-if="searchList.items.length === 0">
-    <STitle>모두 둘러보기</STitle>
+    <STitle>Explore All</STitle>
 
     <div
       class="categories grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 mx-4 mt-4"
@@ -25,34 +25,34 @@
         <li
           class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition active"
         >
-          모두
+          All
         </li>
         <li
           class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
         >
-          아티스트
+          Artists
         </li>
         <li
           class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
         >
-          플레이리스트
+          Playlists
         </li>
         <li
           class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
         >
-          곡
+          Tracks
         </li>
         <li
           class="rounded-full py-2.5 px-4 bg-[#333] hover:bg-[#444] text-[14px] cursor-pointer active:text-[black] transition"
         >
-          앨범
+          Almbums
         </li>
       </ul>
     </div>
     <!-- 상위 결과, 곡 -->
     <div class="flex items-center mb-6">
       <section class="search-result w-[420px]">
-        <STitle>상위 결과</STitle>
+        <STitle>Top Results</STitle>
         <div
           class="card mt-4 mx-4 p-5 bg-[#181818] hover:bg-[#333] transition ease-in rounded-md h-[240px] cursor-pointer"
         >
@@ -72,7 +72,7 @@
             <p class="text-[16px] text-gray-300 mt-2">
               {{
                 searchList.artists[0].type === 'artist'
-                  ? '아티스트'
+                  ? 'artist'
                   : searchList.artists[0].type
               }}
             </p>

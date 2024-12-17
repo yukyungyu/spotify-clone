@@ -1,6 +1,6 @@
 <template>
   <section>
-    <STitle>좋아하는 아티스트</STitle>
+    <STitle>Favorite Artist</STitle>
     <SList type="artist" :data="topArtistList" :icon="icon" :date="date" />
   </section>
 </template>

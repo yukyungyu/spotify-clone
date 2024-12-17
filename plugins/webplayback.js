@@ -112,13 +112,12 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const currentState = async (deviceId) => {
     try {
       const response = await $axios.get(
-        `https://api.spotify.com/v1/me/player?market=KR`,
+        `https://api.spotify.com/v1/me/player?market=KR&deviceId=${deviceId}`,
         {
           headers: headers,
         },
       );
       store.setCurrentState(response.data);
-      // console.log('response.data:', response.data);
       return response.data;
     } catch (error) {
       console.error(error);
